@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="FileWriter.fs" />
+    <Compile Include="ExcelUtils.fs" />
+    <Compile Include="CreateTable.fs" />
+    <Compile Include="GetTableEntry.fs" />
+    <Compile Include="PostToQueue.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="TableStorage.fs" />
+    <Compile Include="Goji.fs" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
