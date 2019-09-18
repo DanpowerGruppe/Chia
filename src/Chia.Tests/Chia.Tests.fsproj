@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Goji\Goji.fsproj">
+    <ProjectReference Include="..\Chia\Chia.fsproj">
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

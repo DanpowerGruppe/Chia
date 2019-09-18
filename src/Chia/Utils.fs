@@ -1,4 +1,4 @@
-namespace Goji
+namespace Chia
     module SharedUtils = 
         open Domain
         open Domain.Time

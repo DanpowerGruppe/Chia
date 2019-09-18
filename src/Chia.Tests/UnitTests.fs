@@ -1,8 +1,8 @@
 module UnitTests
 
 open Expecto
-open Goji.TimeCalculation
-open Goji.Domain.Time
+open Chia.TimeCalculation
+open Chia.Domain.Time
 
 [<Tests>]
 let simpleTest =

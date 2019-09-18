@@ -37,7 +37,7 @@ open Fake.Tools
 
 let deployDir = Path.getFullName "./deploy"
 let release = ReleaseNotes.load "RELEASE_NOTES.md"
-let unitTestsPath = Path.getFullName "./src/Goji.Tests/"
+let unitTestsPath = Path.getFullName "./src/Chia.Tests/"
 
 let buildDir  = "./build/"
 
@@ -45,11 +45,11 @@ let buildDir  = "./build/"
 // The profile where the project is posted
 let gitHome = "https://github.com/DanpowerGruppe"
 // The name of the project on GitHub
-let gitName = "Goji"
+let gitName = "Chia"
 
 // The name of the project
 // (used by attributes in AssemblyInfo, name of a NuGet package and directory in 'src')
-let project = "Goji"
+let project = "Chia"
 
 let projectUrl = sprintf "%s/%s" gitHome gitName
 
@@ -58,13 +58,13 @@ let projectUrl = sprintf "%s/%s" gitHome gitName
 let summary = "Danpower Reporting Utils"
 
 let copyright = "Copyright \169 2018"
-let iconUrl = "https://raw.githubusercontent.com/fsprojects/Goji/master/Goji_logo.png"
-let licenceUrl = "https://github.com/fsprojects/Goji/blob/master/LICENSE.md"
+let iconUrl = "https://raw.githubusercontent.com/fsprojects/Chia/master/Goji_logo.png"
+let licenceUrl = "https://github.com/fsprojects/Chia/blob/master/LICENSE.md"
 let configuration = DotNet.BuildConfiguration.Release
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = """This library Goji contains utils for internal Danpower Reporting and is used by serveral reports."""
+let description = """This library Chia contains utils for internal Danpower Reporting and is used by serveral reports."""
 // List of author names (for NuGet package)
 let authors = [ "Tim Forkmann"]
 let owner = "Tim Forkmann"
@@ -198,7 +198,7 @@ Target.create "Pack" (fun _ ->
                   MSBuildParams = args
               }) projectPath 
 
-    pack "Goji"
+    pack "Chia"
 )
 
 let getBuildParam = Environment.environVar

@@ -1,4 +1,4 @@
-namespace Goji
+namespace Chia
 
 open Config
 open Microsoft.WindowsAzure.Storage

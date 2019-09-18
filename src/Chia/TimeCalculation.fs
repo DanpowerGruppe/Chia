@@ -1,5 +1,5 @@
-namespace Goji
-open Goji
+namespace Chia
+open Chia
 module TimeCalculation =
     open Domain.Time
     open System

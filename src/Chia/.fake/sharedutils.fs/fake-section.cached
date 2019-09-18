@@ -1,6 +1,6 @@
 module SharedUtils
-open Goji.Logging
-open Goji
+open Chia.Logging
+open Chia
 open System
 
 

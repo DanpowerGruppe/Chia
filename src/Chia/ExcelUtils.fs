@@ -1,6 +1,6 @@
-namespace Goji
+namespace Chia
 open System
-open Goji
+open Chia
 open OfficeOpenXml
 open System.IO
 open CreateBlob

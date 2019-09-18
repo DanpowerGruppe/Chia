@@ -1,6 +1,6 @@
 
 
-GROUP Goji
+GROUP Chia
 NUGET
   remote: https://api.nuget.org/v3/index.json
     BenchmarkDotNet (0.11.5) - restriction: || (>= net461) (>= netcoreapp2.0)

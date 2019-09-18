@@ -132,7 +132,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tforkmann\\Documents\\1_Tests\\Goji\\tools\\.store\\.stage\\5myuo1gd.hrz": {}
+    "C:\\Users\\tforkmann\\Documents\\1_Tests\\Chia\\tools\\.store\\.stage\\5myuo1gd.hrz": {}
   },
   "project": {
     "version": "1.0.0",
@@ -140,8 +140,8 @@
       "projectUniqueName": "C:\\Users\\tforkmann\\AppData\\Local\\Temp\\vlgz5jnf.1ck\\restore.csproj",
       "projectName": "restore",
       "projectPath": "C:\\Users\\tforkmann\\AppData\\Local\\Temp\\vlgz5jnf.1ck\\restore.csproj",
-      "packagesPath": "C:\\Users\\tforkmann\\Documents\\1_Tests\\Goji\\tools\\.store\\.stage\\5myuo1gd.hrz",
-      "outputPath": "C:\\Users\\tforkmann\\Documents\\1_Tests\\Goji\\tools\\.store\\.stage\\5myuo1gd.hrz\\",
+      "packagesPath": "C:\\Users\\tforkmann\\Documents\\1_Tests\\Chia\\tools\\.store\\.stage\\5myuo1gd.hrz",
+      "outputPath": "C:\\Users\\tforkmann\\Documents\\1_Tests\\Chia\\tools\\.store\\.stage\\5myuo1gd.hrz\\",
       "projectStyle": "DotnetToolReference",
       "configFilePaths": [
         "C:\\Users\\tforkmann\\AppData\\Roaming\\NuGet\\NuGet.Config"

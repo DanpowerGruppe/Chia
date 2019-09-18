@@ -1,4 +1,4 @@
-namespace Goji
+namespace Chia
 
     module TableStorage = 
 

@@ -1,4 +1,4 @@
-namespace Goji
+namespace Chia
 
 open FSharp.Control.Tasks.ContextInsensitive
 open Domain
@@ -50,7 +50,7 @@ module ReportPipeline =
 [<AutoOpen>]
 module Report =
 
-    type Goji internal () =
+    type Chia internal () =
 
         member __.Yield(_) =
             zero
@@ -92,7 +92,7 @@ module Report =
             logOk Local "TestReportData"
             let test =
                 { Test = expectoTest reportData
-                  Name = "Goji Test" }
+                  Name = "Chia Test" }
             logOk Local "Starting ReportData Tests"
             let config = getConfig test.Name
             let result = test.Test |> runTests config
@@ -108,4 +108,4 @@ module Report =
             { reportData with ReportData.LogMsg = msg }
 
     let report =
-        Goji()
+        Chia()

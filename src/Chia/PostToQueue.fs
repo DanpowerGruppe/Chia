@@ -1,4 +1,4 @@
-namespace Goji
+namespace Chia
 
 open Microsoft.WindowsAzure.Storage
 open FSharp.Control.Tasks.ContextInsensitive

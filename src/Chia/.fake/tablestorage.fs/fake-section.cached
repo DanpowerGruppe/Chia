@@ -2,7 +2,7 @@ module TableStorage
 
 open Microsoft.WindowsAzure.Storage.Table
 open FSharp.Control.Tasks.ContextInsensitive
-open Goji.Logging
+open Chia.Logging
 open FileWriter
 open CreateTable
 open SpecificDomain.HeatPrognose
