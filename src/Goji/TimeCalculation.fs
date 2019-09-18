@@ -207,3 +207,11 @@ module TimeCalculation =
         | _ ->
             printfn "Unmatched ReportIntervall"
             failwith "Unmatched ReportIntervall"
+    let matchReportIntervall (intervall:ReportIntervall) =
+        match intervall with
+        | Dayly -> "täglich"
+        | Weekly -> "wöchentlich"
+        | Monthly -> "monatlich"
+        | Quarterly -> "quartalsweise"
+        | Halfyearly -> "halbjährlich"
+        | Yearly -> "jährlich"

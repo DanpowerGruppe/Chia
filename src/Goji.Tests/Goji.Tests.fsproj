@@ -9,7 +9,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GojiTests.fs" />
     <Compile Include="UnitTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

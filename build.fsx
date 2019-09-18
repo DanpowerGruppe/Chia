@@ -43,7 +43,7 @@ let buildDir  = "./build/"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitHome = "https://github.com/tforkmann"
+let gitHome = "https://github.com/DanpowerGruppe"
 // The name of the project on GitHub
 let gitName = "Goji"
 

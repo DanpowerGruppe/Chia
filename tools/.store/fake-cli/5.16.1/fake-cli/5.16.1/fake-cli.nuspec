@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>fake-cli</id>
+    <version>5.16.1</version>
+    <authors>Steffen Forkmann,Mauricio Scheffer,Colin Bull,Matthias Dittrich</authors>
+    <owners>Steffen Forkmann,Mauricio Scheffer,Colin Bull,Matthias Dittrich</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/fsharp/FAKE/blob/d86e9b5b8e7ebbb5a3d81c08d2e59518cf9d6da9/License.txt</licenseUrl>
+    <projectUrl>https://github.com/fsharp/Fake</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/fsharp/FAKE/7305422ea912e23c1c5300b23b3d0d7d8ec7d27f/help/content/pics/logo.png</iconUrl>
+    <description>FAKE - F# Make - is a build automation tool for .NET. Tasks and dependencies are specified in a DSL which is integrated in F#.</description>
+    <releaseNotes>BUGFIX: Fix that `generate_load_scripts` prevents restore after update - https://github.com/fsharp/FAKE/issues/2382
+BUGFIX: Fix FAKE unable to load assemblies in some scenarios - https://github.com/fsharp/FAKE/issues/2381
+BUGFIX: Fix File.getVersion fails if version is not set, thanks @SCullman - https://github.com/fsharp/FAKE/issues/2378
+ENHANCEMENT: make `Fake.DotNet.Paket` work with the dotnet tool based version of Paket, thanks @seanamosw - https://github.com/fsharp/FAKE/pull/2364
+ENHANCEMENT: add `Organization` field to `Fake.Testing.SonarQube`, thanks @Lutando - https://github.com/fsharp/FAKE/pull/2358
+ENHANCEMENT: Added `Arguments.appendRaw*` functions to handle weird microsoft escaping.
+ENHANCEMENT: Added `Environment.getNuGetPackagesCacheFolder()`, returns the NuGet packages path.
+ENHANCEMENT: Added `ProcessUtils.tryFindLocalTool` to resolve tools via a common logic (`Fake.IO.Globbing.Tools` is not obsolete)
+DOCS: Fix some broken links - https://github.com/fsharp/FAKE/issues/2351</releaseNotes>
+    <tags>build fake f#</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+  </metadata>
+</package>
