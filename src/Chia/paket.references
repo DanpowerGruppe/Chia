@@ -12,4 +12,3 @@ group Chia
     Microsoft.ApplicationInsights.PerfCounterCollector    
     System.Configuration.ConfigurationManager
     Thoth.Json.Net
-    Juniper

@@ -1,10 +1,7 @@
 namespace Chia
-open System
-open Chia
+
 open OfficeOpenXml
 open System.IO
-open CreateBlob
-open FSharp.Control.Tasks.ContextInsensitive
 
 module ExcelUtils = 
     ///Function to start an ExcelApplication

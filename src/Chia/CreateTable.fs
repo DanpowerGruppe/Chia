@@ -1,6 +1,6 @@
 namespace Chia
 
-open Config
+open Domain.Config
 open Microsoft.WindowsAzure.Storage
 open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
@@ -68,16 +68,6 @@ module CreateTable =
     let getTableReference tableName (connection : CloudStorageAccount) =
         let client = connection.CreateCloudTableClient()
         client.GetTableReference tableName
-
-    let connection = AzureConnection storageConnString
-
-    let connected =
-        try
-            connection.Connect()
-        with exn ->
-            let msg = sprintf "Could not connect to AzurePortal %s" exn.Message
-            logError exn Local msg
-            failwith msg
 
     let inline getProperty (propName : string) (entity : DynamicTableEntity) =
         try
