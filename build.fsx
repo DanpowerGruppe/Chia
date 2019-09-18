@@ -55,7 +55,7 @@ let projectUrl = sprintf "%s/%s" gitHome gitName
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "Source code formatter for F#"
+let summary = "Danpower Reporting Utils"
 
 let copyright = "Copyright \169 2018"
 let iconUrl = "https://raw.githubusercontent.com/fsprojects/Goji/master/Goji_logo.png"
@@ -64,13 +64,12 @@ let configuration = DotNet.BuildConfiguration.Release
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = """This library Goji contains Azure business reporting utils and uses an high level 
-computation expression on top of the EPPlus excel package to create efficent excel reports."""
+let description = """This library Goji contains utils for internal Danpower Reporting and is used by serveral reports."""
 // List of author names (for NuGet package)
 let authors = [ "Tim Forkmann"]
 let owner = "Tim Forkmann"
 // Tags for your project (for NuGet package)
-let tags = "Azure business reporting utils"
+let tags = "Shared Utils Danpower"
 
 // --------------------------------------------------------------------------------------
 // PlatformTools

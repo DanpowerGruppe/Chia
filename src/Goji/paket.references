@@ -12,3 +12,4 @@ group Goji
     Microsoft.ApplicationInsights.PerfCounterCollector    
     System.Configuration.ConfigurationManager
     Thoth.Json.Net
+    Juniper

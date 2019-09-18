@@ -2,7 +2,8 @@ namespace Goji
 
 open System
 open System.IO
-open Domain
+open Domain.Logging
+open Domain.Config
 open Microsoft.ApplicationInsights
 open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
@@ -31,9 +32,9 @@ module FileWriter =
     open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
     open Microsoft.ApplicationInsights.Extensibility
 
-    let startAI() =
+    let startAI key =
         let config = TelemetryConfiguration.Active
-        config.InstrumentationKey <- "bab38c2f-5ad0-465a-a2fb-a9641646ef44"
+        config.InstrumentationKey <- key
         let mutable processor : QuickPulseTelemetryProcessor = null
         config.TelemetryProcessorChainBuilder.Use(fun next ->
               processor <- QuickPulseTelemetryProcessor next
@@ -43,10 +44,10 @@ module FileWriter =
         quickPulse.RegisterTelemetryProcessor processor
 
     let activateTSL() =
-        System.Net.ServicePointManager.SecurityProtocol <-
-                    System.Net.ServicePointManager.SecurityProtocol
-                    ||| System.Net.SecurityProtocolType.Tls11
-                    ||| System.Net.SecurityProtocolType.Tls12
+        Net.ServicePointManager.SecurityProtocol <-
+                    Net.ServicePointManager.SecurityProtocol
+                    ||| Net.SecurityProtocolType.Tls11
+                    ||| Net.SecurityProtocolType.Tls12
 
     let writeLog (status : Result<_, exn>) (logTxt : string) =
         let date = DateTime.Now

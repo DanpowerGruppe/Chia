@@ -1,7 +1,7 @@
 namespace Goji
     module SharedUtils = 
-        open System
-
+        open Domain
+        open Domain.Time
         let joinString (s : string []) = String.concat (";") (s)
 
         let createPartKey (latitude, longitude) = 

@@ -4,7 +4,7 @@ open Config
 open Microsoft.WindowsAzure.Storage
 open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
-open Goji.Logging
+open Domain.Logging
 open FileWriter
 open System
 

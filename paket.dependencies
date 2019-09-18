@@ -15,4 +15,3 @@ group Goji
     nuget Microsoft.ApplicationInsights.PerfCounterCollector    
     nuget System.Configuration.ConfigurationManager
     nuget Thoth.Json.Net
-

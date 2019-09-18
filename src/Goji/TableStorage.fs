@@ -4,19 +4,10 @@ namespace Goji
 
         open Microsoft.WindowsAzure.Storage.Table
         open FSharp.Control.Tasks.ContextInsensitive
-        open Goji.Logging
+        open Domain.Logging
         open FileWriter
-        open CreateTable
-        open SpecificDomain.HeatPrognose
-        //MasterData
-        let weatherDataEntity (message:WeatherData) = 
-            DynamicTableEntity(message.LocationId.GetValueAsString,message.Time)
-            |> setDoubleProperty "Humidity" message.Humidity
-            |> setDoubleProperty "Temperature" message.Temperature
-            |> setDoubleProperty "Visibility" message.Visibility
-            |> setDoubleProperty "WindSpeed" message.WindSpeed
 
-        let saveDataArrayBatch mapper (table:CloudTable) (messages:WeatherData [] ) = task {
+        let saveDataArrayBatch mapper (table:CloudTable) (messages:'a [] ) = task {
             let entities =
                 messages 
                 |> Array.map mapper

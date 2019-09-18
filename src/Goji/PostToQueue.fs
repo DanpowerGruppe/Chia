@@ -3,10 +3,8 @@ namespace Goji
 open Microsoft.WindowsAzure.Storage
 open FSharp.Control.Tasks.ContextInsensitive
 open Microsoft.WindowsAzure.Storage.Queue
-open CreateTable
-open TriggerNames
 open FileWriter
-open Goji.Logging
+open Domain.Logging
 
     module PostToQueue = 
 
@@ -52,7 +50,3 @@ open Goji.Logging
             let message = CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject msg)
             do! queue.AddMessageAsync(message)
         }            
-        let GojiReportsQueue = getQueue connected GojiReports  
-        let ecalationLvlHighQueue = getQueue connected EscalationLvlHigh
-        let ecalationLvlLowQueue = getQueue connected EscalationLvlLow
-        let sendReport = getQueue connected SendReport
