@@ -1,3 +1,5 @@
+### 0.1.4 - 20.09.2019
+Optimize FileWriter
 ### 0.1.3 - 18.09.2019
 Getting rid of Juniper
 ### 0.1.2 - 18.09.2019

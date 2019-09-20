@@ -7,7 +7,7 @@ namespace Chia
         open Domain.Logging
         open FileWriter
 
-        let saveDataArrayBatch mapper (table:CloudTable) (messages:'a [] ) = task {
+        let saveDataArrayBatch mapper (table:CloudTable) info (messages:'a [] ) = task {
             let entities =
                 messages 
                 |> Array.map mapper
@@ -27,7 +27,7 @@ namespace Chia
             with
                 | exn ->    
                     let msg = sprintf  "Couldn't Add Entity Message: %s" exn.Message   
-                    logError exn Local msg
+                    logError exn Local info msg
                     failwith msg
 
             ()

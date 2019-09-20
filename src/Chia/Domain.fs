@@ -10,8 +10,7 @@ namespace Chia
             type DevStatus =
             | Productive
             | Development
-
-            let masterStatus = Development
+            
         module Time = 
 
             type ReportIntervall =

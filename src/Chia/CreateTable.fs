@@ -1,10 +1,8 @@
 namespace Chia
 
-open Domain.Config
 open Microsoft.WindowsAzure.Storage
 open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
-open Domain.Logging
 open FileWriter
 open System
 
@@ -16,25 +14,25 @@ module CreateTable =
             | AzureConnection connectionString ->
                 CloudStorageAccount.Parse connectionString
 
-    let deleteTable isLocal tableName (connection : CloudStorageAccount) =
+    let deleteTable isLocal tableName info (connection : CloudStorageAccount) =
         printfn "Try to Delete %s" tableName
         async {
             let client = connection.CreateCloudTableClient()
             let table = client.GetTableReference tableName
-            logOk isLocal (sprintf "Got TableReference to Delete %A" table)
+            logOk isLocal info (sprintf "Got TableReference to Delete %A" table)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let deleteTableSafe() =
                 try
                     table.DeleteIfExistsAsync()
                 with exn ->
                     let msg = sprintf "Could not delete Table %s" exn.Message
-                    logError exn isLocal msg
+                    logError exn isLocal info msg
                     failwith msg
             return "Deleted Table"
         }
         |> Async.RunSynchronously
 
-    let getTable isLocal tableName (connection : CloudStorageAccount) =
+    let getTable isLocal tableName info (connection : CloudStorageAccount) =
         printfn "GetTable %s" tableName
         async {
             let client = connection.CreateCloudTableClient()
@@ -45,9 +43,9 @@ module CreateTable =
                 with exn ->
                     let msg =
                         sprintf "Could not get TableReference %s" exn.Message
-                    logError exn isLocal msg
+                    logError exn isLocal info msg
                     failwith msg
-            logOk isLocal (sprintf "Got tableReference %A" table)
+            logOk isLocal info (sprintf "Got tableReference %A" table)
             // writeLog (sprintf "Got tableReference %A" table) Ok
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =

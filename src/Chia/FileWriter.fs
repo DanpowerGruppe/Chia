@@ -9,24 +9,48 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
+    type ProjectName =
+        | ProjectName of string
+        member this.Value = (fun (ProjectName name) -> name) this
+
+    type FileWriterInfo =
+        { MasterStatus : DevStatus
+          ProjectName : ProjectName }
+
+    // constructor
+    let initFileWriter masterStatus projectName =
+        { MasterStatus = masterStatus
+          ProjectName = ProjectName projectName }
+    let masterStatus info = info.MasterStatus
+    let projectName info = info.ProjectName
     let client = TelemetryClient()
 
-    let logPath =
-        match masterStatus with
-        | Development -> @".\..\..\..\..\..\logs\AzureUpload\"
-        | Productive -> @".\..\..\..\logs\AzureUpload\"
+    let getLogPath fileWriterInfo =
+        match fileWriterInfo.MasterStatus with
+        | Development -> @".\..\..\..\..\..\logs\"
+        | Productive -> @".\..\..\..\logs\"
 
-    let logArchivPath =
-        match masterStatus with
-        | Development -> @".\..\..\..\..\..\logs\AzureUpload\Archiv"
-        | Productive -> @".\..\..\..\logs\AzureUpload\Archiv"
+    let logPath fileWriterInfo =
+        Path.Combine
+            (getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value)
+    let logArchivPath fileWriterInfo =
+        Path.Combine(getLogPath fileWriterInfo, "Archiv")
 
-    let miniLogFile (dt : DateTime) =
+    let testPath fileWriterInfo =
+        match fileWriterInfo.MasterStatus with
+        | Development ->
+            Path.Combine
+                (@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value)
+        | Productive ->
+            Path.Combine(@".\..\..\..\logs\", fileWriterInfo.ProjectName.Value)
+
+    let miniLogFile (dt : DateTime, fileWriterInfo) =
         let year = dt.Year
         let day = dt.Day
         let month = dt.Month
         let hour = dt.Hour
         let min = dt.Minute
+        let logPath = logPath fileWriterInfo
         logPath + (sprintf "log_%i%i%i%i%i.txt" year day month hour min)
 
     open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
@@ -45,13 +69,13 @@ module FileWriter =
 
     let activateTSL() =
         Net.ServicePointManager.SecurityProtocol <-
-                    Net.ServicePointManager.SecurityProtocol
-                    ||| Net.SecurityProtocolType.Tls11
-                    ||| Net.SecurityProtocolType.Tls12
+                            Net.ServicePointManager.SecurityProtocol
+                            ||| Net.SecurityProtocolType.Tls11
+                            ||| Net.SecurityProtocolType.Tls12
 
-    let writeLog (status : Result<_, exn>) (logTxt : string) =
+    let writeLog (status : Result<_, exn>) fileWriterInfo (logTxt : string) =
         let date = DateTime.Now
-        let file = miniLogFile date
+        let file = miniLogFile (date, fileWriterInfo)
         match status with
         | Error exn -> client.TrackException exn
         | Ok _ -> client.TrackEvent logTxt
@@ -76,9 +100,10 @@ module FileWriter =
             printfn "Couldn't write LogFile: %s" exn.Message
             failwithf "Couldn't write LogFile: %s" exn.Message
 
-    let moveOldLogFiles() =
-        let destinationDirectory = Path.GetFullPath(logArchivPath)
-        let sourceDirectoryRoot = Path.GetFullPath(logPath)
+    let moveOldLogFiles fileWriterInfo =
+        let destinationDirectory =
+            Path.GetFullPath(logArchivPath fileWriterInfo)
+        let sourceDirectoryRoot = Path.GetFullPath(logPath fileWriterInfo)
         let searchPattern = @"*.txt"
         let getFileName sourceFile = FileInfo(sourceFile).Name
         let getLogFiles =
@@ -104,35 +129,39 @@ module FileWriter =
                copyLogFiles logFile destinationDirectory
                deleteOldLogFiles logFile)
 
-    let logOk devOption =
-        if devOption = Local then writeLog (Ok())
+    let logOk devOption fileWriterInfo =
+        if devOption = Local then writeLog (Ok()) fileWriterInfo
         else printfn "Running On Azure %s"
 
-    let logError exn devOption =
+    let logError exn devOption fileWriterInfo =
         if devOption = Local then
-            moveOldLogFiles()
-            writeLog (Error exn)
+            moveOldLogFiles fileWriterInfo
+            writeLog (Error exn) fileWriterInfo
         else printfn "Running On Azure %s"
 
-    let logWithTiming fnName fn =
-        let sw = System.Diagnostics.Stopwatch.StartNew()
+    let logWithTiming fnName fileWriterInfo fn =
+        let sw = Diagnostics.Stopwatch.StartNew()
         let res = fn()
-        logOk Local (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
+        logOk Local fileWriterInfo
+            (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
         res
 
-    let logWithTimingTask fnName (fn : unit -> Task<'a>) =
+    let logWithTimingTask fnName fileWriterInfo (fn : unit -> Task<'a>) =
         task {
             printfn "Starting LogTiming %s" fnName
             let sw = System.Diagnostics.Stopwatch.StartNew()
             let! res = fn()
-            logOk Local (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
+            logOk Local fileWriterInfo
+                (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
             return res
         }
 
-    let printLogFileTotalTime (stopWatch : Diagnostics.Stopwatch) name () =
+    let printLogFileTotalTime (stopWatch : Diagnostics.Stopwatch) name
+        fileWriterInfo () =
         printfn "Creating log file: %s" name
         let duration = stopWatch.Elapsed.TotalSeconds
         stopWatch.Stop()
+        let logPath = logPath fileWriterInfo
         let path =
             logPath
             + (sprintf "log_%s_%s.txt" name (DateTime.Now.ToString("yyyyMMdd")))
@@ -142,10 +171,11 @@ module FileWriter =
         File.AppendAllText(path, log)
         printfn "Finished log file: %s" name
 
-    let printArray name array () =
+    let printArray name array fileWriterInfo () =
         let projDir = Path.Combine(Environment.CurrentDirectory, @"..\..\")
         if not (Directory.Exists(projDir + "logs")) then
             Directory.CreateDirectory(projDir + "logs") |> ignore
+        let logPath = logPath fileWriterInfo
         let path = logPath + (sprintf "logs_query_%s.txt" name)
 
         let log =
