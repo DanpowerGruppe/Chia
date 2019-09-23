@@ -1,3 +1,5 @@
+### 0.1.8 - 23.09.2019
+Bring DevOption in FileWriterInfo
 ### 0.1.7 - 23.09.2019
 Add CachePath
 ### 0.1.6 - 23.09.2019

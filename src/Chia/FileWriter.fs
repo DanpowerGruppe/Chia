@@ -15,9 +15,11 @@ module FileWriter =
 
 
     // constructor
-    let initFileWriter masterStatus projectName =
+    let initFileWriter masterStatus projectName devOption =
         { MasterStatus = masterStatus
-          ProjectName = ProjectName projectName }
+          ProjectName = ProjectName projectName
+          DevOption = devOption
+           }
     let masterStatus info = info.MasterStatus
     let projectName info = info.ProjectName
     let client = TelemetryClient()
@@ -134,12 +136,12 @@ module FileWriter =
                copyLogFiles logFile destinationDirectory
                deleteOldLogFiles logFile)
 
-    let logOk devOption fileWriterInfo =
-        if devOption = Local then writeLog (Ok()) fileWriterInfo
+    let logOk fileWriterInfo =
+        if fileWriterInfo.DevOption = Local then writeLog (Ok()) fileWriterInfo
         else printfn "Running On Azure %s"
 
-    let logError exn devOption fileWriterInfo =
-        if devOption = Local then
+    let logError exn fileWriterInfo =
+        if fileWriterInfo.DevOption = Local then
             moveOldLogFiles fileWriterInfo
             writeLog (Error exn) fileWriterInfo
         else printfn "Running On Azure %s"
@@ -147,7 +149,7 @@ module FileWriter =
     let logWithTiming fnName fileWriterInfo fn =
         let sw = Diagnostics.Stopwatch.StartNew()
         let res = fn()
-        logOk Local fileWriterInfo
+        logOk fileWriterInfo
             (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
         res
 
@@ -156,7 +158,7 @@ module FileWriter =
             printfn "Starting LogTiming %s" fnName
             let sw = System.Diagnostics.Stopwatch.StartNew()
             let! res = fn()
-            logOk Local fileWriterInfo
+            logOk fileWriterInfo
                 (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
             return res
         }

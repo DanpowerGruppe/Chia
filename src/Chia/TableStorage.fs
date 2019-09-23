@@ -27,7 +27,7 @@ namespace Chia
             with
                 | exn ->    
                     let msg = sprintf  "Couldn't Add Entity Message: %s" exn.Message   
-                    logError exn Local info msg
+                    logError exn info msg
                     failwith msg
 
             ()

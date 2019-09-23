@@ -14,25 +14,25 @@ module CreateTable =
             | AzureConnection connectionString ->
                 CloudStorageAccount.Parse connectionString
 
-    let deleteTable isLocal tableName info (connection : CloudStorageAccount) =
+    let deleteTable tableName info (connection : CloudStorageAccount) =
         printfn "Try to Delete %s" tableName
         async {
             let client = connection.CreateCloudTableClient()
             let table = client.GetTableReference tableName
-            logOk isLocal info (sprintf "Got TableReference to Delete %A" table)
+            logOk info (sprintf "Got TableReference to Delete %A" table)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let deleteTableSafe() =
                 try
                     table.DeleteIfExistsAsync()
                 with exn ->
                     let msg = sprintf "Could not delete Table %s" exn.Message
-                    logError exn isLocal info msg
+                    logError exn info msg
                     failwith msg
             return "Deleted Table"
         }
         |> Async.RunSynchronously
 
-    let getTable isLocal tableName info (connection : CloudStorageAccount) =
+    let getTable tableName info (connection : CloudStorageAccount) =
         printfn "GetTable %s" tableName
         async {
             let client = connection.CreateCloudTableClient()
@@ -43,9 +43,9 @@ module CreateTable =
                 with exn ->
                     let msg =
                         sprintf "Could not get TableReference %s" exn.Message
-                    logError exn isLocal info msg
+                    logError exn info msg
                     failwith msg
-            logOk isLocal info (sprintf "Got tableReference %A" table)
+            logOk info (sprintf "Got tableReference %A" table)
             // writeLog (sprintf "Got tableReference %A" table) Ok
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
