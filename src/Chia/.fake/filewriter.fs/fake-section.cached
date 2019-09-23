@@ -5,8 +5,6 @@ open System.IO
 open Domain.Logging
 open Domain.Config
 open Microsoft.ApplicationInsights
-open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
-open Microsoft.ApplicationInsights.Extensibility
 open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
@@ -211,20 +209,3 @@ module FileWriter =
             printlog query duration func par length
         else printlog query duration func par length
         printfn "Finished log file: %s" name
-
-module ApplicationInsights =
-
-    let client = TelemetryClient ()
-    let startAI key = 
-        let config = TelemetryConfiguration.Active
-        config.InstrumentationKey <- key
-        let mutable processor:QuickPulseTelemetryProcessor = null
-        config
-            .TelemetryProcessorChainBuilder
-            .Use(fun next ->
-                processor <- QuickPulseTelemetryProcessor next
-                processor :> _)
-            .Build()
-        let quickPulse = new QuickPulseTelemetryModule()
-        quickPulse.Initialize config
-        quickPulse.RegisterTelemetryProcessor processor
