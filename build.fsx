@@ -57,8 +57,8 @@ let projectUrl = sprintf "%s/%s" gitHome gitName
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
 let summary = "Danpower Reporting Utils"
 
-let copyright = "Copyright \169 2018"
-let iconUrl = "https://raw.githubusercontent.com/fsprojects/Chia/master/Goji_logo.png"
+let copyright = "Copyright \169 2019"
+let iconUrl = "https://raw.githubusercontent.com/fsprojects/Chia/master/Chia_logo.png"
 let licenceUrl = "https://github.com/fsprojects/Chia/blob/master/LICENSE.md"
 let configuration = DotNet.BuildConfiguration.Release
 
