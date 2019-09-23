@@ -1,3 +1,5 @@
+### 0.1.5 - 23.09.2019
+Add telemetry module
 ### 0.1.4 - 20.09.2019
 Optimize FileWriter
 ### 0.1.3 - 18.09.2019
