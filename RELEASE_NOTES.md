@@ -1,3 +1,5 @@
+### 0.1.6 - 23.09.2019
+Bring FileWriter types in Domain
 ### 0.1.5 - 23.09.2019
 Add telemetry module
 ### 0.1.4 - 20.09.2019

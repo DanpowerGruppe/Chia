@@ -10,7 +10,14 @@ namespace Chia
             type DevStatus =
             | Productive
             | Development
-            
+        module FileWriter =
+            type ProjectName =
+            | ProjectName of string
+                member this.Value = (fun (ProjectName name) -> name) this
+
+            type FileWriterInfo =
+                { MasterStatus : Config.DevStatus
+                  ProjectName : ProjectName }    
         module Time = 
 
             type ReportIntervall =

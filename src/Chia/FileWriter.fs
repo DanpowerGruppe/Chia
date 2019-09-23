@@ -4,6 +4,7 @@ open System
 open System.IO
 open Domain.Logging
 open Domain.Config
+open Domain.FileWriter
 open Microsoft.ApplicationInsights
 open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
 open Microsoft.ApplicationInsights.Extensibility
@@ -11,13 +12,7 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
-    type ProjectName =
-        | ProjectName of string
-        member this.Value = (fun (ProjectName name) -> name) this
 
-    type FileWriterInfo =
-        { MasterStatus : DevStatus
-          ProjectName : ProjectName }
 
     // constructor
     let initFileWriter masterStatus projectName =
