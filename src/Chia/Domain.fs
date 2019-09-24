@@ -45,6 +45,10 @@ namespace Chia
                 | Month
                 | Week
                 | Day
+            type Aggregation =
+            | Accumulated
+            | Explicit
+                
         module Ids =
             type ReportId =
                 | ReportId of reportId : int

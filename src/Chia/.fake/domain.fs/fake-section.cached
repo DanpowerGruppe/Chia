@@ -17,7 +17,8 @@ namespace Chia
 
             type FileWriterInfo =
                 { MasterStatus : Config.DevStatus
-                  ProjectName : ProjectName }    
+                  ProjectName : ProjectName
+                  DevOption : Logging.DevOption }    
         module Time = 
 
             type ReportIntervall =
