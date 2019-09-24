@@ -1,3 +1,5 @@
+### 0.1.19 - 24.09.2019
+Fix calcEndQuarterStr
 ### 0.1.18 - 24.09.2019
 Move FileWriter Types in Module
 ### 0.1.17 - 24.09.2019

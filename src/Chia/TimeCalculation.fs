@@ -60,10 +60,8 @@ module TimeCalculation =
 
 
         let endquarterQuotes = DateTime.Now.ToString("yyyy0MM") |> Convert.ToInt32
-        let calcEndQuarterStr itter =
-            sprintf "%i.%i.%i"
-                (DateTime.DaysInMonth(dateTimeQuarterYear, ((itter) * 3)))
-                ((itter) * 3) dateTimeQuarterYear
+        let calcEndQuarterStr itter year =
+            sprintf "%i.%i.%i" (DateTime.DaysInMonth(year,((itter)*3))) ((itter)*3) year
         let calcStartQuarterFirstDayStr itter =
             sprintf "%i.%i.%i" 1 ((itter - 1) * 3 + 1) dateTimeQuarterYear
         let calcEndQuarter itter =
