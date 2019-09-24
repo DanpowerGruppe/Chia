@@ -48,7 +48,6 @@ module TimeCalculation =
         let quarterStartMonth = 3 * quarter - 2
         let quarterStartDate = DateTime(date.Year, quarterStartMonth, 1)
         let quarterLastDate = quarterStartDate.AddMonths(3).AddDays(-1.0)
-        //Quarter calculation
         let startquarterCustom =
             DateTime.Now.AddMonths(-4).ToString("yyyy0MM") |> Convert.ToInt32 //eigentlich -3
         let endquarterCustom =
@@ -62,11 +61,12 @@ module TimeCalculation =
         let endquarterQuotes = DateTime.Now.ToString("yyyy0MM") |> Convert.ToInt32
         let calcEndQuarterStr itter year =
             sprintf "%i.%i.%i" (DateTime.DaysInMonth(year,((itter)*3))) ((itter)*3) year
-        let calcStartQuarterFirstDayStr itter =
-            sprintf "%i.%i.%i" 1 ((itter - 1) * 3 + 1) dateTimeQuarterYear
-        let calcEndQuarter itter =
-            DateTime(dateTimeQuarterYear, itter * 3, 1).AddMonths(1)
-                .ToString("yyyy0MM") |> Convert.ToInt32
+        let calcStartQuarterFirstDayStr itter year =
+            sprintf "%i.%i.%i" 1 ((itter-1)*3 + 1) year
+        let calcEndQuarter itter year =
+            DateTime(year, itter*3 , 1).AddMonths(1).ToString("yyyy0MM")  |> Convert.ToInt32
+        let calcEndQuarterNextYear itter year =
+            DateTime(year, itter*3 , 1).AddMonths(1).ToString("yyyy0MM")  |> Convert.ToInt32
         let startquarterStr year = DateTime(year, 1, 1).ToString("dd/MM/yyyy")
         let startquarterStrExp year =
             DateTime(year, (quarter - 1) * 3 + 1, 1).ToString("dd/MM/yyyy")
