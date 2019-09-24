@@ -64,9 +64,10 @@ module TimeCalculation =
             sprintf "%i.%i.%i" (DateTime.DaysInMonth(year,((itter)*3))) ((itter)*3) year
         let calcStartQuarterFirstDayStr itter =
             sprintf "%i.%i.%i" 1 ((itter - 1) * 3 + 1) dateTimeQuarterYear
-        let calcEndQuarter itter =
-            DateTime(dateTimeQuarterYear, itter * 3, 1).AddMonths(1)
-                .ToString("yyyy0MM") |> Convert.ToInt32
+        let calcEndQuarter itter year =
+            DateTime(year, itter*3 , 1).AddMonths(1).ToString("yyyy0MM")  |> Convert.ToInt32
+        let calcEndQuarterNextYear itter year =
+            DateTime(year, itter*3 , 1).AddMonths(1).ToString("yyyy0MM")  |> Convert.ToInt32
         let startquarterStr year = DateTime(year, 1, 1).ToString("dd/MM/yyyy")
         let startquarterStrExp year =
             DateTime(year, (quarter - 1) * 3 + 1, 1).ToString("dd/MM/yyyy")
