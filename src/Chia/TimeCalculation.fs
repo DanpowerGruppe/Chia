@@ -132,8 +132,12 @@ module TimeCalculation =
                 .ToString("yyyy0MM") |> Convert.ToInt32 //Need to be fixed!
     module Year =
         open Quarter
+        let lastyearStr = DateTime(DateTime.Now.AddYears(-2).Year,1,1).ToString("yyyy")
+        let yearStr = DateTime(DateTime.Now.AddYears(-1).Year,1,1).ToString("yyyy")
+        let thisyearStr = DateTime(DateTime.Now.Year,1,1).ToString("yyyy")
+        let lastyearVuPeriode = DateTime.Now.AddYears(-1).ToString("yyyy001") |> Convert.ToInt32
+        let yearVuPeriode = DateTime.Now.ToString("yyyy001") |> Convert.ToInt32
         let dateTimeYear = DateTime.Now.AddYears(-1).Year
-        //Year calculation
         let lastyear =
             DateTime(DateTime.Now.AddYears(-2).Year, 1, 1).ToString("yyyy")
         let year = DateTime(DateTime.Now.AddYears(-1).Year, 1, 1).ToString("yyyy")
@@ -154,9 +158,9 @@ module TimeCalculation =
         let lastYearQuarterNr = 4
         let workingHours = quarter * 2160 |> System.Convert.ToDouble
 
-        let private startyearStrLeavingPlants year =
+        let startyearStrLeavingPlants year =
             DateTime(year, 1, 1).ToString("dd/MM/yyyy")
-        let private endyearStrLeavingPlants year =
+        let endyearStrLeavingPlants year =
             DateTime(year, 1, 1).ToString("dd/MM/yyyy")
 
         let endyearStr year =

@@ -1,3 +1,5 @@
+### 0.1.22 - 24.09.2019
+Add thisyearStr
 ### 0.1.21 - 24.09.2019
 Add calcEndQuartercalcEndQuarterStrNextYear
 ### 0.1.20 - 24.09.2019
