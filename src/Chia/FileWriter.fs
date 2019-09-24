@@ -4,7 +4,6 @@ open System
 open System.IO
 open Domain.Logging
 open Domain.Config
-open Domain.FileWriter
 open Microsoft.ApplicationInsights
 open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
 open Microsoft.ApplicationInsights.Extensibility
@@ -12,14 +11,21 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
+    type ProjectName =
+        | ProjectName of string
+        member this.Value = (fun (ProjectName name) -> name) this
 
+    type FileWriterInfo =
+        { MasterStatus : Config.DevStatus
+          ProjectName : ProjectName
+          DevOption : Logging.DevOption }
 
     // constructor
     let initFileWriter masterStatus projectName devOption =
         { MasterStatus = masterStatus
           ProjectName = ProjectName projectName
-          DevOption = devOption
-           }
+          DevOption = devOption }
+
     let masterStatus info = info.MasterStatus
     let projectName info = info.ProjectName
     let client = TelemetryClient()
@@ -76,9 +82,9 @@ module FileWriter =
 
     let activateTSL() =
         Net.ServicePointManager.SecurityProtocol <-
-                            Net.ServicePointManager.SecurityProtocol
-                            ||| Net.SecurityProtocolType.Tls11
-                            ||| Net.SecurityProtocolType.Tls12
+                                    Net.ServicePointManager.SecurityProtocol
+                                    ||| Net.SecurityProtocolType.Tls11
+                                    ||| Net.SecurityProtocolType.Tls12
 
     let writeLog (status : Result<_, exn>) fileWriterInfo (logTxt : string) =
         let date = DateTime.Now
@@ -218,18 +224,15 @@ module FileWriter =
         printfn "Finished log file: %s" name
 
 module ApplicationInsights =
+    let client = TelemetryClient()
 
-    let client = TelemetryClient ()
     let startAI key =
         let config = TelemetryConfiguration.Active
         config.InstrumentationKey <- key
-        let mutable processor:QuickPulseTelemetryProcessor = null
-        config
-            .TelemetryProcessorChainBuilder
-            .Use(fun next ->
-                processor <- QuickPulseTelemetryProcessor next
-                processor :> _)
-            .Build()
+        let mutable processor : QuickPulseTelemetryProcessor = null
+        config.TelemetryProcessorChainBuilder.Use(fun next ->
+              processor <- QuickPulseTelemetryProcessor next
+              processor :> _).Build()
         let quickPulse = new QuickPulseTelemetryModule()
         quickPulse.Initialize config
         quickPulse.RegisterTelemetryProcessor processor
