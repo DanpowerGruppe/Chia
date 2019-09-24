@@ -1,4 +1,6 @@
 ### 0.1.10 - 24.09.2019
+Update to DotNet Core 3.0
+### 0.1.10 - 24.09.2019
 Add Create Blob 
 ### 0.1.9 - 24.09.2019
 Adding Aggregation Status
