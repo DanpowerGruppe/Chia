@@ -28,7 +28,7 @@ module CreateXml =
             output.ToString()
 
     /// Create the Xml-File and write the report to stream.
-    let createXml reportName (report : Xml) =
+    let createXml (report : Xml, reportName) =
         let streamWriter = File.CreateText(reportName)
         streamWriter.Write(report)
         streamWriter.Close()

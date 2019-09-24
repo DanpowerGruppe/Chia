@@ -1,3 +1,5 @@
+### 0.1.16 - 24.09.2019
+Get rid of autoredirect bindings
 ### 0.1.15 - 24.09.2019
 Optimize DeleteTable
 ### 0.1.14 - 24.09.2019

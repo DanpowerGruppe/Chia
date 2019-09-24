@@ -1,6 +1,7 @@
 
 group Chia
     source https://api.nuget.org/v3/index.json
+    framework: netcoreapp3.0
     nuget FSharp.Core
     nuget EPPlus
     nuget FSharp.Data
@@ -12,7 +13,7 @@ group Chia
     nuget Taskbuilder.fs
     nuget Microsoft.ApplicationInsights
     nuget Microsoft.ApplicationInsights.DependencyCollector
-    nuget Microsoft.ApplicationInsights.PerfCounterCollector    
+    nuget Microsoft.ApplicationInsights.PerfCounterCollector
     nuget System.Configuration.ConfigurationManager
     nuget Thoth.Json.Net
     nuget System.Drawing.Common
