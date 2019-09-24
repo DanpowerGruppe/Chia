@@ -1,7 +1,7 @@
 module UnitTests
 
 open Expecto
-open Chia.TimeCalculation
+open Chia.TimeCalculation.Utils
 open Chia.Domain.Time
 
 [<Tests>]

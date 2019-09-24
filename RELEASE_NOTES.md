@@ -1,3 +1,5 @@
+### 0.1.14 - 24.09.2019
+Rearrage TimeCalculation
 ### 0.1.13 - 24.09.2019
 Optimize XML ReportBuilder
 ### 0.1.12 - 24.09.2019
