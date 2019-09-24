@@ -1,7 +1,7 @@
 namespace Chia
     open System
-    module Domain = 
-        module Logging = 
+    module Domain =
+        module Logging =
           type DevOption =
             | Local
             | Azure
@@ -18,8 +18,8 @@ namespace Chia
             type FileWriterInfo =
                 { MasterStatus : Config.DevStatus
                   ProjectName : ProjectName
-                  DevOption : Logging.DevOption }    
-        module Time = 
+                  DevOption : Logging.DevOption }
+        module Time =
 
             type ReportIntervall =
                 | Dayly
@@ -31,7 +31,9 @@ namespace Chia
 
             type TimeFilters =
                 { StartDate : string
+                  StartDateLeavingPlants : string
                   EndDate : string
+                  EndDateLeavingPlants : string
                   EndDateMinusOneDay : string option
                   StartVuPeriode : int
                   EndVuPeriode : int
@@ -48,7 +50,7 @@ namespace Chia
             type Aggregation =
             | Accumulated
             | Explicit
-                
+
         module Ids =
             type ReportId =
                 | ReportId of reportId : int
@@ -62,4 +64,4 @@ namespace Chia
         module SortableRowKey =
             let toRowKey (dateTime : DateTime) =
                 String.Format("{0:D19}", DateTime.MaxValue.Ticks - dateTime.Ticks) |> Ids.SortableRowKey
-            let toDate (Ids.SortableRowKey ticks) = DateTime(DateTime.MaxValue.Ticks - int64 ticks)    
+            let toDate (Ids.SortableRowKey ticks) = DateTime(DateTime.MaxValue.Ticks - int64 ticks)

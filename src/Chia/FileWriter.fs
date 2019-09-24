@@ -36,7 +36,7 @@ module FileWriter =
         Path.Combine(getLogPath fileWriterInfo, "Archiv")
 
     let cachePath fileWriterInfo =
-        match fileWriterInfo.MasterStatus with 
+        match fileWriterInfo.MasterStatus with
         | Development ->
             Path.Combine
                 (@".\..\..\..\..\cache\", fileWriterInfo.ProjectName.Value)
@@ -156,7 +156,7 @@ module FileWriter =
     let logWithTimingTask fnName fileWriterInfo (fn : unit -> Task<'a>) =
         task {
             printfn "Starting LogTiming %s" fnName
-            let sw = System.Diagnostics.Stopwatch.StartNew()
+            let sw = Diagnostics.Stopwatch.StartNew()
             let! res = fn()
             logOk fileWriterInfo
                 (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
@@ -220,7 +220,7 @@ module FileWriter =
 module ApplicationInsights =
 
     let client = TelemetryClient ()
-    let startAI key = 
+    let startAI key =
         let config = TelemetryConfiguration.Active
         config.InstrumentationKey <- key
         let mutable processor:QuickPulseTelemetryProcessor = null

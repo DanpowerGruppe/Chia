@@ -5,6 +5,7 @@ open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
 open FileWriter
 open System
+open FSharp.Control.Tasks.ContextInsensitive
 
 module CreateTable =
     type AzureConnection =
@@ -16,21 +17,22 @@ module CreateTable =
 
     let deleteTable tableName info (connection : CloudStorageAccount) =
         printfn "Try to Delete %s" tableName
-        async {
+        task {
             let client = connection.CreateCloudTableClient()
             let table = client.GetTableReference tableName
             logOk info (sprintf "Got TableReference to Delete %A" table)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
-            let deleteTableSafe() =
-                try
-                    table.DeleteIfExistsAsync()
-                with exn ->
-                    let msg = sprintf "Could not delete Table %s" exn.Message
-                    logError exn info msg
-                    failwith msg
-            return "Deleted Table"
-        }
-        |> Async.RunSynchronously
+            let rec deleteTableSafe() = async {
+                    try
+                        let! _ = table.DeleteIfExistsAsync() |> Async.AwaitTask
+                        ()
+                    with
+                    | _ ->
+                        do! Task.Delay 5000 |> Async.AwaitTask
+                        return! deleteTableSafe() }
+
+            do! deleteTableSafe()
+            }
 
     let getTable tableName info (connection : CloudStorageAccount) =
         printfn "GetTable %s" tableName
