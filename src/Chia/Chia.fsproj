@@ -10,6 +10,7 @@
     <Compile Include="FileWriter.fs" />
     <Compile Include="ExcelUtils.fs" />
     <Compile Include="CreateTable.fs" />
+    <Compile Include="CreateBlob.fs" />
     <Compile Include="GetTableEntry.fs" />
     <Compile Include="PostToQueue.fs" />
     <Compile Include="Utils.fs" />
