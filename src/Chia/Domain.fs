@@ -1,5 +1,6 @@
 namespace Chia
     open System
+    [<AutoOpen>]
     module Domain =
         module Logging =
           type DevOption =
