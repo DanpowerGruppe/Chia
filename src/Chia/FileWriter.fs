@@ -37,25 +37,25 @@ module FileWriter =
 
     let logPath fileWriterInfo =
         Path.Combine
-            (getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value)
+            (getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value,@"\")
     let logArchivPath fileWriterInfo =
-        Path.Combine(getLogPath fileWriterInfo, "Archiv")
+        Path.Combine(getLogPath fileWriterInfo, "Archiv",@"\")
 
     let cachePath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
         | Development ->
             Path.Combine
-                (@".\..\..\..\..\cache\", fileWriterInfo.ProjectName.Value)
+                (@".\..\..\..\..\cache\", fileWriterInfo.ProjectName.Value,@"\")
         | Productive ->
-            Path.Combine(@".\..\..\..\cache\", fileWriterInfo.ProjectName.Value)
+            Path.Combine(@".\..\..\..\cache\", fileWriterInfo.ProjectName.Value,@"\")
 
     let testPath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
         | Development ->
             Path.Combine
-                (@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value)
+                (@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value,@"\")
         | Productive ->
-            Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value)
+            Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value,@"\")
 
     let miniLogFile (dt : DateTime, fileWriterInfo) =
         let year = dt.Year
