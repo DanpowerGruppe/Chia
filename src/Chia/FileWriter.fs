@@ -32,7 +32,7 @@ module FileWriter =
 
     let getLogPath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
-        | Development -> @".\..\..\..\..\..\logs\"
+        | Development -> @".\..\..\..\..\logs\"
         | Productive -> @".\..\..\..\logs\"
 
     let logPath fileWriterInfo =
