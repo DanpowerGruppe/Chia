@@ -6,6 +6,8 @@ Fix LogPath
 Update LogPath
 ### 0.1.25 - 25.09.2019
 Fix Log Path
+### 0.1.25 - 25.09.2019
+Add Chia.Client
 ### 0.1.24 - 25.09.2019
 Fix Log Path again
 ### 0.1.23 - 25.09.2019

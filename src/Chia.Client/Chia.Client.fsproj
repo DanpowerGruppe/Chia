@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Domain.fs" />
+    <Compile Include="FileWriter.fs" />
+    <Compile Include="ExcelUtils.fs" />
+    <Compile Include="CreateTable.fs" />
+    <Compile Include="CreateBlob.fs" />
+    <Compile Include="CreateXml.fs" />
+    <Compile Include="GetTableEntry.fs" />
+    <Compile Include="PostToQueue.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="TableStorage.fs" />
+    <Compile Include="TimeCalculation.fs" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

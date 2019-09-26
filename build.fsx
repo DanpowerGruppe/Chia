@@ -9,7 +9,7 @@ nuget Fake.DotNet.Cli
 nuget Fake.Core.Environment
 nuget Fake.Installer.Wix
 nuget Newtonsoft.Json
-nuget System.ServiceProcess.ServiceController 
+nuget System.ServiceProcess.ServiceController
 nuget Fake.Core.Trace
 nuget Fake.IO.Zip
 nuget Fake.Tools.Git
@@ -21,7 +21,7 @@ nuget Fake.Core.UserInput
 #load ".fake/build.fsx/intellisense.fsx"
 #if !FAKE
   #r "netstandard"
-#endif 
+#endif
 open System
 open System.IO
 open Fake.Core
@@ -189,16 +189,17 @@ Target.create "Pack" (fun _ ->
                           "PackageIconUrl", iconUrl
                           "PackageLicenseUrl", licenceUrl
                       ] }
-        
+
         DotNet.pack (fun p ->
             { p with
                   NoBuild = false
                   Configuration = configuration
                   OutputPath = Some "build"
                   MSBuildParams = args
-              }) projectPath 
+              }) projectPath
 
     pack "Chia"
+    pack "Chia.Client"
 )
 
 let getBuildParam = Environment.environVar
@@ -211,10 +212,12 @@ let pushPackage _ =
         match getBuildParam "nuget-key" with
         | s when not (isNullOrWhiteSpace s) -> s
         | _ -> UserInput.getUserPassword "NuGet Key: "
-    let fileName = IO.Directory.GetFiles(buildDir, "*.nupkg", SearchOption.TopDirectoryOnly) |> Seq.map Path.GetFileName |> Seq.head
-    Trace.tracef "fileName %s" fileName
-    let cmd = nugetCmd fileName key
-    runDotNet cmd buildDir 
+    IO.Directory.GetFiles(buildDir, "*.nupkg", SearchOption.TopDirectoryOnly)
+    |> Seq.map Path.GetFileName
+    |> Seq.iter (fun fileName ->
+        Trace.tracef "fileName %s" fileName
+        let cmd = nugetCmd fileName key
+        runDotNet cmd buildDir)
 Target.create "Push" (fun _ -> pushPackage [] )
 
 // Build order
