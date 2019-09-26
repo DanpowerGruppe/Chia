@@ -1,6 +1,4 @@
-# Chia
-
-Chia - HelperFunctions for reporting
+# Chia - HelperFunctions for reporting
 
 Nuget
 [![Nuget](https://img.shields.io/nuget/v/Chia.svg?colorB=green)](https://www.nuget.org/packages/Chia/)
