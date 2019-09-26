@@ -1,14 +1,3 @@
 group Chia.Client
-    EPPlus
-    Expecto
-    Expecto.BenchmarkDotNet
-    Expecto.FsCheck
-    Expecto.TestResults
-    WindowsAzure.Storage
-    Taskbuilder.fs
+    Fable.Core
     FSharp.Core
-    Microsoft.ApplicationInsights
-    Microsoft.ApplicationInsights.DependencyCollector
-    Microsoft.ApplicationInsights.PerfCounterCollector
-    System.Configuration.ConfigurationManager
-    Thoth.Json.Net

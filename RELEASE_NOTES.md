@@ -1,3 +1,5 @@
+### 0.1.31 - 26.09.2019
+Clean Up Chia.Client
 ### 0.1.30 - 26.09.2019
 Updating Namespace for Chia.Client
 ### 0.1.29 - 26.09.2019

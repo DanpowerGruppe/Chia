@@ -1,6 +1,5 @@
 namespace Chia.Client
 
-open Chia
 
 module TimeCalculation =
     open Domain.Time
