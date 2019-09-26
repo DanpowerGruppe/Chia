@@ -4,7 +4,6 @@ open System
 open System.IO
 open Domain.Logging
 open Domain.Config
-open Domain.FileWriter
 open Microsoft.ApplicationInsights
 open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
 open Microsoft.ApplicationInsights.Extensibility
@@ -12,44 +11,51 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
+    type ProjectName =
+        | ProjectName of string
+        member this.Value = (fun (ProjectName name) -> name) this
 
+    type FileWriterInfo =
+        { MasterStatus : Config.DevStatus
+          ProjectName : ProjectName
+          DevOption : Logging.DevOption }
 
     // constructor
     let initFileWriter masterStatus projectName devOption =
         { MasterStatus = masterStatus
           ProjectName = ProjectName projectName
-          DevOption = devOption
-           }
+          DevOption = devOption }
+
     let masterStatus info = info.MasterStatus
     let projectName info = info.ProjectName
     let client = TelemetryClient()
 
     let getLogPath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
-        | Development -> @".\..\..\..\..\..\logs\"
+        | Development -> @".\..\..\..\..\logs\"
         | Productive -> @".\..\..\..\logs\"
 
     let logPath fileWriterInfo =
         Path.Combine
-            (getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value)
+            (getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
     let logArchivPath fileWriterInfo =
-        Path.Combine(getLogPath fileWriterInfo, "Archiv")
+        Path.Combine(getLogPath fileWriterInfo, "Archiv" + @"\")
 
     let cachePath fileWriterInfo =
-        match fileWriterInfo.MasterStatus with 
+        match fileWriterInfo.MasterStatus with
         | Development ->
             Path.Combine
-                (@".\..\..\..\..\cache\", fileWriterInfo.ProjectName.Value)
+                (@".\..\..\..\..\cache\", fileWriterInfo.ProjectName.Value + @"\")
         | Productive ->
-            Path.Combine(@".\..\..\..\cache\", fileWriterInfo.ProjectName.Value)
+            Path.Combine(@".\..\..\..\cache\", fileWriterInfo.ProjectName.Value + @"\")
 
     let testPath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
         | Development ->
             Path.Combine
-                (@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value)
+                (@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
         | Productive ->
-            Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value)
+            Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
 
     let miniLogFile (dt : DateTime, fileWriterInfo) =
         let year = dt.Year
@@ -76,9 +82,9 @@ module FileWriter =
 
     let activateTSL() =
         Net.ServicePointManager.SecurityProtocol <-
-                            Net.ServicePointManager.SecurityProtocol
-                            ||| Net.SecurityProtocolType.Tls11
-                            ||| Net.SecurityProtocolType.Tls12
+                                    Net.ServicePointManager.SecurityProtocol
+                                    ||| Net.SecurityProtocolType.Tls11
+                                    ||| Net.SecurityProtocolType.Tls12
 
     let writeLog (status : Result<_, exn>) fileWriterInfo (logTxt : string) =
         let date = DateTime.Now
@@ -156,7 +162,7 @@ module FileWriter =
     let logWithTimingTask fnName fileWriterInfo (fn : unit -> Task<'a>) =
         task {
             printfn "Starting LogTiming %s" fnName
-            let sw = System.Diagnostics.Stopwatch.StartNew()
+            let sw = Diagnostics.Stopwatch.StartNew()
             let! res = fn()
             logOk fileWriterInfo
                 (sprintf "Time taken to run %s: %O" fnName sw.Elapsed)
@@ -218,18 +224,15 @@ module FileWriter =
         printfn "Finished log file: %s" name
 
 module ApplicationInsights =
+    let client = TelemetryClient()
 
-    let client = TelemetryClient ()
-    let startAI key = 
+    let startAI key =
         let config = TelemetryConfiguration.Active
         config.InstrumentationKey <- key
-        let mutable processor:QuickPulseTelemetryProcessor = null
-        config
-            .TelemetryProcessorChainBuilder
-            .Use(fun next ->
-                processor <- QuickPulseTelemetryProcessor next
-                processor :> _)
-            .Build()
+        let mutable processor : QuickPulseTelemetryProcessor = null
+        config.TelemetryProcessorChainBuilder.Use(fun next ->
+              processor <- QuickPulseTelemetryProcessor next
+              processor :> _).Build()
         let quickPulse = new QuickPulseTelemetryModule()
         quickPulse.Initialize config
         quickPulse.RegisterTelemetryProcessor processor
