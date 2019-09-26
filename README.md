@@ -59,7 +59,7 @@ First create your blob container:
 
 ```fs
 open Chia.CreateBlob
-let myContainer = getContainer (storageConnString,"ContainerName")
+let myContainer = getContainer (StorageAccount.storageConnString,"ContainerName")
 ```
 
 Now you can get a list of all you blobs in the container like this:
