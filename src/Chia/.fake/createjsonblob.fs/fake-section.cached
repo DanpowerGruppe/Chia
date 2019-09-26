@@ -4,7 +4,7 @@ namespace Chia
 
         open FSharp.Control.Tasks.ContextInsensitive
         open System.IO
-        open Chia.FileWriter
+        open FileWriter
         open System
         open Microsoft.WindowsAzure.Storage.Blob
 
