@@ -51,5 +51,19 @@ Now you can create your Azure table like this:
 let azureTable = getTable "TableName" fileWriterInfoAzure connected
 ```
 
+## CreateBlob
 
+Helper to create a Azure blobs:
 
+First create your blob container:
+
+```fs
+open Chia.CreateBlob
+let myContainer = getContainer (storageConnString,"ContainerName")
+```
+
+Now you can get a list of all you blobs in the container like this:
+
+```fs
+let blobItems = getBlobs myContainer
+```
