@@ -1,7 +1,7 @@
 # Chia - HelperFunctions for reporting
 
-Nuget
 [![Nuget](https://img.shields.io/nuget/v/Chia.svg?colorB=green)](https://www.nuget.org/packages/Chia/)
+[![Nuget](https://img.shields.io/nuget/v/Chia.Client.svg?colorB=green)](https://www.nuget.org/packages/Chia.Client/)
 
 Chia contains HelperFunctions for reporting. Chia contains some Azure Storage functions, logging features and some excel utils.
 
