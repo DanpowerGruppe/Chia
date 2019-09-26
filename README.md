@@ -35,3 +35,23 @@ with
     logError exn fileWriterInfo msg  //or use fileWriterInfoAzure for logging to Azure
     failwith msg
 ```
+
+## CreateTable
+
+Helper to create a Azure table:
+
+First connect to your storage account:
+```fs
+open Chia.CreateTable
+let connected =
+    let connection = AzureConnection StorageAccount.storageConnString
+    connection.Connect()
+```
+Then you can now create your Azure table like this:
+
+```fs
+let azureTable = getTable "TableName" fileWriterInfoAzure connected
+```
+
+
+
