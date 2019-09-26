@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+      <Description>HelperFunctions for reporting</Description>
+      <PackageProjectUrl>https://github.com/DanpowerGruppe/Chia</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/DanpowerGruppe/Chia</RepositoryUrl>
+      <PackageTags>fable;reporting tool;fsharp</PackageTags>
+      <Authors>Tim Forkmann</Authors>
+      <Version>0.1.32</Version>
+  </PropertyGroup>
+  <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -10,6 +18,9 @@
     <Compile Include="FileWriter.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="TimeCalculation.fs" />
+  </ItemGroup>
+  <ItemGroup>
+      <Content Include="*.fsproj; **\*.fs" PackagePath="fable\" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

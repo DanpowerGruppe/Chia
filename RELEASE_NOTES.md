@@ -1,3 +1,5 @@
+### 0.1.32 - 26.09.2019
+Add Fable Compile to Chia.Client
 ### 0.1.31 - 26.09.2019
 Clean Up Chia.Client
 ### 0.1.30 - 26.09.2019
