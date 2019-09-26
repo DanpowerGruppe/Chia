@@ -47,7 +47,7 @@ let connected =
     let connection = AzureConnection StorageAccount.storageConnString
     connection.Connect()
 ```
-Then you can now create your Azure table like this:
+Now you can create your Azure table like this:
 
 ```fs
 let azureTable = getTable "TableName" fileWriterInfoAzure connected
