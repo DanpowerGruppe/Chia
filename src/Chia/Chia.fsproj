@@ -12,6 +12,7 @@
     <Compile Include="CreateTable.fs" />
     <Compile Include="CreateBlob.fs" />
     <Compile Include="CreateXml.fs" />
+    <Compile Include="CreateJsonBlob.fs" />
     <Compile Include="GetTableEntry.fs" />
     <Compile Include="PostToQueue.fs" />
     <Compile Include="Utils.fs" />
