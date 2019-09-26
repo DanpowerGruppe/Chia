@@ -1,9 +1,9 @@
-namespace Chia
+namespace Chia.Client
 
 open Microsoft.WindowsAzure.Storage.Table
 open FSharp.Control.Tasks.ContextInsensitive
 
-module GetTableEntry = 
+module GetTableEntry =
 
     let getValues mapper (table:CloudTable) = task {
         let rec getResults token = task {
@@ -17,6 +17,6 @@ module GetTableEntry =
                 return result @ others }
 
         let! results = getResults null
-        
-        return [| for result in results -> mapper result |] 
+
+        return [| for result in results -> mapper result |]
     }

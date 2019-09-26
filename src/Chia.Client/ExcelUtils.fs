@@ -1,9 +1,9 @@
-namespace Chia
+namespace Chia.Client
 
 open OfficeOpenXml
 open System.IO
 
-module ExcelUtils = 
+module ExcelUtils =
     ///Function to start an ExcelApplication
     let startExcelApp () =
         let memoryStream = new MemoryStream ()

@@ -1,4 +1,4 @@
-namespace Chia
+namespace Chia.Client
 
 open Microsoft.WindowsAzure.Storage
 open Microsoft.WindowsAzure.Storage.Table

@@ -1,4 +1,4 @@
-namespace Chia
+namespace Chia.Client
 
 open Chia
 
