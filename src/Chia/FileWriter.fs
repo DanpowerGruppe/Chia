@@ -33,8 +33,8 @@ module FileWriter =
     ///Get the relative log path for a code structure like this: src/Project/***.fsproj
     let getLogPath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
-        | Development -> @".\..\..\..\..\..\logs\"
-        | Productive -> @".\..\..\..\..\logs\"
+        | Development -> @".\..\..\..\logs\"
+        | Productive -> @".\..\..\logs\"
 
     let logPath fileWriterInfo =
         Path.Combine
