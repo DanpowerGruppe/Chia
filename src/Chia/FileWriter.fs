@@ -34,13 +34,13 @@ module FileWriter =
     let getLogPath fileWriterInfo =
         match fileWriterInfo.MasterStatus with
         | Development -> @".\..\..\logs\"
-        | Productive -> @".\..\logs\"
+        | Productive -> @"C:\logs\"
 
     let logPath fileWriterInfo =
         Path.Combine
             (getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
     let logArchivPath fileWriterInfo =
-        Path.Combine(getLogPath fileWriterInfo, "Archiv" + @"\")
+        Path.Combine(logPath fileWriterInfo, "Archiv" + @"\")
 
     let cachePath fileWriterInfo =
         match fileWriterInfo.MasterStatus with

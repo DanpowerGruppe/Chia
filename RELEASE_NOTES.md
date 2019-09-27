@@ -1,3 +1,5 @@
+### 0.1.37 - 27.09.2019
+Set productive log path to C:\logs\ProjectName
 ### 0.1.36 - 26.09.2019
 Optimize CreateJsonFile
 ### 0.1.35 - 26.09.2019

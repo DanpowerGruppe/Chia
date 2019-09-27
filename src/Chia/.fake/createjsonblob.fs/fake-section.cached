@@ -5,7 +5,6 @@ namespace Chia
         open FSharp.Control.Tasks.ContextInsensitive
         open System.IO
         open FileWriter
-        open System
         open Microsoft.WindowsAzure.Storage.Blob
 
         module Types =
@@ -48,7 +47,7 @@ namespace Chia
                     logError exn jsonInfo.FileWriterInfo msg
                     failwith msg
             }
-            let readJsonFile blobId fileWriterInfo = task {
+            let readJsonFile (blobId,fileWriterInfo) = task {
                 logOk fileWriterInfo (sprintf "Read Json Data %s" blobId)
                 let sourceDirectoryRoot = Path.GetFullPath(cachePath fileWriterInfo)
                 let path = sourceDirectoryRoot + (sprintf "%s.json" blobId )
