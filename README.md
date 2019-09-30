@@ -95,7 +95,7 @@ let mapper (entity : DynamicTableEntity) : Mapper =
 let values = getValues mapper azureTable
 ```
 
-You can get also get all values by one rowKey like this:
+You can also get all values by one rowKey like this:
 
 ```fs
 let valuesByRowKey = getValuesByRowKey rowKey mapper azureTable
