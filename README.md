@@ -67,3 +67,45 @@ Now you can get a list of all you blobs in the container like this:
 ```fs
 let blobItems = getBlobs myContainer
 ```
+
+## GetTableEntry
+
+Helper to query a Azure tables:
+
+With the GetTableEntry module you can easily query Azure Tables.
+
+Get just on single tableValue like this:
+```fs
+let value = getValue (request.PartKey, request.RowKey) azureTable
+```
+
+Get all values in a table by using a table mapper.
+First you have to define you mapper:
+
+```fs
+type MapperType = {
+    PartKey : string
+    RowKey : Ids.SortableRowKey
+}
+
+let mapper (entity : DynamicTableEntity) : MapperType =
+    { PartyKey = entity.PartitionKey
+      RowKey = SortableRowKey entity.RowKey
+
+let values = getValues mapper azureTable
+```
+
+You can get also get all values by one rowKey like this:
+
+```fs
+let valuesByRowKey = getValuesByRowKey rowKey mapper azureTable
+```
+
+If you want to create more complex queries you can just parse in a TableQuery Filter.
+
+First define your filter:
+
+```fs
+let filter partKey = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partKey)
+let filteredValues partKey = getValuesWithFilter (filter partKey) azureTable
+```
