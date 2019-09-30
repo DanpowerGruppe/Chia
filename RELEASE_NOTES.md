@@ -1,3 +1,5 @@
+### 0.1.39 - 30.09.2019
+Add more Helpers in GetTableEntry
 ### 0.1.38 - 30.09.2019
 Add NetStandard Version
 ### 0.1.37 - 27.09.2019
