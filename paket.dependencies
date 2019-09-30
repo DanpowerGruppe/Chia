@@ -1,7 +1,6 @@
 
 group Chia
     source https://api.nuget.org/v3/index.json
-    framework: netcoreapp3.0
     nuget FSharp.Core
     nuget EPPlus
     nuget FSharp.Data
@@ -15,9 +14,13 @@ group Chia
     nuget Microsoft.ApplicationInsights.DependencyCollector
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
     nuget System.Configuration.ConfigurationManager
-    nuget Thoth.Json.Net
     nuget System.Drawing.Common
 group Chia.Client
+    source https://api.nuget.org/v3/index.json
+    framework: netstandard2.0
+    nuget FSharp.Core
+    nuget Fable.Core
+group Chia.NetStandard
     source https://api.nuget.org/v3/index.json
     framework: netstandard2.0
     nuget FSharp.Core
@@ -33,5 +36,4 @@ group Chia.Client
     nuget Microsoft.ApplicationInsights.DependencyCollector
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
     nuget System.Configuration.ConfigurationManager
-    nuget Thoth.Json.Net
     nuget System.Drawing.Common

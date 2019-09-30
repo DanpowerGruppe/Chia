@@ -200,6 +200,7 @@ Target.create "Pack" (fun _ ->
 
     pack "Chia"
     pack "Chia.Client"
+    pack "Chia.NetStandard"
 )
 
 let getBuildParam = Environment.environVar

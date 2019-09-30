@@ -9,6 +9,5 @@ group Chia
     FSharp.Core
     Microsoft.ApplicationInsights
     Microsoft.ApplicationInsights.DependencyCollector
-    Microsoft.ApplicationInsights.PerfCounterCollector    
+    Microsoft.ApplicationInsights.PerfCounterCollector
     System.Configuration.ConfigurationManager
-    Thoth.Json.Net

@@ -9,5 +9,4 @@ group Chia
     Taskbuilder.fs
     Microsoft.ApplicationInsights
     Microsoft.ApplicationInsights.DependencyCollector
-    Microsoft.ApplicationInsights.PerfCounterCollector    
-    Thoth.Json.Net
+    Microsoft.ApplicationInsights.PerfCounterCollector
