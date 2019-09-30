@@ -83,12 +83,12 @@ Get all values in a table by using a table mapper.
 First you have to define you mapper:
 
 ```fs
-type MapperType = {
+type Mapper = {
     PartKey : string
     RowKey : Ids.SortableRowKey
 }
 
-let mapper (entity : DynamicTableEntity) : MapperType =
+let mapper (entity : DynamicTableEntity) : Mapper =
     { PartyKey = entity.PartitionKey
       RowKey = SortableRowKey entity.RowKey
 
