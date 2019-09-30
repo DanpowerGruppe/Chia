@@ -1,3 +1,5 @@
+### 0.1.40 - 30.09.2019
+Move SortableRowKey to Ids
 ### 0.1.39 - 30.09.2019
 Add more Helpers in GetTableEntry
 ### 0.1.38 - 30.09.2019

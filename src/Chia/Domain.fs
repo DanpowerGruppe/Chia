@@ -54,7 +54,7 @@ namespace Chia
             type SortableRowKey =
                 | SortableRowKey of string
                 member this.GetValue = (fun (SortableRowKey id) -> id) this
-        module SortableRowKey =
-            let toRowKey (dateTime : DateTime) =
-                String.Format("{0:D19}", DateTime.MaxValue.Ticks - dateTime.Ticks) |> Ids.SortableRowKey
-            let toDate (Ids.SortableRowKey ticks) = DateTime(DateTime.MaxValue.Ticks - int64 ticks)
+            module SortableRowKey =
+                let toRowKey (dateTime : DateTime) =
+                    String.Format("{0:D19}", DateTime.MaxValue.Ticks - dateTime.Ticks) |> SortableRowKey
+                let toDate (SortableRowKey ticks) = DateTime(DateTime.MaxValue.Ticks - int64 ticks)
