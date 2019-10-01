@@ -1,3 +1,5 @@
+### 0.1.43 - 01.10.2019
+Add fulma elements
 ### 0.1.42 - 01.10.2019
 Use connection instead of connection string
 ### 0.1.41 - 01.10.2019

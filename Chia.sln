@@ -8,6 +8,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Chia.Tests", "src\Chia.Test
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Chia", "src\Chia\Chia.fsproj", "{86B8CA76-141F-4AA1-844C-CF28D54E49F9}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Chia.Client", "src\Chia.Client\Chia.Client.fsproj", "{86B8CA76-141F-4AA1-844C-CF28D54E49F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
