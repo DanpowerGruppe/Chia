@@ -4,6 +4,7 @@ open Microsoft.WindowsAzure.Storage.Table
 open FSharp.Control.Tasks.ContextInsensitive
 
 module GetTableEntry =
+
     let oneValue (partKey,rowKey) mapper (table : CloudTable) =
         task {
             let query = TableOperation.Retrieve(partKey, rowKey)

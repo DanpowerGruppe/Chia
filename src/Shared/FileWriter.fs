@@ -28,7 +28,8 @@ module FileWriter =
 
     let masterStatus info = info.MasterStatus
     let projectName info = info.ProjectName
-    let client = TelemetryClient()
+    let config = TelemetryConfiguration.CreateDefault()
+    let client = TelemetryClient(config)
 
     ///Get the relative log path for a code structure like this: src/Project/***.fsproj
     let getLogPath fileWriterInfo =
@@ -67,25 +68,19 @@ module FileWriter =
         let logPath = logPath fileWriterInfo
         logPath + (sprintf "log_%i%i%i%i%i.txt" year day month hour min)
 
-    open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
-    open Microsoft.ApplicationInsights.Extensibility
-
-    let startAI key =
-        let config = TelemetryConfiguration.Active
-        config.InstrumentationKey <- key
-        let mutable processor : QuickPulseTelemetryProcessor = null
-        config.TelemetryProcessorChainBuilder.Use(fun next ->
-              processor <- QuickPulseTelemetryProcessor next
-              processor :> _).Build()
-        let quickPulse = new QuickPulseTelemetryModule()
-        quickPulse.Initialize config
-        quickPulse.RegisterTelemetryProcessor processor
-
     let activateTSL() =
         Net.ServicePointManager.SecurityProtocol <-
                                     Net.ServicePointManager.SecurityProtocol
                                     ||| Net.SecurityProtocolType.Tls11
                                     ||| Net.SecurityProtocolType.Tls12
+
+    let logContent status (logTxt : string) =
+        sprintf "%O: %s - %s" DateTime.Now (match status with
+                                                | Ok _ -> "Ok"
+                                                | Error _ -> "Error")
+                (match status with
+                 | Ok _ -> logTxt
+                 | Error er -> er.ToString())
 
     let writeLog (status : Result<_, exn>) fileWriterInfo (logTxt : string) =
         let date = DateTime.Now
@@ -225,10 +220,8 @@ module FileWriter =
         printfn "Finished log file: %s" name
 
 module ApplicationInsights =
-    let client = TelemetryClient()
-
     let startAI key =
-        let config = TelemetryConfiguration.Active
+        let config = TelemetryConfiguration.CreateDefault()
         config.InstrumentationKey <- key
         let mutable processor : QuickPulseTelemetryProcessor = null
         config.TelemetryProcessorChainBuilder.Use(fun next ->

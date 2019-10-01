@@ -1,23 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain.fs" />
-    <Compile Include="FileWriter.fs" />
-    <Compile Include="ExcelUtils.fs" />
-    <Compile Include="CreateTable.fs" />
-    <Compile Include="CreateBlob.fs" />
-    <Compile Include="CreateXml.fs" />
+    <Compile Include="../Shared/Domain.fs" />
+    <Compile Include="../Shared/FileWriter.fs" />
+    <Compile Include="../Shared/ExcelUtils.fs" />
+    <Compile Include="../Shared/CreateTable.fs" />
+    <Compile Include="../Shared/CreateXml.fs" />
+    <Compile Include="../Shared/CreateBlob.fs" />
     <Compile Include="CreateJsonBlob.fs" />
-    <Compile Include="GetTableEntry.fs" />
-    <Compile Include="PostToQueue.fs" />
-    <Compile Include="Utils.fs" />
-    <Compile Include="TableStorage.fs" />
-    <Compile Include="TimeCalculation.fs" />
+    <Compile Include="../Shared/GetTableEntry.fs" />
+    <Compile Include="../Shared/PostToQueue.fs" />
+    <Compile Include="../Shared/Utils.fs" />
+    <Compile Include="../Shared/TableStorage.fs" />
+    <Compile Include="../Shared/TimeCalculation.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
