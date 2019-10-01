@@ -7,13 +7,9 @@ module CreateBlob =
     open FSharp.Control.Tasks.ContextInsensitive
     open FileWriter
 
-    type ContainerInfo =
-        { StorageConnString : string
-          ContainerName : string }
-
-    let getContainer (containerInfo : ContainerInfo) =
-        let blobClient = CloudStorageAccount.Parse(containerInfo.StorageConnString).CreateCloudBlobClient()
-        let container = blobClient.GetContainerReference(containerInfo.ContainerName)
+    let getContainer (connection : CloudStorageAccount,containerName) =
+        let blobClient = connection.CreateCloudBlobClient()
+        let container = blobClient.GetContainerReference containerName
         container.CreateIfNotExistsAsync() |> ignore
         container
 
@@ -39,9 +35,9 @@ module CreateBlob =
           Container : CloudBlobContainer }
 
     // constructor
-    let initBlobLogger (containerInfo : ContainerInfo) fileName status =
-        let blobClient = CloudStorageAccount.Parse(containerInfo.StorageConnString).CreateCloudBlobClient()
-        let container = blobClient.GetContainerReference(containerInfo.ContainerName)
+    let initBlobLogger (connection : CloudStorageAccount,containerName) fileName status =
+        let blobClient = connection.CreateCloudBlobClient()
+        let container = blobClient.GetContainerReference containerName
         container.CreateIfNotExistsAsync() |> ignore
         { FileName = fileName
           Status = status

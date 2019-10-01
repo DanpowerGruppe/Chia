@@ -1,3 +1,5 @@
+### 0.1.42 - 01.10.2019
+Use connection instead of connection string
 ### 0.1.41 - 01.10.2019
 Add BlobLogging to CreateBlobs and moved files to Shared
 ### 0.1.40 - 30.09.2019
