@@ -27,7 +27,7 @@ namespace Chia
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
                     let path = sourceDirectoryRoot + (sprintf "%s_%s.json" jsonInfo.Guid jsonInfo.DataName)
-                    logOk jsonInfo.FileWriterInfo (sprintf "Path: %s" path)
+                    // printfn "Path: %s" path
                     // printfn "Data: %A" data
                     let json =
                         try
@@ -39,7 +39,7 @@ namespace Chia
                             logError exn jsonInfo.FileWriterInfo msg
                             failwith msg
                     logOk jsonInfo.FileWriterInfo "Got json"
-                    do! File.WriteAllTextAsync(path,json)
+                    File.WriteAllText(path,json) |> ignore
                     logOk jsonInfo.FileWriterInfo "Finished Json Cache"
                 with
                 | exn ->
@@ -51,7 +51,7 @@ namespace Chia
                 logOk fileWriterInfo (sprintf "Read Json Data %s" blobId)
                 let sourceDirectoryRoot = Path.GetFullPath(cachePath fileWriterInfo)
                 let path = sourceDirectoryRoot + (sprintf "%s.json" blobId )
-                let! txt = File.ReadAllTextAsync(path)
+                let txt = File.ReadAllText(path)
                 logOk fileWriterInfo "Got txt"
                 let data =
                     try
