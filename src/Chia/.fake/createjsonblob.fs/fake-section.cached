@@ -27,7 +27,7 @@ namespace Chia
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
                     let path = sourceDirectoryRoot + (sprintf "%s_%s.json" jsonInfo.Guid jsonInfo.DataName)
-                    // printfn "Path: %s" path
+                    logOk jsonInfo.FileWriterInfo (sprintf "Path: %s" path)
                     // printfn "Data: %A" data
                     let json =
                         try
