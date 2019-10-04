@@ -1,0 +1,15 @@
+resources:
+- repo: self
+queue:
+  name: Hosted VS2017
+
+steps:
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core sdk 3.0.100'
+  inputs:
+    version: 3.0.100
+- task: isaacabraham.fsharp-helpers-extension.a2dadf20-1a83-4220-a4ee-b52f6c77f3cf.FAKE5@1
+  displayName: 'Run FAKE script'
+  inputs:
+    FakeVersion: 5.8.4
+    ScriptArguments: '-t RunServerTests'
