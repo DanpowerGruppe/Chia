@@ -8,6 +8,9 @@ steps:
   displayName: 'Use .NET Core sdk 3.0.100'
   inputs:
     version: 3.0.100
+- script: |
+    git config user.email "tim.forkmann@danpower.de"
+    git config user.name "tforkmann"
 - task: isaacabraham.fsharp-helpers-extension.a2dadf20-1a83-4220-a4ee-b52f6c77f3cf.FAKE5@1
   displayName: 'Run FAKE script'
   inputs:
