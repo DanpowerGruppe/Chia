@@ -12,4 +12,4 @@ steps:
   displayName: 'Run FAKE script'
   inputs:
     FakeVersion: 5.8.4
-    ScriptArguments: '-t RunServerTests'
+    ScriptArguments: '-t Build'
