@@ -1,3 +1,5 @@
+### 0.1.49 - 04.10.2019
+Add GetCached Data function
 ### 0.1.48 - 04.10.2019
 Pushing via DevOps
 ### 0.1.47 - 04.10.2019
