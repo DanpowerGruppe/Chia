@@ -1,7 +1,8 @@
 namespace Chia
 
 open StackExchange.Redis
-
+open FSharp.Control.Tasks.ContextInsensitive
+open System.Threading.Tasks
 module RedisCache =
     type RedisCache =
         | RedisCache of string
@@ -15,30 +16,63 @@ module RedisHelpers =
     open Newtonsoft.Json
     open Chia.FileWriter
 
+    type RedisCache =
+        {
+          Cache : IDatabase
+          Key : string
+          FileWriterInfo : FileWriterInfo }
     type RedisCacheData =
-        { Key : string
+        {
+          Cache : IDatabase
+          Key : string
           Data : obj
           FileWriterInfo : FileWriterInfo }
 
     let inline (!>) (x : ^a) : ^b = ((^a or ^b) : (static member op_Implicit : ^a -> ^b) x)
-
     // Setting a value - need to convert both arguments:
-    let setString (cache : IDatabase, data : RedisCacheData) =
-        let redisKey : RedisKey = !>data.Key
+    let setString (cacheData : RedisCacheData) =
+        task {
+            let redisKey : RedisKey = !> cacheData.Key
 
-        let redisValue : RedisValue =
-            try
-                let json = data |> JsonConvert.SerializeObject
-                !>json
-            with exn ->
-                printfn "Error %s" exn.Message
-                let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                logError exn data.FileWriterInfo msg
-                failwith msg
-        cache.StringSet(redisKey, redisValue) |> ignore
+            let redisValue : RedisValue =
+                try
+                    let json = cacheData.Data |> JsonConvert.SerializeObject
+                    !> json
+                with exn ->
+                    printfn "Error %s" exn.Message
+                    let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
+                    logError exn cacheData.FileWriterInfo msg
+                    failwith msg
+            cacheData.Cache.StringSet(redisKey, redisValue) |> ignore
+        }
+    // Save Cache and Return Data
+    let saveCacheAndReturnData (cacheData : RedisCacheData) =
+        task {
+            let! _ = setString cacheData
+            return cacheData.Data
 
+        }
     // Getting a value - need to convert argument and result:
-    let getString (cache : IDatabase, key : string) =
-        let redisKey : RedisKey = !>key
-        let value = cache.StringGet(redisKey) |> (!>)
-        value |> JsonConvert.DeserializeObject<'a>
+    let getCachedValue (cache : RedisCache) =
+        task {
+            let redisKey : RedisKey = !> cache.Key
+            let value = cache.Cache.StringGet(redisKey) |> (!>)
+            return value |> JsonConvert.DeserializeObject<'a>
+        }
+    //Try getting cached data if not create a new cache
+    let tryGetCachedData (cache : RedisCache) (getDataTask: Task<obj>) =
+        task {
+            try
+                let! cachedData = getCachedValue cache
+                return cachedData
+            with
+            | _ ->
+                let! getData = getDataTask
+                let redisCacheData =
+                    { Cache = cache.Cache
+                      Key = cache.Key
+                      Data = getData
+                      FileWriterInfo = cache.FileWriterInfo }
+                let! data = saveCacheAndReturnData redisCacheData
+                return data
+        }
