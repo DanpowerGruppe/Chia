@@ -61,8 +61,8 @@ module RedisHelpers =
     let getCachedValue (cache : RedisCache) =
         task {
             let redisKey : RedisKey = !> cache.Key
-            let value = cache.Cache.StringGet(redisKey) |> (!>)
-            return value |> JsonConvert.DeserializeObject<'a>
+            let value = cache.Cache.StringGet(redisKey)
+            return value.ToString() |> JsonConvert.DeserializeObject<'a>
         }
     ///Try getting cached data if not create a new cache
     let tryGetCachedData (cache : RedisCache) (getDataTask: Task<'a>) =
@@ -73,7 +73,6 @@ module RedisHelpers =
             with
             | _ ->
                 let! getData = getDataTask
-                printfn "Data %A" getData
                 let redisCacheData =
                     { Cache = cache.Cache
                       Key = cache.Key
