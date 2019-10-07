@@ -10,7 +10,12 @@ module RedisCache =
             match this with
             | RedisCache connectionString ->
                 let client = ConnectionMultiplexer.Connect(connectionString)
-                client.GetDatabase()
+                try
+                    client.GetDatabase()
+                with
+                | exn ->
+                    printfn "Could not connect to Cache database: %s" exn.Message
+                    failwithf "Could not connect to Cache database: %s" exn.Message
 
 module RedisHelpers =
     open Newtonsoft.Json

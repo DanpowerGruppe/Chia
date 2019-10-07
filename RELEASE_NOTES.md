@@ -1,3 +1,5 @@
+### 0.1.55 - 07.10.2019
+Add try with
 ### 0.1.54 - 07.10.2019
 Downgrad StackExchange.Redis
 ### 0.1.53 - 07.10.2019
