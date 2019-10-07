@@ -73,6 +73,7 @@ module RedisHelpers =
             with
             | _ ->
                 let! getData = getDataTask
+                printfn "Data %A" getData
                 let redisCacheData =
                     { Cache = cache.Cache
                       Key = cache.Key
