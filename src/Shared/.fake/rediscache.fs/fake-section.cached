@@ -9,8 +9,13 @@ module RedisCache =
         member this.Connect() =
             match this with
             | RedisCache connectionString ->
-                let client = lazy (ConnectionMultiplexer.Connect(connectionString))
-                client.Value.GetDatabase()
+                let client = ConnectionMultiplexer.Connect(connectionString)
+                try
+                    client.GetDatabase()
+                with
+                | exn ->
+                    printfn "Could not connect to Cache database: %s" exn.Message
+                    failwithf "Could not connect to Cache database: %s" exn.Message
 
 module RedisHelpers =
     open Newtonsoft.Json
@@ -29,7 +34,7 @@ module RedisHelpers =
           FileWriterInfo : FileWriterInfo }
 
     let inline (!>) (x : ^a) : ^b = ((^a or ^b) : (static member op_Implicit : ^a -> ^b) x)
-    // Setting a value - need to convert both arguments:
+    /// Setting a value - need to convert both arguments:
     let setString (cacheData : RedisCacheData) =
         task {
             let redisKey : RedisKey = !> cacheData.Key
@@ -45,21 +50,21 @@ module RedisHelpers =
                     failwith msg
             cacheData.Cache.StringSet(redisKey, redisValue) |> ignore
         }
-    // Save Cache and Return Data
+    /// Save Cache and Return Data
     let saveCacheAndReturnData (cacheData : RedisCacheData) =
         task {
             let! _ = setString cacheData
             return cacheData.Data
 
         }
-    // Getting a value - need to convert argument and result:
+    /// Getting a value - need to convert argument and result:
     let getCachedValue (cache : RedisCache) =
         task {
             let redisKey : RedisKey = !> cache.Key
             let value = cache.Cache.StringGet(redisKey) |> (!>)
             return value |> JsonConvert.DeserializeObject<'a>
         }
-    //Try getting cached data if not create a new cache
+    ///Try getting cached data if not create a new cache
     let tryGetCachedData (cache : RedisCache) (getDataTask: Task<'a>) =
         task {
             try

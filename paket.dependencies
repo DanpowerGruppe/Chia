@@ -15,7 +15,7 @@ group Chia
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
     nuget System.Configuration.ConfigurationManager
     nuget System.Drawing.Common
-    nuget StackExchange.Redis 2.0.519
+    nuget StackExchange.Redis
 
 group Chia.Client
     source https://api.nuget.org/v3/index.json
@@ -46,4 +46,4 @@ group Chia.NetStandard
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
     nuget System.Configuration.ConfigurationManager
     nuget System.Drawing.Common
-    nuget StackExchange.Redis 2.0.519
+    nuget StackExchange.Redis
