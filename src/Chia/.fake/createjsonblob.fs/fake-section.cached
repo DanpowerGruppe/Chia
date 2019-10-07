@@ -1,28 +1,29 @@
 namespace Chia
 
-    module CreateJsonBlob =
+module CreateJsonBlob =
+    open FSharp.Control.Tasks.ContextInsensitive
+    open System.IO
+    open FileWriter
+    open Microsoft.WindowsAzure.Storage.Blob
+    open System.Threading.Tasks
 
-        open FSharp.Control.Tasks.ContextInsensitive
-        open System.IO
-        open FileWriter
-        open Microsoft.WindowsAzure.Storage.Blob
+    module Types =
+        type JsonBlobInfo =
+            { Guid : string
+              DataName : string
+              Data : obj
+              FileWriterInfo : FileWriterInfo }
 
-        module Types =
+        type BlobInfo =
+            { BlobId : string
+              FileWriterInfo : FileWriterInfo
+              Container : CloudBlobContainer }
 
-            type JsonBlobInfo = {
-                Guid : string
-                DataName : string
-                Data : obj
-                FileWriterInfo : FileWriterInfo
-            }
-            type BlobInfo ={
-                BlobId : string
-                FileWriterInfo : FileWriterInfo
-                Container : CloudBlobContainer
-            }
-        module Local =
-            open Types
-            let saveDataToJsonFile (jsonInfo:JsonBlobInfo) = task {
+    module Local =
+        open Types
+
+        let saveDataToJsonFile (jsonInfo : JsonBlobInfo) =
+            task {
                 try
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
@@ -32,42 +33,63 @@ namespace Chia
                     let json =
                         try
                             Newtonsoft.Json.JsonConvert.SerializeObject(jsonInfo.Data)
-                        with
-                        | exn ->
+                        with exn ->
                             printfn "Error %s" exn.Message
-                            let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
+                            let msg =
+                                sprintf "Error : Exception %s InnerException : %s" exn.Message
+                                    exn.InnerException.Message
                             logError exn jsonInfo.FileWriterInfo msg
                             failwith msg
                     logOk jsonInfo.FileWriterInfo "Got json"
-                    do! File.WriteAllTextAsync(path,json)
+                    do! File.WriteAllTextAsync(path, json)
                     logOk jsonInfo.FileWriterInfo "Finished Json Cache"
-                with
-                | exn ->
-                    let msg = sprintf "Error Msg: Exception %s InnerException : %s" exn.Message exn.InnerException.Message
+                with exn ->
+                    let msg =
+                        sprintf "Error Msg: Exception %s InnerException : %s" exn.Message exn.InnerException.Message
                     logError exn jsonInfo.FileWriterInfo msg
                     failwith msg
             }
-            let readJsonFile (blobId,fileWriterInfo) = task {
+
+        let readJsonFile (blobId, fileWriterInfo) =
+            task {
                 logOk fileWriterInfo (sprintf "Read Json Data %s" blobId)
                 let sourceDirectoryRoot = Path.GetFullPath(cachePath fileWriterInfo)
-                let path = sourceDirectoryRoot + (sprintf "%s.json" blobId )
+                let path = sourceDirectoryRoot + (sprintf "%s.json" blobId)
                 let! txt = File.ReadAllTextAsync(path)
                 logOk fileWriterInfo "Got txt"
                 let data =
                     try
                         Newtonsoft.Json.JsonConvert.DeserializeObject<'a> txt
-                    with
-                    | exn ->
-                        let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
+                    with exn ->
+                        let msg =
+                            sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
                         logError exn fileWriterInfo msg
                         failwith msg
                 return data
-
             }
-        module Azure =
-            open Types
-            ///Function to save Json Blobs
-            let saveDataToJsonBlob (jsonInfo:JsonBlobInfo) (container:CloudBlobContainer) = task {
+        let getCachedData (blobId,dataName,fileWriterInfo) (getDataTask: Task<obj>) =
+            task {
+            try
+                let! cachedData = readJsonFile (blobId + "_" + dataName,fileWriterInfo)
+                return cachedData
+            with
+            | _ ->
+                let! data = getDataTask
+                let jsonInfo = {
+                        Guid = blobId
+                        DataName = dataName
+                        Data = data
+                        FileWriterInfo = fileWriterInfo
+                    }
+                do! saveDataToJsonFile jsonInfo
+                return data
+            }
+    module Azure =
+        open Types
+
+        ///Function to save Json Blobs
+        let saveDataToJsonBlob (jsonInfo : JsonBlobInfo) (container : CloudBlobContainer) =
+            task {
                 logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                 let blobId = jsonInfo.Guid + "_" + jsonInfo.DataName
                 let blobBlock = container.GetBlockBlobReference(blobId)
@@ -77,11 +99,12 @@ namespace Chia
                 let json =
                     try
                         Newtonsoft.Json.JsonConvert.SerializeObject(jsonInfo.Data)
-                    with
-                    | exn ->
-                        let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
+                    with exn ->
+                        let msg =
+                            sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
                         logError exn jsonInfo.FileWriterInfo msg
                         failwith msg
+
                 let writer = new StreamWriter(ms)
                 writer.Write(json)
                 writer.Flush()
@@ -91,11 +114,10 @@ namespace Chia
                 logOk jsonInfo.FileWriterInfo "Finished Json Cache"
             }
 
-            let getDataFromJsonBlob blobInfo = task {
+        let getDataFromJsonBlob blobInfo =
+            task {
                 logOk blobInfo.FileWriterInfo "Start Download Json blob"
                 let blockBlob = blobInfo.Container.GetBlockBlobReference(blobInfo.BlobId)
-
                 let! txt = blockBlob.DownloadTextAsync()
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<'a> txt
             }
-

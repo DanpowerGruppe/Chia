@@ -67,14 +67,14 @@ module CreateJsonBlob =
                         failwith msg
                 return data
             }
-        let getCachedData (blobId,dataName,fileWriterInfo) (getDataTask: unit -> Task<obj>) =
+        let getCachedData (blobId,dataName,fileWriterInfo) (getDataTask: Task<obj>) =
             task {
             try
                 let! cachedData = readJsonFile (blobId + "_" + dataName,fileWriterInfo)
                 return cachedData
             with
             | _ ->
-                let! data = getDataTask ()
+                let! data = getDataTask
                 let jsonInfo = {
                         Guid = blobId
                         DataName = dataName

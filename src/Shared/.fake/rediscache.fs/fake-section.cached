@@ -1,0 +1,11 @@
+namespace Chia
+
+open StackExchange.Redis
+
+module RedisCache =
+    type RedisClient =
+        | RedisClient of string
+        member this.Connect() =
+            match this with
+            | RedisClient connectionString ->
+                lazy ( ConnectionMultiplexer.Connect(connection) )

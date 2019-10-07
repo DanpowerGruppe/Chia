@@ -1,3 +1,5 @@
+### 0.1.50 - 07.10.2019
+Add RedisCache
 ### 0.1.49 - 04.10.2019
 Add GetCached Data function
 ### 0.1.48 - 04.10.2019

@@ -12,6 +12,7 @@
     <Compile Include="../Shared/CreateXml.fs" />
     <Compile Include="../Shared/CreateBlob.fs" />
     <Compile Include="CreateJsonBlob.fs" />
+    <Compile Include="../Shared/RedisCache.fs" />
     <Compile Include="../Shared/GetTableEntry.fs" />
     <Compile Include="../Shared/PostToQueue.fs" />
     <Compile Include="../Shared/Utils.fs" />

@@ -11,3 +11,4 @@ group Chia
     Microsoft.ApplicationInsights.DependencyCollector
     Microsoft.ApplicationInsights.PerfCounterCollector
     System.Configuration.ConfigurationManager
+    StackExchange.Redis
