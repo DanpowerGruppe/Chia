@@ -1,3 +1,5 @@
+### 0.1.52 - 07.10.2019
+Use 'a instead of obj
 ### 0.1.51 - 07.10.2019
 Add TryGetCachedData from Redis
 ### 0.1.50 - 07.10.2019

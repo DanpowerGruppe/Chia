@@ -60,7 +60,7 @@ module RedisHelpers =
             return value |> JsonConvert.DeserializeObject<'a>
         }
     //Try getting cached data if not create a new cache
-    let tryGetCachedData (cache : RedisCache) (getDataTask: Task<obj>) =
+    let tryGetCachedData (cache : RedisCache) (getDataTask: Task<'a>) =
         task {
             try
                 let! cachedData = getCachedValue cache
