@@ -91,11 +91,11 @@ namespace Chia
                 logOk jsonInfo.FileWriterInfo "Finished Json Cache"
             }
 
-            let getDataFromJsonBlob blobInfo = task {
+            let getDataFromJsonBlob (mapper: string -> 'a) blobInfo = task {
                 logOk blobInfo.FileWriterInfo "Start Download Json blob"
                 let blockBlob = blobInfo.Container.GetBlockBlobReference(blobInfo.BlobId)
 
                 let! txt = blockBlob.DownloadTextAsync()
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<'a> txt
+                return txt |> mapper
             }
 
