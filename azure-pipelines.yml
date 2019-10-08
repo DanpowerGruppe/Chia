@@ -8,6 +8,8 @@ steps:
   displayName: 'Use .NET Core sdk 3.0.100'
   inputs:
     version: 3.0.100
+- checkout: self
+  persistCredentials: true    
 - script: |
     git config user.email "tim.forkmann@danpower.de"
     git config user.name "tforkmann"
