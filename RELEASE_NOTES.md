@@ -1,3 +1,5 @@
+### 0.1.65 - 08.10.2019
+Manuel Release
 ### 0.1.64 - 08.10.2019
 App mapper for get Json Blob
 ### 0.1.63 - 08.10.2019
