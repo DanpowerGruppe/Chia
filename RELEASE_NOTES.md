@@ -1,3 +1,5 @@
+### 0.1.59 - 08.10.2019
+add jsonconverter
 ### 0.1.58 - 07.10.2019
 Optimize RedisHelper
 ### 0.1.57 - 07.10.2019

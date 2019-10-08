@@ -58,17 +58,17 @@ module RedisHelpers =
 
         }
     /// Getting a value - need to convert argument and result:
-    let getCachedValue (cache : RedisCache) =
+    let getCachedValue (jsonConverter:string->'a) (cache : RedisCache) =
         task {
             let redisKey : RedisKey = !> cache.Key
             let value = cache.Cache.StringGet(redisKey)
-            return value.ToString() |> JsonConvert.DeserializeObject<'a>
+            return value.ToString() |> jsonConverter
         }
     ///Try getting cached data if not create a new cache
-    let tryGetCachedData (cache : RedisCache) (getDataTask: Task<'a>) =
+    let tryGetCachedData jsonConverter (cache : RedisCache) (getDataTask: Task<'a>) =
         task {
             try
-                let! cachedData = getCachedValue cache
+                let! cachedData = getCachedValue jsonConverter cache
                 return cachedData
             with
             | _ ->
