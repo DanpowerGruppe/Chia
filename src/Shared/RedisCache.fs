@@ -64,14 +64,14 @@ module RedisHelpers =
             return value.ToString() |> jsonConverter
         }
     ///Try getting cached data if not create a new cache
-    let tryGetCachedData (jsonConverter:string->'a) (cache : RedisCache) (getDataTask: Task<'a>) =
+    let tryGetCachedData (jsonConverter:string->'a) (cache : RedisCache) (getDataTask: unit -> Task<'a>) =
         task {
             try
                 let! cachedData = getCachedValue jsonConverter cache
                 return cachedData
             with
             | _ ->
-                let! data = getDataTask
+                let! data = getDataTask ()
                 let redisCacheData =
                     { Cache = cache.Cache
                       Key = cache.Key
