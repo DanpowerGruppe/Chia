@@ -30,18 +30,17 @@ module RedisHelpers =
         {
           Cache : IDatabase
           Key : string
-          Data : obj
           FileWriterInfo : FileWriterInfo }
 
     let inline (!>) (x : ^a) : ^b = ((^a or ^b) : (static member op_Implicit : ^a -> ^b) x)
     /// Setting a value - need to convert both arguments:
-    let setString (cacheData : RedisCacheData) =
+    let setString (data:'a, cacheData : RedisCacheData) =
         task {
             let redisKey : RedisKey = !> cacheData.Key
 
             let redisValue : RedisValue =
                 try
-                    let json = cacheData.Data |> JsonConvert.SerializeObject
+                    let json = data |> JsonConvert.SerializeObject
                     !> json
                 with exn ->
                     printfn "Error %s" exn.Message
@@ -51,10 +50,10 @@ module RedisHelpers =
             cacheData.Cache.StringSet(redisKey, redisValue) |> ignore
         }
     /// Save Cache and Return Data
-    let saveCacheAndReturnData (cacheData : RedisCacheData) =
+    let saveCacheAndReturnData (data:'a,cacheData : RedisCacheData) =
         task {
-            let! _ = setString cacheData
-            return cacheData.Data
+            let! _ = setString (data,cacheData)
+            return data
 
         }
     /// Getting a value - need to convert argument and result:
@@ -65,19 +64,18 @@ module RedisHelpers =
             return value.ToString() |> jsonConverter
         }
     ///Try getting cached data if not create a new cache
-    let tryGetCachedData jsonConverter (cache : RedisCache) (getDataTask: Task<'a>) =
+    let tryGetCachedData (jsonConverter:string->'a) (cache : RedisCache) (getDataTask: Task<'a>) =
         task {
             try
                 let! cachedData = getCachedValue jsonConverter cache
                 return cachedData
             with
             | _ ->
-                let! getData = getDataTask
+                let! data = getDataTask
                 let redisCacheData =
                     { Cache = cache.Cache
                       Key = cache.Key
-                      Data = getData
                       FileWriterInfo = cache.FileWriterInfo }
-                let! data = saveCacheAndReturnData redisCacheData
+                let! data = saveCacheAndReturnData (data,redisCacheData)
                 return data
         }
