@@ -10,10 +10,16 @@ open System.Threading.Tasks
 open Domain
 open Logging
 open Config
-open FileWriterTypes
 
 module FileWriter =
+    type ProjectName =
+    | ProjectName of string
+        member this.Value = (fun (ProjectName name) -> name) this
 
+    type FileWriterInfo =
+        { MasterStatus : Config.DevStatus
+          ProjectName : ProjectName
+          DevOption : Logging.DevOption }
     // constructor
     let initFileWriter masterStatus projectName devOption =
         { MasterStatus = masterStatus

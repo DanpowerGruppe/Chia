@@ -4,9 +4,15 @@ namespace Chia
 
         open FSharp.Control.Tasks.ContextInsensitive
         open System.IO
-        open Domain.BlobTypes
         open FileWriter
         open Microsoft.WindowsAzure.Storage.Blob
+        open System
+        type JsonBlobInfo = {
+                Date : DateTime
+                DataName : string
+                FileWriterInfo : FileWriterInfo
+                Container : CloudBlobContainer option
+            }
 
         module Local =
             let saveDataToJsonFile (data:'a,jsonInfo:JsonBlobInfo) = task {

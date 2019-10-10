@@ -4,9 +4,15 @@ module CreateJsonBlob =
     open FSharp.Control.Tasks.ContextInsensitive
     open System.IO
     open FileWriter
-    open Domain.BlobTypes
     open Microsoft.WindowsAzure.Storage.Blob
     open System.Threading.Tasks
+    open System
+    type JsonBlobInfo = {
+                Date : DateTime
+                DataName : string
+                FileWriterInfo : FileWriterInfo
+                Container : CloudBlobContainer option
+            }
 
     let getBlobId (jsonInfo : JsonBlobInfo) =
         let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
