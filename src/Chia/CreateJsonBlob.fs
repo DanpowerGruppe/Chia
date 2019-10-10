@@ -2,13 +2,15 @@ namespace Chia
 
 module CreateJsonBlob =
     open FSharp.Control.Tasks.ContextInsensitive
-    open System
     open System.IO
     open FileWriter
     open Domain.BlobTypes
     open Microsoft.WindowsAzure.Storage.Blob
     open System.Threading.Tasks
 
+    let getBlobId (jsonInfo : JsonBlobInfo) =
+        let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
+        dateStr + "_" + jsonInfo.DataName
     module Local =
 
         let saveDataToJsonFile (data:'a,jsonInfo : JsonBlobInfo) =
@@ -16,8 +18,8 @@ module CreateJsonBlob =
                 try
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
-                    let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
-                    let path = sourceDirectoryRoot + (sprintf "%s_%s.json" dateStr jsonInfo.DataName)
+                    let blobId = getBlobId jsonInfo
+                    let path = sourceDirectoryRoot + (sprintf "%s.json" blobId)
                     logOk jsonInfo.FileWriterInfo (sprintf "Path: %s" path)
                     // printfn "Data: %A" data
                     let json =
@@ -40,38 +42,32 @@ module CreateJsonBlob =
                     failwith msg
             }
 
-        let readJsonFile (blobId, fileWriterInfo, mapper: string -> 'a) =
+        let readJsonFile (jsonInfo : JsonBlobInfo, mapper: string -> 'a) =
             task {
-                logOk fileWriterInfo (sprintf "Read Json Data %s" blobId)
-                let sourceDirectoryRoot = Path.GetFullPath(cachePath fileWriterInfo)
+                let blobId = getBlobId jsonInfo
+                logOk jsonInfo.FileWriterInfo (sprintf "Read Json Data %s" blobId)
+                let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
                 let path = sourceDirectoryRoot + (sprintf "%s.json" blobId)
                 let! txt = File.ReadAllTextAsync(path)
-                logOk fileWriterInfo "Got txt"
+                logOk jsonInfo.FileWriterInfo "Got txt"
                 let data =
                     try
                         txt |> mapper
                     with exn ->
                         let msg =
                             sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                        logError exn fileWriterInfo msg
+                        logError exn jsonInfo.FileWriterInfo msg
                         failwith msg
                 return data
             }
-        let getCachedData (date:DateTime,dataName,fileWriterInfo,mapper: string -> 'a) (getDataTask: Task<'a>) =
+        let getCachedData (jsonInfo : JsonBlobInfo,mapper: string -> 'a) (getDataTask: Task<'a>) =
             task {
             try
-                let dateStr = date.ToString("yyyyMMdd")
-                let! cachedData = readJsonFile (dateStr + "_" + dataName,fileWriterInfo,mapper)
+                let! cachedData = readJsonFile (jsonInfo,mapper)
                 return cachedData
             with
             | _ ->
                 let! data = getDataTask
-                let jsonInfo = {
-                        Date = date
-                        DataName = dataName
-                        FileWriterInfo = fileWriterInfo
-                        Container = None
-                    }
                 do! saveDataToJsonFile (data,jsonInfo)
                 return data
             }
@@ -81,8 +77,7 @@ module CreateJsonBlob =
         let saveDataToJsonBlob (data:'a,jsonInfo : JsonBlobInfo) (container : CloudBlobContainer) =
             task {
                 logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
-                let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
-                let blobId = dateStr + "_" + jsonInfo.DataName
+                let blobId = getBlobId jsonInfo
                 let blobBlock = container.GetBlockBlobReference(blobId)
                 blobBlock.Properties.ContentType <- "application/json"
                 use ms = new MemoryStream()
@@ -108,8 +103,7 @@ module CreateJsonBlob =
         let getDataFromJsonBlob (mapper: string -> 'a) (jsonInfo : JsonBlobInfo) =
             task {
                 logOk jsonInfo.FileWriterInfo "Start Download Json blob"
-                let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
-                let blobId = dateStr + "_" + jsonInfo.DataName
+                let blobId = getBlobId jsonInfo
                 let blockBlob = jsonInfo.Container.Value.GetBlockBlobReference(blobId)
                 let! txt = blockBlob.DownloadTextAsync()
                 return txt |> mapper
