@@ -4,6 +4,7 @@ open System
 open System.IO
 open Domain.Logging
 open Domain.Config
+open Domain
 open Microsoft.ApplicationInsights
 open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
 open Microsoft.ApplicationInsights.Extensibility
