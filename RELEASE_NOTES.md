@@ -1,3 +1,5 @@
+### 0.1.75 - 10.10.2019
+Moving types out
 ### 0.1.74 - 10.10.2019
 Extracting filewriterTypes
 ### 0.1.73 - 10.10.2019
