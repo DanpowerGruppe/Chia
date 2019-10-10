@@ -2,9 +2,7 @@ namespace Chia
 
 open System
 open System.IO
-open Domain.Logging
-open Domain.Config
-open Domain
+
 open Microsoft.ApplicationInsights
 open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
 open Microsoft.ApplicationInsights.Extensibility
@@ -12,7 +10,9 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
-
+    open Domain
+    open Logging
+    open Config
     // constructor
     let initFileWriter masterStatus projectName devOption =
         { MasterStatus = masterStatus
