@@ -4,29 +4,17 @@ namespace Chia
 
         open FSharp.Control.Tasks.ContextInsensitive
         open System.IO
+        open Domain.BlobTypes
         open FileWriter
         open Microsoft.WindowsAzure.Storage.Blob
 
-        module Types =
-
-            type JsonBlobInfo = {
-                Guid : string
-                DataName : string
-                Data : obj
-                FileWriterInfo : FileWriterInfo
-            }
-            type BlobInfo ={
-                BlobId : string
-                FileWriterInfo : FileWriterInfo
-                Container : CloudBlobContainer
-            }
         module Local =
-            open Types
             let saveDataToJsonFile (jsonInfo:JsonBlobInfo) = task {
                 try
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
-                    let path = sourceDirectoryRoot + (sprintf "%s_%s.json" jsonInfo.Guid jsonInfo.DataName)
+                    let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
+                    let path = sourceDirectoryRoot + (sprintf "%s_%s.json" dateStr jsonInfo.DataName)
                     // printfn "Path: %s" path
                     // printfn "Data: %A" data
                     let json =
@@ -65,11 +53,11 @@ namespace Chia
 
             }
         module Azure =
-            open Types
             ///Function to save Json Blobs
             let saveDataToJsonBlob (jsonInfo:JsonBlobInfo) (container:CloudBlobContainer) = task {
                 logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
-                let blobId = jsonInfo.Guid + "_" + jsonInfo.DataName
+                let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
+                let blobId = dateStr + "_" + jsonInfo.DataName
                 let blobBlock = container.GetBlockBlobReference(blobId)
                 blobBlock.Properties.ContentType <- "application/json"
                 use ms = new MemoryStream()
@@ -91,9 +79,11 @@ namespace Chia
                 logOk jsonInfo.FileWriterInfo "Finished Json Cache"
             }
 
-            let getDataFromJsonBlob (mapper: string -> 'a) blobInfo = task {
-                logOk blobInfo.FileWriterInfo "Start Download Json blob"
-                let blockBlob = blobInfo.Container.GetBlockBlobReference(blobInfo.BlobId)
+            let getDataFromJsonBlob (mapper: string -> 'a) (jsonBlobInfo:JsonBlobInfo) = task {
+                logOk jsonBlobInfo.FileWriterInfo "Start Download Json blob"
+                let dateStr = jsonBlobInfo.Date.ToString("yyyyMMdd")
+                let blobId = dateStr + "_" + jsonBlobInfo.DataName
+                let blockBlob = jsonBlobInfo.Container.Value.GetBlockBlobReference(blobId)
 
                 let! txt = blockBlob.DownloadTextAsync()
                 return txt |> mapper

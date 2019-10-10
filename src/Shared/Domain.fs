@@ -2,6 +2,7 @@ namespace Chia
     open System
     [<AutoOpen>]
     module Domain =
+
         module Logging =
           type DevOption =
             | Local
@@ -11,7 +12,14 @@ namespace Chia
             type DevStatus =
             | Productive
             | Development
+        type ProjectName =
+            | ProjectName of string
+            member this.Value = (fun (ProjectName name) -> name) this
 
+        type FileWriterInfo =
+            { MasterStatus : Config.DevStatus
+              ProjectName : ProjectName
+              DevOption : Logging.DevOption }
         module Time =
 
             type ReportIntervall =
@@ -58,3 +66,13 @@ namespace Chia
                 let toRowKey (dateTime : DateTime) =
                     String.Format("{0:D19}", DateTime.MaxValue.Ticks - dateTime.Ticks) |> SortableRowKey
                 let toDate (SortableRowKey ticks) = DateTime(DateTime.MaxValue.Ticks - int64 ticks)
+        module BlobTypes =
+            open Microsoft.WindowsAzure.Storage.Blob
+
+            type JsonBlobInfo = {
+                Date : DateTime
+                DataName : string
+                Data : obj
+                FileWriterInfo : FileWriterInfo
+                Container : CloudBlobContainer option
+            }

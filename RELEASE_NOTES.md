@@ -1,3 +1,5 @@
+### 0.1.68 - 10.10.2019
+Optimize Blob builder
 ### 0.1.67 - 08.10.2019
 Use enviroment variable
 ### 0.1.66 - 08.10.2019

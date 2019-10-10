@@ -11,14 +11,6 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
-    type ProjectName =
-        | ProjectName of string
-        member this.Value = (fun (ProjectName name) -> name) this
-
-    type FileWriterInfo =
-        { MasterStatus : Config.DevStatus
-          ProjectName : ProjectName
-          DevOption : Logging.DevOption }
 
     // constructor
     let initFileWriter masterStatus projectName devOption =
