@@ -72,7 +72,6 @@ namespace Chia
             type JsonBlobInfo = {
                 Date : DateTime
                 DataName : string
-                Data : obj
                 FileWriterInfo : FileWriterInfo
                 Container : CloudBlobContainer option
             }

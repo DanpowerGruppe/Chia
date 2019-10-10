@@ -9,7 +9,7 @@ namespace Chia
         open Microsoft.WindowsAzure.Storage.Blob
 
         module Local =
-            let saveDataToJsonFile (jsonInfo:JsonBlobInfo) = task {
+            let saveDataToJsonFile (data:'a,jsonInfo:JsonBlobInfo) = task {
                 try
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
@@ -19,7 +19,7 @@ namespace Chia
                     // printfn "Data: %A" data
                     let json =
                         try
-                            Newtonsoft.Json.JsonConvert.SerializeObject(jsonInfo.Data)
+                            Newtonsoft.Json.JsonConvert.SerializeObject data
                         with
                         | exn ->
                             printfn "Error %s" exn.Message
@@ -54,7 +54,7 @@ namespace Chia
             }
         module Azure =
             ///Function to save Json Blobs
-            let saveDataToJsonBlob (jsonInfo:JsonBlobInfo) (container:CloudBlobContainer) = task {
+            let saveDataToJsonBlob (data,jsonInfo:JsonBlobInfo) (container:CloudBlobContainer) = task {
                 logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                 let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
                 let blobId = dateStr + "_" + jsonInfo.DataName
@@ -64,7 +64,7 @@ namespace Chia
                 printfn "Got Memory Stream"
                 let json =
                     try
-                        Newtonsoft.Json.JsonConvert.SerializeObject(jsonInfo.Data)
+                        Newtonsoft.Json.JsonConvert.SerializeObject data
                     with
                     | exn ->
                         let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message

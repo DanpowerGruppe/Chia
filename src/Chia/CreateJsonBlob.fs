@@ -11,7 +11,7 @@ module CreateJsonBlob =
 
     module Local =
 
-        let saveDataToJsonFile (jsonInfo : JsonBlobInfo) =
+        let saveDataToJsonFile (data:'a,jsonInfo : JsonBlobInfo) =
             task {
                 try
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
@@ -22,7 +22,7 @@ module CreateJsonBlob =
                     // printfn "Data: %A" data
                     let json =
                         try
-                            Newtonsoft.Json.JsonConvert.SerializeObject(jsonInfo.Data)
+                            Newtonsoft.Json.JsonConvert.SerializeObject data
                         with exn ->
                             printfn "Error %s" exn.Message
                             let msg =
@@ -40,7 +40,7 @@ module CreateJsonBlob =
                     failwith msg
             }
 
-        let readJsonFile (blobId, fileWriterInfo) =
+        let readJsonFile (blobId, fileWriterInfo, mapper: string -> 'a) =
             task {
                 logOk fileWriterInfo (sprintf "Read Json Data %s" blobId)
                 let sourceDirectoryRoot = Path.GetFullPath(cachePath fileWriterInfo)
@@ -49,7 +49,7 @@ module CreateJsonBlob =
                 logOk fileWriterInfo "Got txt"
                 let data =
                     try
-                        Newtonsoft.Json.JsonConvert.DeserializeObject<'a> txt
+                        txt |> mapper
                     with exn ->
                         let msg =
                             sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
@@ -57,11 +57,11 @@ module CreateJsonBlob =
                         failwith msg
                 return data
             }
-        let getCachedData (date:DateTime,dataName,fileWriterInfo) (getDataTask: Task<obj>) =
+        let getCachedData (date:DateTime,dataName,fileWriterInfo,mapper: string -> 'a) (getDataTask: Task<'a>) =
             task {
             try
                 let dateStr = date.ToString("yyyyMMdd")
-                let! cachedData = readJsonFile (dateStr + "_" + dataName,fileWriterInfo)
+                let! cachedData = readJsonFile (dateStr + "_" + dataName,fileWriterInfo,mapper)
                 return cachedData
             with
             | _ ->
@@ -69,17 +69,16 @@ module CreateJsonBlob =
                 let jsonInfo = {
                         Date = date
                         DataName = dataName
-                        Data = data
                         FileWriterInfo = fileWriterInfo
                         Container = None
                     }
-                do! saveDataToJsonFile jsonInfo
+                do! saveDataToJsonFile (data,jsonInfo)
                 return data
             }
     module Azure =
 
         ///Function to save Json Blobs
-        let saveDataToJsonBlob (jsonInfo : JsonBlobInfo) (container : CloudBlobContainer) =
+        let saveDataToJsonBlob (data:'a,jsonInfo : JsonBlobInfo) (container : CloudBlobContainer) =
             task {
                 logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                 let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
@@ -90,7 +89,7 @@ module CreateJsonBlob =
                 printfn "Got Memory Stream"
                 let json =
                     try
-                        Newtonsoft.Json.JsonConvert.SerializeObject(jsonInfo.Data)
+                        Newtonsoft.Json.JsonConvert.SerializeObject data
                     with exn ->
                         let msg =
                             sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message

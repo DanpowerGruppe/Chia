@@ -2,32 +2,22 @@ namespace Chia
 
 module CreateJsonBlob =
     open FSharp.Control.Tasks.ContextInsensitive
+    open System
     open System.IO
     open FileWriter
+    open Domain.BlobTypes
     open Microsoft.WindowsAzure.Storage.Blob
     open System.Threading.Tasks
 
-    module Types =
-        type JsonBlobInfo =
-            { Guid : string
-              DataName : string
-              Data : obj
-              FileWriterInfo : FileWriterInfo }
-
-        type BlobInfo =
-            { BlobId : string
-              FileWriterInfo : FileWriterInfo
-              Container : CloudBlobContainer }
-
     module Local =
-        open Types
 
         let saveDataToJsonFile (jsonInfo : JsonBlobInfo) =
             task {
                 try
                     logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
-                    let path = sourceDirectoryRoot + (sprintf "%s_%s.json" jsonInfo.Guid jsonInfo.DataName)
+                    let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
+                    let path = sourceDirectoryRoot + (sprintf "%s_%s.json" dateStr jsonInfo.DataName)
                     logOk jsonInfo.FileWriterInfo (sprintf "Path: %s" path)
                     // printfn "Data: %A" data
                     let json =
@@ -67,31 +57,33 @@ module CreateJsonBlob =
                         failwith msg
                 return data
             }
-        let getCachedData (blobId,dataName,fileWriterInfo) (getDataTask: Task<obj>) =
+        let getCachedData (date:DateTime,dataName,fileWriterInfo) (getDataTask: Task<obj>) =
             task {
             try
-                let! cachedData = readJsonFile (blobId + "_" + dataName,fileWriterInfo)
+                let dateStr = date.ToString("yyyyMMdd")
+                let! cachedData = readJsonFile (dateStr + "_" + dataName,fileWriterInfo)
                 return cachedData
             with
             | _ ->
                 let! data = getDataTask
                 let jsonInfo = {
-                        Guid = blobId
+                        Date = date
                         DataName = dataName
                         Data = data
                         FileWriterInfo = fileWriterInfo
+                        Container = None
                     }
                 do! saveDataToJsonFile jsonInfo
                 return data
             }
     module Azure =
-        open Types
 
         ///Function to save Json Blobs
         let saveDataToJsonBlob (jsonInfo : JsonBlobInfo) (container : CloudBlobContainer) =
             task {
                 logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
-                let blobId = jsonInfo.Guid + "_" + jsonInfo.DataName
+                let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
+                let blobId = dateStr + "_" + jsonInfo.DataName
                 let blobBlock = container.GetBlockBlobReference(blobId)
                 blobBlock.Properties.ContentType <- "application/json"
                 use ms = new MemoryStream()
@@ -114,10 +106,12 @@ module CreateJsonBlob =
                 logOk jsonInfo.FileWriterInfo "Finished Json Cache"
             }
 
-        let getDataFromJsonBlob (mapper: string -> 'a) blobInfo =
+        let getDataFromJsonBlob (mapper: string -> 'a) (jsonInfo : JsonBlobInfo) =
             task {
-                logOk blobInfo.FileWriterInfo "Start Download Json blob"
-                let blockBlob = blobInfo.Container.GetBlockBlobReference(blobInfo.BlobId)
+                logOk jsonInfo.FileWriterInfo "Start Download Json blob"
+                let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
+                let blobId = dateStr + "_" + jsonInfo.DataName
+                let blockBlob = jsonInfo.Container.Value.GetBlockBlobReference(blobId)
                 let! txt = blockBlob.DownloadTextAsync()
                 return txt |> mapper
             }
