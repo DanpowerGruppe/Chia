@@ -19,6 +19,7 @@ module RedisCache =
 
 module RedisHelpers =
     open Newtonsoft.Json
+    open FileWriterTypes
     open Chia.FileWriter
 
     type RedisCache =

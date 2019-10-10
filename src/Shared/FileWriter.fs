@@ -10,9 +10,11 @@ open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 
 module FileWriter =
+
     open Domain
     open Logging
     open Config
+    open FileWriterTypes
     // constructor
     let initFileWriter masterStatus projectName devOption =
         { MasterStatus = masterStatus

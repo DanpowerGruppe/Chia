@@ -12,14 +12,7 @@ namespace Chia
             type DevStatus =
             | Productive
             | Development
-        type ProjectName =
-            | ProjectName of string
-            member this.Value = (fun (ProjectName name) -> name) this
 
-        type FileWriterInfo =
-            { MasterStatus : Config.DevStatus
-              ProjectName : ProjectName
-              DevOption : Logging.DevOption }
         module Time =
 
             type ReportIntervall =
@@ -66,9 +59,18 @@ namespace Chia
                 let toRowKey (dateTime : DateTime) =
                     String.Format("{0:D19}", DateTime.MaxValue.Ticks - dateTime.Ticks) |> SortableRowKey
                 let toDate (SortableRowKey ticks) = DateTime(DateTime.MaxValue.Ticks - int64 ticks)
+        module FileWriterTypes =
+            type ProjectName =
+            | ProjectName of string
+                member this.Value = (fun (ProjectName name) -> name) this
+
+            type FileWriterInfo =
+                { MasterStatus : Config.DevStatus
+                  ProjectName : ProjectName
+                  DevOption : Logging.DevOption }
         module BlobTypes =
             open Microsoft.WindowsAzure.Storage.Blob
-
+            open FileWriterTypes
             type JsonBlobInfo = {
                 Date : DateTime
                 DataName : string

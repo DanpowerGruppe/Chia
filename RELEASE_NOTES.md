@@ -1,3 +1,5 @@
+### 0.1.74 - 10.10.2019
+Extracting filewriterTypes
 ### 0.1.73 - 10.10.2019
 Try fix FileWriter
 ### 0.1.72 - 10.10.2019
