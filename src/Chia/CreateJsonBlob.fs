@@ -69,10 +69,14 @@ module CreateJsonBlob =
         let getCachedData (jsonInfo : JsonBlobInfo,mapper: string -> 'a) (getDataTask: Task<'a>) =
             task {
             try
+                logOk jsonInfo.FileWriterInfo "Trying to read cached data"
                 let! cachedData = readJsonFile (jsonInfo,mapper)
+                logOk jsonInfo.FileWriterInfo "Got CachedData"
                 return cachedData
             with
-            | _ ->
+            | exn ->
+                let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
+                logError exn jsonInfo.FileWriterInfo msg
                 let! data = getDataTask
                 do! saveDataToJsonFile (data,jsonInfo)
                 return data
