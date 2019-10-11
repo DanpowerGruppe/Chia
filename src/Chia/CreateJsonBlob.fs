@@ -66,7 +66,7 @@ module CreateJsonBlob =
                         failwith msg
                 return data
             }
-        let getCachedData (jsonInfo : JsonBlobInfo,mapper: string -> 'a) (getDataTask: Task<'a>) =
+        let getCachedData (jsonInfo : JsonBlobInfo,mapper: string -> 'a) (getDataTask: unit -> Task<'a>) =
             task {
             try
                 logOk jsonInfo.FileWriterInfo "Trying to read cached data"
@@ -77,7 +77,7 @@ module CreateJsonBlob =
             | exn ->
                 let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
                 logError exn jsonInfo.FileWriterInfo msg
-                let! data = getDataTask
+                let! data = getDataTask ()
                 do! saveDataToJsonFile (data,jsonInfo)
                 return data
             }
