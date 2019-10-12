@@ -75,8 +75,7 @@ module CreateJsonBlob =
                 return cachedData
             with
             | exn ->
-                let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                logError exn jsonInfo.FileWriterInfo msg
+                logOk jsonInfo.FileWriterInfo "Can't find cached data - Creating new cache"
                 let! data = getDataTask ()
                 do! saveDataToJsonFile (data,jsonInfo)
                 return data
