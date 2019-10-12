@@ -114,3 +114,23 @@ First define your filter:
 let filter partKey = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partKey)
 let filteredValues partKey = getValuesWithFilter (filter partKey) azureTable
 ```
+
+## RedisCache
+
+Helper to create or directly query a RedisCache:
+
+To create or read a Redis values with a Redis Key you first have to create a Redis cache info:
+
+```fs
+let cacheInfo : RedisCache = {
+    Cache = Redis.cache
+    Key = key
+    FileWriterInfo = fileWriterInfo }
+```
+
+To deserialze your Redis values to your pass in a Newtonsoft mapper.
+You also should pass in a task to receive your data. The function tries to find the cache in Redis. If there is no Redis cache it will create a new cache by executing you task. The following example showes how to reveice a a Plant array directly out of Redis or creates a new cache if theres no existing cache and returns the Plant array.
+
+```fs
+let! plants = tryGetCachedData JsonConvert.DeserializeObject<Plant[]> cacheInfo getPlants
+```
