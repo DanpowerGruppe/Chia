@@ -134,3 +134,12 @@ You also should pass in a task to receive your data. The function tries to find 
 ```fs
 let! plants = tryGetCachedData JsonConvert.DeserializeObject<Plant[]> cacheInfo getPlants
 ```
+## ExcelUtils
+
+Mini Helper to start and ExcelApp using the EPPlus package:
+
+Start your excel app like this:
+
+```fs
+let excelPackage = startExcelApp ()
+```
