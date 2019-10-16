@@ -19,8 +19,8 @@ module Tables =
                                    Table.IsStriped]
                       [ thead [] [
                             tr [] [
-                                yield th [OnClick (fun (e) -> dispatch ( siteMsg(setMsg ("sort", "0"))))] [ unbox (tableData.Header.[0].ToString()) ] //OnClick (fun (e) -> dispatch ( siteMsg(setMsg ("toggle", "name"))))
-                                for i in 1..tableData.Header.Length-1 ->
+                                th [OnClick (fun (e) -> dispatch ( siteMsg(setMsg ("sort", "0"))))] [ unbox (tableData.Header.[0].ToString()) ] //OnClick (fun (e) -> dispatch ( siteMsg(setMsg ("toggle", "name"))))
+                                for i in 1..tableData.Header.Length-1 do
                                     th [OnClick (fun (e) -> dispatch ( siteMsg(setMsg ("sort", i.ToString() ))))] [ unbox (tableData.Header.[i].ToString()) ]
                             ]
                         ]
