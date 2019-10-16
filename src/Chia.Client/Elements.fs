@@ -2,8 +2,6 @@ namespace Chia.Client
 
 open Fable.React
 open Fable.React.Props
-open Domain
-open Elmish
 open Fulma
 open Fable.FontAwesome
 

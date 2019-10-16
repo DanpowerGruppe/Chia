@@ -1,3 +1,5 @@
+### 0.1.82 - 14.10.2019
+Add show table to Chia.Client
 ### 0.1.81 - 14.10.2019
 add logging for timefilter
 ### 0.1.80 - 10.10.2019

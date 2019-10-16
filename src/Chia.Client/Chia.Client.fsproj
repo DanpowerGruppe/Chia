@@ -17,6 +17,7 @@
     <Compile Include="Domain.fs" />
     <Compile Include="FileWriter.fs" />
     <Compile Include="Elements.fs" />
+    <Compile Include="Tables.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="TimeCalculation.fs" />
   </ItemGroup>

@@ -182,45 +182,54 @@ module TimeCalculation =
         open Quarter
         open Year
         open Halfyear
-        let getTimeFilter (reportIntervall : ReportIntervall) aggregation year =
-            match reportIntervall with
-            | Quarterly ->
-                { StartDate =
-                      match aggregation with
-                      | Accumulated -> startquarterStr year
-                      | Explicit -> startquarterStrExp year
-                  StartDateLeavingPlants = startquarterStrLeavingPlants year
-                  EndDate = endquarterStr year
-                  EndDateLeavingPlants = endquarterStrLeavingPlants year
-                  EndDateMinusOneDay = Some(endyearStr year)
-                  StartVuPeriode =
-                      match aggregation with
-                      | Accumulated -> startquarter year
-                      | Explicit -> startquarterExp year
-                  EndVuPeriode = endquarter year
-                  EndVuPeriodeLast = Some(endyear year)
-                  EndVuPeriodeQuotes = endquarterQuotes }
-            | Halfyearly ->
-                { StartDate = starthalfyearStr
-                  EndDate = endhalfyearStr
-                  StartDateLeavingPlants = "None"
-                  EndDateMinusOneDay = None
-                  EndDateLeavingPlants = "None"
-                  StartVuPeriode = starthalfyear
-                  EndVuPeriode = endhalfyear
-                  EndVuPeriodeLast = Some(endyear year)
-                  EndVuPeriodeQuotes = endhalfyearQuotes }
-            | Yearly ->
-                { StartDate = startyearstring year
-                  EndDate = endyearstring year
-                  StartDateLeavingPlants = "None"
-                  EndDateMinusOneDay = None
-                  EndDateLeavingPlants = "None"
-                  StartVuPeriode = startyear year
-                  EndVuPeriode = endyear year
-                  EndVuPeriodeLast = None
-                  EndVuPeriodeQuotes = endyearQuotes year }
-            | _ -> failwith "Unmatched ReportIntervall"
+        open FileWriter
+        let getTimeFilter (reportIntervall : ReportIntervall) aggregation year (fileWriterInfo:FileWriterInfo)=
+            try
+                match reportIntervall with
+                | Quarterly ->
+                    { StartDate =
+                          match aggregation with
+                          | Accumulated -> startquarterStr year
+                          | Explicit -> startquarterStrExp year
+                      StartDateLeavingPlants = startquarterStrLeavingPlants year
+                      EndDate = endquarterStr year
+                      EndDateLeavingPlants = endquarterStrLeavingPlants year
+                      EndDateMinusOneDay = Some(endyearStr year)
+                      StartVuPeriode =
+                          match aggregation with
+                          | Accumulated -> startquarter year
+                          | Explicit -> startquarterExp year
+                      EndVuPeriode = endquarter year
+                      EndVuPeriodeLast = Some(endyear year)
+                      EndVuPeriodeQuotes = endquarterQuotes }
+                | Halfyearly ->
+                    { StartDate = starthalfyearStr
+                      EndDate = endhalfyearStr
+                      StartDateLeavingPlants = "None"
+                      EndDateMinusOneDay = None
+                      EndDateLeavingPlants = "None"
+                      StartVuPeriode = starthalfyear
+                      EndVuPeriode = endhalfyear
+                      EndVuPeriodeLast = Some(endyear year)
+                      EndVuPeriodeQuotes = endhalfyearQuotes }
+                | Yearly ->
+                    { StartDate = startyearstring year
+                      EndDate = endyearstring year
+                      StartDateLeavingPlants = "None"
+                      EndDateMinusOneDay = None
+                      EndDateLeavingPlants = "None"
+                      StartVuPeriode = startyear year
+                      EndVuPeriode = endyear year
+                      EndVuPeriodeLast = None
+                      EndVuPeriodeQuotes = endyearQuotes year }
+                | _ ->
+                    printfn "Unmatched ReportIntervall"
+                    failwith "Unmatched ReportIntervall"
+            with
+            | exn ->
+                let msg = sprintf  "Couldn't get timeFilter %s" exn.Message
+                logError exn fileWriterInfo msg
+                failwith msg
 
         let thisYear = DateTime.Now.Year
         let parseAzureDateTimeFromVuPeriode (vuPeriode : string) =
