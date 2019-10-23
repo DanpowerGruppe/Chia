@@ -9,7 +9,7 @@ steps:
   inputs:
     version: 3.0.100
 - checkout: self
-  persistCredentials: true    
+  persistCredentials: true
 - script: |
     git config user.email "tim.forkmann@danpower.de"
     git config user.name "tforkmann"
@@ -17,4 +17,4 @@ steps:
   displayName: 'Run FAKE script'
   inputs:
     FakeVersion: 5.16.0
-    ScriptArguments: '-t Push'
+    ScriptArguments: '-t Build'
