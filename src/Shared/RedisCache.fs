@@ -79,3 +79,11 @@ module RedisHelpers =
                 let! data = saveCacheAndReturnData (data,redisCacheData)
                 return data
         }
+
+    /// removes a key, returns success
+    let removeCachedValue (cache : RedisCache) =
+        task {
+            let redisKey : RedisKey = !> cache.Key
+            let wasRemoved = cache.Cache.KeyDelete(redisKey)
+            return wasRemoved
+        }
