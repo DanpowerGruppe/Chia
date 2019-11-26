@@ -1,3 +1,5 @@
+### 0.1.90 - 26.11.2019
+Actually executing Azure logging
 ### 0.1.89 - 26.11.2019
 Add TelemetryClient to FileWriter
 ### 0.1.88 - 26.11.2019

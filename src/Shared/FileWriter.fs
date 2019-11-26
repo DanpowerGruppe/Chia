@@ -172,14 +172,13 @@ module FileWriter =
                deleteOldLogFiles logFile)
 
     let logOk fileWriterInfo =
-        if fileWriterInfo.DevOption = Local then writeLog (Ok()) fileWriterInfo
-        else printfn "Running On Azure %s"
+        writeLog (Ok()) fileWriterInfo
 
     let logError exn fileWriterInfo =
         if fileWriterInfo.DevOption = Local then
             moveOldLogFiles fileWriterInfo
             writeLog (Error exn) fileWriterInfo
-        else printfn "Running On Azure %s"
+        else writeLog (Error exn) fileWriterInfo
 
     let logWithTiming fnName fileWriterInfo fn =
         let sw = Diagnostics.Stopwatch.StartNew()
