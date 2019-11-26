@@ -231,3 +231,4 @@ module ApplicationInsights =
         let quickPulse = new QuickPulseTelemetryModule()
         quickPulse.Initialize config
         quickPulse.RegisterTelemetryProcessor processor
+        client
