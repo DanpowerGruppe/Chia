@@ -1,3 +1,5 @@
+### 0.1.89 - 26.11.2019
+Add TelemetryClient to FileWriter
 ### 0.1.88 - 26.11.2019
 Return Client
 ### 0.1.87 - 26.11.2019

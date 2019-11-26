@@ -11,7 +11,22 @@ open Domain
 open Logging
 open Config
 
+module ApplicationInsights =
+    let startAIAndGetClient key =
+        let config = new TelemetryConfiguration(InstrumentationKey = key)
+        let client = TelemetryClient(config)
+        client.InstrumentationKey <- key
+        let mutable processor : QuickPulseTelemetryProcessor = null
+        config.TelemetryProcessorChainBuilder.Use(fun next ->
+              processor <- QuickPulseTelemetryProcessor next
+              processor :> _).Build()
+        let quickPulse = new QuickPulseTelemetryModule()
+        quickPulse.Initialize config
+        quickPulse.RegisterTelemetryProcessor processor
+        client
+
 module FileWriter =
+    open ApplicationInsights
     type ProjectName =
     | ProjectName of string
         member this.Value = (fun (ProjectName name) -> name) this
@@ -19,17 +34,25 @@ module FileWriter =
     type FileWriterInfo =
         { MasterStatus : Config.DevStatus
           ProjectName : ProjectName
-          DevOption : Logging.DevOption }
+          DevOption : Logging.DevOption
+          Client :  TelemetryClient option}
     // constructor
-    let initFileWriter masterStatus projectName devOption =
-        { MasterStatus = masterStatus
-          ProjectName = ProjectName projectName
-          DevOption = devOption }
+    let initFileWriter masterStatus projectName devOption aiKey =
+        match devOption with
+        | Local ->
+            { MasterStatus = masterStatus
+              ProjectName = ProjectName projectName
+              DevOption = devOption
+              Client = None }
+        | Azure ->
+            { MasterStatus = masterStatus
+              ProjectName = ProjectName projectName
+              DevOption = devOption
+              Client = startAIAndGetClient aiKey |> Some }
 
     let masterStatus info = info.MasterStatus
     let projectName info = info.ProjectName
-    let config = TelemetryConfiguration.CreateDefault()
-    let client = TelemetryClient(config)
+
 
     ///Get the relative log path for a code structure like this: src/Project/***.fsproj
     let getLogPath fileWriterInfo =
@@ -83,11 +106,10 @@ module FileWriter =
                  | Error er -> er.ToString())
 
     let writeLog (status : Result<_, exn>) fileWriterInfo (logTxt : string) =
+        let devOption = fileWriterInfo.DevOption
+        let client = fileWriterInfo.Client
         let date = DateTime.Now
         let file = miniLogFile (date, fileWriterInfo)
-        match status with
-        | Error exn -> client.TrackException exn
-        | Ok _ -> client.TrackEvent logTxt
         let logTxt =
             sprintf "%O: %s - %s" DateTime.Now (match status with
                                                 | Ok _ -> "Ok"
@@ -95,19 +117,30 @@ module FileWriter =
                 (match status with
                  | Ok _ -> logTxt
                  | Error er -> er.ToString())
-        printfn "Msg %s" logTxt
-        let status =
-            match status with
-            | Error _ -> "Error"
-            | Ok _ -> "Ok"
-        try
-            File.AppendAllText
-                (file,
-                 date.Date.ToString() + ";" + status + ";" + logTxt
-                 + Environment.NewLine)
-        with exn ->
-            printfn "Couldn't write LogFile: %s" exn.Message
-            failwithf "Couldn't write LogFile: %s" exn.Message
+        match devOption with
+        | Azure ->
+            match client with
+            | Some x ->
+                match status with
+                | Error exn -> x.TrackException exn
+                | Ok _ -> x.TrackEvent logTxt
+            | None ->
+                printfn "Missing Client"
+                failwithf "Missing Client"
+        | Local ->
+            printfn "Msg %s" logTxt
+            let status =
+                match status with
+                | Error _ -> "Error"
+                | Ok _ -> "Ok"
+            try
+                File.AppendAllText
+                    (file,
+                     date.Date.ToString() + ";" + status + ";" + logTxt
+                     + Environment.NewLine)
+            with exn ->
+                printfn "Couldn't write LogFile: %s" exn.Message
+                failwithf "Couldn't write LogFile: %s" exn.Message
 
     let moveOldLogFiles fileWriterInfo =
         let destinationDirectory =
@@ -219,16 +252,3 @@ module FileWriter =
         else printlog query duration func par length
         printfn "Finished log file: %s" name
 
-module ApplicationInsights =
-    open FileWriter
-    let startAIAndGetClient key =
-        let config = new TelemetryConfiguration(InstrumentationKey = key)
-        client.InstrumentationKey <- key
-        let mutable processor : QuickPulseTelemetryProcessor = null
-        config.TelemetryProcessorChainBuilder.Use(fun next ->
-              processor <- QuickPulseTelemetryProcessor next
-              processor :> _).Build()
-        let quickPulse = new QuickPulseTelemetryModule()
-        quickPulse.Initialize config
-        quickPulse.RegisterTelemetryProcessor processor
-        client
