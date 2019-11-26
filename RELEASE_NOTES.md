@@ -1,3 +1,5 @@
+### 0.1.87 - 26.11.2019
+Fix Application Insights
 ### 0.1.86 - 25.11.2019
 Update Packages
 ### 0.1.85 - 23.10.2019

@@ -220,9 +220,10 @@ module FileWriter =
         printfn "Finished log file: %s" name
 
 module ApplicationInsights =
-    let startAI key =
-        let config = TelemetryConfiguration.CreateDefault()
-        config.InstrumentationKey <- key
+    open FileWriter
+    let startAIAndGetClient key =
+        let config = new TelemetryConfiguration(InstrumentationKey = key)
+        client.InstrumentationKey <- key
         let mutable processor : QuickPulseTelemetryProcessor = null
         config.TelemetryProcessorChainBuilder.Use(fun next ->
               processor <- QuickPulseTelemetryProcessor next
