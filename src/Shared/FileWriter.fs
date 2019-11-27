@@ -119,6 +119,7 @@ module FileWriter =
                  | Error er -> er.ToString())
         match devOption with
         | Azure ->
+            printfn "Msg to Azure %s" logTxt
             match client with
             | Some x ->
                 match status with
