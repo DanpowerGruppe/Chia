@@ -5,11 +5,13 @@ open System.IO
 open Microsoft.ApplicationInsights
 open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
 open Microsoft.ApplicationInsights.Extensibility
+open Microsoft.ApplicationInsights.DataContracts
 open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
 open Domain
 open Logging
 open Config
+open System.Collections.Generic
 
 module ApplicationInsights =
     let startAIAndGetClient key =
@@ -24,6 +26,7 @@ module ApplicationInsights =
         quickPulse.Initialize config
         quickPulse.RegisterTelemetryProcessor processor
         client
+
 
 module FileWriter =
     open ApplicationInsights
@@ -252,3 +255,125 @@ module FileWriter =
         else printlog query duration func par length
         printfn "Finished log file: %s" name
 
+module AppInsightsTracing =
+    open FileWriter
+    type Source =
+        | LocalService
+        | LocalServer
+        | AzureFunction
+        | PiServer
+        | Client
+        | SPSCommunication
+        member this.GetValue =
+            match this with
+            | LocalService -> "LocalService"
+            | LocalServer -> "LocalServer"
+            | PiServer -> "PiServer"
+            | Client -> "Client"
+            | AzureFunction -> "AzureFunction"
+            | SPSCommunication -> "SPSCommunication"
+
+    type Operation =
+        | Upload
+        | Download
+        | Insert
+        | Query
+        | Create
+        | Delete
+        | Calculation
+        member this.GetValue =
+            match this with
+            | Upload -> "Upload"
+            | Download -> "Download"
+            | Insert -> "Insert"
+            | Query -> "Query"
+            | Create -> "Create"
+            | Delete -> "Delete"
+            | Calculation -> "Calculation"
+
+    type Destination =
+        | AzureTable
+        | QueueTable
+        | BlobTable
+        | SqlTable
+        member this.GetValue =
+            match this with
+            | AzureTable -> "AzureTable"
+            | QueueTable -> "QueueTable"
+            | BlobTable -> "BlobTable"
+            | SqlTable -> "SqlTable"
+
+    type Process =
+        | Finished
+        | Incomplete
+        | Starting
+        member this.GetValue =
+            match this with
+            | Finished -> "Finished"
+            | Incomplete -> "Incomplete"
+            | Starting -> "Starting"
+
+    type LogMsg =
+        { Source: Source
+          Operation: Operation
+          Destination: Destination
+          Process: Process }
+
+    type Trace =
+        { Msg: string
+          Severity: SeverityLevel
+          Dict: IDictionary<string, string> }
+
+    let getClient (fileWriterInfo:FileWriterInfo) =
+        match fileWriterInfo.Client with
+        | Some x -> x
+        | None ->
+            printfn "No Client"
+            failwithf "No Client"
+
+    let trackTrace fileWriterInfo severity source processMsg operation destination =
+        let client = getClient fileWriterInfo
+        let logMsg =
+            { Source = source
+              Operation = operation
+              Destination = destination
+              Process = processMsg }
+        printfn "SeverityLevel: %A %s %s %s %s" severity logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
+        let traceTelemetry = TraceTelemetry()
+        traceTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
+        traceTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
+        traceTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
+        traceTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
+        traceTelemetry.SeverityLevel <- severity |> System.Nullable
+        client.TrackTrace traceTelemetry
+    let trackMetric fileWriterInfo source processMsg operation destination =
+        let client = getClient fileWriterInfo
+        let logMsg =
+            { Source = source
+              Operation = operation
+              Destination = destination
+              Process = processMsg }
+        printfn "%s %s %s %s" logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
+        let metricTelemetry = MetricTelemetry(Name = source.GetValue)
+        metricTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
+        metricTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
+        metricTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
+        metricTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
+        client.TrackMetric metricTelemetry
+
+
+    let trackError fileWriterInfo (severity:SeverityLevel) source processMsg operation destination exn =
+        let client = getClient fileWriterInfo
+        let logMsg =
+            { Source = source
+              Operation = operation
+              Destination = destination
+              Process = processMsg }
+        printfn "SeverityLevel: %A %s %s %s %s" severity logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
+        let exceptionTelemetry = ExceptionTelemetry(exn)
+        exceptionTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
+        exceptionTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
+        exceptionTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
+        exceptionTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
+        exceptionTelemetry.SeverityLevel <- severity |> System.Nullable
+        client.TrackException (exceptionTelemetry)

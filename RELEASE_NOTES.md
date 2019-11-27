@@ -1,3 +1,5 @@
+### 0.1.92 - 27.11.2019
+Add AppInsightsTracer
 ### 0.1.91 - 27.11.2019
 Add back massages
 ### 0.1.90 - 26.11.2019
