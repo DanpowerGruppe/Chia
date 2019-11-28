@@ -7,6 +7,7 @@ namespace Chia
           type DevOption =
             | Local
             | Azure
+            | LocalAndAzure
         module Config =
 
             type DevStatus =

@@ -1,3 +1,5 @@
+### 0.1.93 - 27.11.2019
+Add Tracer to Logger
 ### 0.1.92 - 27.11.2019
 Add AppInsightsTracer
 ### 0.1.91 - 27.11.2019

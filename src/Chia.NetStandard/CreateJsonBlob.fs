@@ -7,6 +7,7 @@ namespace Chia
         open FileWriter
         open Microsoft.WindowsAzure.Storage.Blob
         open System
+        open Logger
         type JsonBlobInfo = {
                 Date : DateTime
                 DataName : string
@@ -17,7 +18,7 @@ namespace Chia
         module Local =
             let saveDataToJsonFile (data:'a,jsonInfo:JsonBlobInfo) = task {
                 try
-                    logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
+                    LogInfo.LocalService.Incomplete.Upload.BlobTable jsonInfo.FileWriterInfo
                     let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
                     let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
                     let path = sourceDirectoryRoot + (sprintf "%s_%s.json" dateStr jsonInfo.DataName)
@@ -30,30 +31,30 @@ namespace Chia
                         | exn ->
                             printfn "Error %s" exn.Message
                             let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                            logError exn jsonInfo.FileWriterInfo msg
+                            LogCritical.LocalService.Incomplete.Calculation.LocalStorage exn jsonInfo.FileWriterInfo
                             failwith msg
-                    logOk jsonInfo.FileWriterInfo "Got json"
+                    LogInfo.LocalService.Finished.Calculation.LocalStorage jsonInfo.FileWriterInfo
                     File.WriteAllText(path,json) |> ignore
-                    logOk jsonInfo.FileWriterInfo "Finished Json Cache"
+                    LogInfo.LocalService.Finished.Create.BlobTable jsonInfo.FileWriterInfo
                 with
                 | exn ->
                     let msg = sprintf "Error Msg: Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                    logError exn jsonInfo.FileWriterInfo msg
+                    LogCritical.LocalService.Incomplete.Insert.LocalStorage exn jsonInfo.FileWriterInfo
                     failwith msg
             }
             let readJsonFile (blobId,fileWriterInfo) = task {
-                logOk fileWriterInfo (sprintf "Read Json Data %s" blobId)
+                LogInfo.LocalService.Starting.Create.LocalStorage fileWriterInfo
                 let sourceDirectoryRoot = Path.GetFullPath(cachePath fileWriterInfo)
                 let path = sourceDirectoryRoot + (sprintf "%s.json" blobId )
                 let txt = File.ReadAllText(path)
-                logOk fileWriterInfo "Got txt"
+                LogInfo.LocalService.Finished.Download.LocalStorage fileWriterInfo
                 let data =
                     try
                         Newtonsoft.Json.JsonConvert.DeserializeObject<'a> txt
                     with
                     | exn ->
                         let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                        logError exn fileWriterInfo msg
+                        LogCritical.LocalService.Incomplete.Calculation.LocalStorage exn fileWriterInfo
                         failwith msg
                 return data
 
@@ -61,7 +62,7 @@ namespace Chia
         module Azure =
             ///Function to save Json Blobs
             let saveDataToJsonBlob (data,jsonInfo:JsonBlobInfo) (container:CloudBlobContainer) = task {
-                logOk jsonInfo.FileWriterInfo "Export Data as Json blob"
+                LogInfo.AzureFunction.Starting.Upload.BlobTable jsonInfo.FileWriterInfo
                 let dateStr = jsonInfo.Date.ToString("yyyyMMdd")
                 let blobId = dateStr + "_" + jsonInfo.DataName
                 let blobBlock = container.GetBlockBlobReference(blobId)
@@ -74,7 +75,7 @@ namespace Chia
                     with
                     | exn ->
                         let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                        logError exn jsonInfo.FileWriterInfo msg
+                        LogCritical.AzureFunction.Incomplete.Calculation.BlobTable exn jsonInfo.FileWriterInfo
                         failwith msg
                 let writer = new StreamWriter(ms)
                 writer.Write(json)
@@ -82,11 +83,11 @@ namespace Chia
                 ms.Position <- int64 0
                 printfn "Memory Stream Length %i" ms.Length
                 do! blobBlock.UploadFromStreamAsync(ms)
-                logOk jsonInfo.FileWriterInfo "Finished Json Cache"
+                LogInfo.AzureFunction.Finished.Create.BlobTable jsonInfo.FileWriterInfo
             }
 
             let getDataFromJsonBlob (mapper: string -> 'a) (jsonBlobInfo:JsonBlobInfo) = task {
-                logOk jsonBlobInfo.FileWriterInfo "Start Download Json blob"
+                LogInfo.AzureFunction.Starting.Download.BlobTable jsonBlobInfo.FileWriterInfo
                 let dateStr = jsonBlobInfo.Date.ToString("yyyyMMdd")
                 let blobId = dateStr + "_" + jsonBlobInfo.DataName
                 let blockBlob = jsonBlobInfo.Container.Value.GetBlockBlobReference(blobId)

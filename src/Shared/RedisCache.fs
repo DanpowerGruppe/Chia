@@ -3,6 +3,7 @@ namespace Chia
 open StackExchange.Redis
 open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
+open Logger
 module RedisCache =
     type RedisCache =
         | RedisCache of string
@@ -45,7 +46,7 @@ module RedisHelpers =
                 with exn ->
                     printfn "Error %s" exn.Message
                     let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                    logError exn cacheData.FileWriterInfo msg
+                    LogCritical.LocalService.Incomplete.Calculation.AzureTable exn cacheData.FileWriterInfo
                     failwith msg
             cacheData.Cache.StringSet(redisKey, redisValue) |> ignore
         }

@@ -4,7 +4,7 @@ open Microsoft.WindowsAzure.Storage
 open FSharp.Control.Tasks.ContextInsensitive
 open Microsoft.WindowsAzure.Storage.Queue
 open FileWriter
-
+open Logger
     module PostToQueue =
 
         type AzureConnection =
@@ -20,21 +20,23 @@ open FileWriter
                             connection.CreateCloudQueueClient()
                         with exn ->
                             let msg =  sprintf "Could not create CloudQueueClient. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                            logError exn info msg
+                            // logError exn info msg
+                            LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info //Add personal msg?
+
                             failwith msg
                     let queue =
                         try
                             queueClient.GetQueueReference queueName
                         with exn ->
                             let msg =  sprintf "Could not get Queue Reference. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                            logError exn info msg
+                            LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info
                             failwith msg
                     let! _q =
                         try
                             queue.CreateAsync()
                         with exn ->
                             let msg =  sprintf "Could not createIfNotExistisAsync Queue. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                            logError exn info msg
+                            LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info
                             failwith msg
                     return queue
                 }
@@ -43,7 +45,7 @@ open FileWriter
             with
             |exn ->
                 let msg =  sprintf "Could not get Queue. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                logError exn info msg
+                LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info
                 failwith msg
         let postToQueue (queue:CloudQueue) msg = task {
             let message = CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject msg)

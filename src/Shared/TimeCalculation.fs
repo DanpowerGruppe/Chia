@@ -182,8 +182,8 @@ module TimeCalculation =
         open Quarter
         open Year
         open Halfyear
-        open FileWriter
-        let getTimeFilter (reportIntervall : ReportIntervall) aggregation year (fileWriterInfo:FileWriterInfo)=
+        open Logger
+        let getTimeFilter (reportIntervall : ReportIntervall) aggregation year fileWriterInfo =
             try
                 match reportIntervall with
                 | Quarterly ->
@@ -228,7 +228,9 @@ module TimeCalculation =
             with
             | exn ->
                 let msg = sprintf  "Couldn't get timeFilter %s" exn.Message
-                logError exn fileWriterInfo msg
+                LogCritical.LocalService.Incomplete.Create.LocalStorage exn fileWriterInfo
+
+                // logError exn fileWriterInfo msg
                 failwith msg
 
         let thisYear = DateTime.Now.Year

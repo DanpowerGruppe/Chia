@@ -6,7 +6,7 @@ open System.Threading.Tasks
 open FileWriter
 open System
 open FSharp.Control.Tasks.ContextInsensitive
-
+open Logger
 module CreateTable =
     type AzureConnection =
         | AzureConnection of string
@@ -20,7 +20,7 @@ module CreateTable =
         task {
             let client = connection.CreateCloudTableClient()
             let table = client.GetTableReference tableName
-            logOk info (sprintf "Got TableReference to Delete %A" table)
+            LogInfo.AzureFunction.Finished.Delete.AzureTable info
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec deleteTableSafe() = async {
                     try
@@ -45,10 +45,9 @@ module CreateTable =
                 with exn ->
                     let msg =
                         sprintf "Could not get TableReference %s" exn.Message
-                    logError exn info msg
+                    LogCritical.AzureFunction.Incomplete.Create.AzureTable exn info //Add personal msg?
                     failwith msg
-            logOk info (sprintf "Got tableReference %A" table)
-            // writeLog (sprintf "Got tableReference %A" table) Ok
+            LogInfo.AzureFunction.Finished.Create.AzureTable info //Not Only Azure Functions
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
                 async {
