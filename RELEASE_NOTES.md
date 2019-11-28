@@ -1,3 +1,5 @@
+### 0.1.95 - 28.11.2019
+Optimize Naming
 ### 0.1.94 - 28.11.2019
 Move Logger into Chia NameSpace
 ### 0.1.93 - 27.11.2019

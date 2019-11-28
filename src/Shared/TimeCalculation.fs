@@ -228,7 +228,7 @@ module TimeCalculation =
             with
             | exn ->
                 let msg = sprintf  "Couldn't get timeFilter %s" exn.Message
-                LogCritical.LocalService.Incomplete.Create.LocalStorage exn fileWriterInfo
+                LogCritical.LocalService.Create.LocalStorage exn fileWriterInfo
 
                 // logError exn fileWriterInfo msg
                 failwith msg

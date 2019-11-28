@@ -21,7 +21,7 @@ open Logger
                         with exn ->
                             let msg =  sprintf "Could not create CloudQueueClient. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
                             // logError exn info msg
-                            LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info //Add personal msg?
+                            LogCritical.AzureFunction.Create.QueueTable exn info //Add personal msg?
 
                             failwith msg
                     let queue =
@@ -29,14 +29,14 @@ open Logger
                             queueClient.GetQueueReference queueName
                         with exn ->
                             let msg =  sprintf "Could not get Queue Reference. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                            LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info
+                            LogCritical.AzureFunction.Create.QueueTable exn info
                             failwith msg
                     let! _q =
                         try
                             queue.CreateAsync()
                         with exn ->
                             let msg =  sprintf "Could not createIfNotExistisAsync Queue. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                            LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info
+                            LogCritical.AzureFunction.Create.QueueTable exn info
                             failwith msg
                     return queue
                 }
@@ -45,7 +45,7 @@ open Logger
             with
             |exn ->
                 let msg =  sprintf "Could not get Queue. Message: %s. InnerMessage: %s" exn.Message exn.InnerException.Message
-                LogCritical.AzureFunction.Incomplete.Create.QueueTable exn info
+                LogCritical.AzureFunction.Create.QueueTable exn info
                 failwith msg
         let postToQueue (queue:CloudQueue) msg = task {
             let message = CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject msg)

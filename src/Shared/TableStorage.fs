@@ -23,7 +23,7 @@ module TableStorage =
                 table.ExecuteBatchAsync(batchOperation) |> ignore
             with exn ->
                 let msg = sprintf "Couldn't Add Entity Message: %s" exn.Message
-                LogCritical.LocalService.Incomplete.Insert.AzureTable exn info
+                LogCritical.LocalService.Insert.AzureTable exn info
                 failwith msg
 
             ()

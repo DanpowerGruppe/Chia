@@ -20,7 +20,7 @@ module CreateTable =
         task {
             let client = connection.CreateCloudTableClient()
             let table = client.GetTableReference tableName
-            LogInfo.AzureFunction.Finished.Delete.AzureTable info
+            LogFinished.AzureFunction.Delete.AzureTable info
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec deleteTableSafe() = async {
                     try
@@ -45,9 +45,9 @@ module CreateTable =
                 with exn ->
                     let msg =
                         sprintf "Could not get TableReference %s" exn.Message
-                    LogCritical.AzureFunction.Incomplete.Create.AzureTable exn info //Add personal msg?
+                    LogCritical.AzureFunction.Create.AzureTable exn info //Add personal msg?
                     failwith msg
-            LogInfo.AzureFunction.Finished.Create.AzureTable info //Not Only Azure Functions
+            LogFinished.AzureFunction.Create.AzureTable info //Not Only Azure Functions
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
                 async {

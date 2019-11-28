@@ -46,7 +46,7 @@ module RedisHelpers =
                 with exn ->
                     printfn "Error %s" exn.Message
                     let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                    LogCritical.LocalService.Incomplete.Calculation.AzureTable exn cacheData.FileWriterInfo
+                    LogCritical.LocalService.Calculation.AzureTable exn cacheData.FileWriterInfo
                     failwith msg
             cacheData.Cache.StringSet(redisKey, redisValue) |> ignore
         }
