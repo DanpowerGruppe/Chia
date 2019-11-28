@@ -1,3 +1,5 @@
+### 0.1.93 - 28.11.2019
+Move Logger into Chia NameSpace
 ### 0.1.93 - 27.11.2019
 Add Tracer to Logger
 ### 0.1.92 - 27.11.2019
