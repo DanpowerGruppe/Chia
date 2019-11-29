@@ -5,6 +5,7 @@ open Chia
 module TimeCalculation =
     open Domain.Time
     open System
+    open FileWriter
 
     module Month =
         let startmonthCustom =
@@ -182,7 +183,6 @@ module TimeCalculation =
         open Quarter
         open Year
         open Halfyear
-        open Logger
         let getTimeFilter (reportIntervall : ReportIntervall) aggregation year fileWriterInfo =
             try
                 match reportIntervall with
@@ -228,7 +228,7 @@ module TimeCalculation =
             with
             | exn ->
                 let msg = sprintf  "Couldn't get timeFilter %s" exn.Message
-                LogCritical.LocalService.Create.LocalStorage exn fileWriterInfo
+                Log.logCritical(msg,LocalService,Create,LocalStorage,exn,fileWriterInfo)
 
                 // logError exn fileWriterInfo msg
                 failwith msg

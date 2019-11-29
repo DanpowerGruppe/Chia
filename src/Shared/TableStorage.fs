@@ -4,8 +4,7 @@ module TableStorage =
 
     open Microsoft.WindowsAzure.Storage.Table
     open FSharp.Control.Tasks.ContextInsensitive
-    open Logger
-
+    open FileWriter
     let saveDataArrayBatch mapper (table: CloudTable) info (messages: 'a []) =
         task {
             let entities = messages |> Array.map mapper
@@ -23,7 +22,7 @@ module TableStorage =
                 table.ExecuteBatchAsync(batchOperation) |> ignore
             with exn ->
                 let msg = sprintf "Couldn't Add Entity Message: %s" exn.Message
-                LogCritical.LocalService.Insert.AzureTable exn info
+                Log.logCritical(msg,LocalService,Insert,AzureTable,exn,info)
                 failwith msg
 
             ()

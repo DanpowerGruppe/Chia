@@ -65,6 +65,7 @@ module FileWriter =
         | LocalService
         | LocalServer
         | AzureFunction
+        | AzureInfrastucture
         | PiServer
         | Client
         | SPSCommunication
@@ -75,6 +76,7 @@ module FileWriter =
             | PiServer -> "PiServer"
             | Client -> "Client"
             | AzureFunction -> "AzureFunction"
+            | AzureInfrastucture -> "AzureInfrastucture"
             | SPSCommunication -> "SPSCommunication"
 
     type Operation =
@@ -125,7 +127,8 @@ module FileWriter =
           Destination: Destination
           Process: Process
           SeverityLevel: SeverityLevel
-          TimeSpan: TimeSpan }
+          TimeSpan: TimeSpan
+          Message : string }
 
 
     type Trace =
@@ -179,33 +182,26 @@ module FileWriter =
         | None ->
             printfn "No Client"
             failwithf "No Client"
-
-    let trackTrace fileWriterInfo severity source processMsg operation destination timeSpan =
+    let printMsg logMsg =
+        printfn "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
+    let trackTrace fileWriterInfo logMsg =
         let client = getClient fileWriterInfo
-
-        let logMsg =
-            { Source = source
-              Operation = operation
-              Destination = destination
-              Process = processMsg
-              SeverityLevel = severity
-              TimeSpan = timeSpan }
-        printfn "SeverityLevel: %A %s %s %s %s" severity logMsg.Source.GetValue logMsg.Process.GetValue
-            logMsg.Operation.GetValue logMsg.Destination.GetValue
+        printMsg logMsg
         let traceTelemetry = TraceTelemetry()
         traceTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
         traceTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
         traceTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
         traceTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
         traceTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
-        traceTelemetry.SeverityLevel <- severity |> Nullable
+        traceTelemetry.SeverityLevel <- logMsg.SeverityLevel |> Nullable
+        traceTelemetry.Message <- logMsg.Message
         client.TrackTrace traceTelemetry
 
     let trackMetric fileWriterInfo logMsg =
         let client = getClient fileWriterInfo
-        printfn "%s %s %s %s" logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue
-            logMsg.Destination.GetValue
+        printMsg logMsg
         let metricTelemetry = MetricTelemetry(Name = logMsg.Source.GetValue)
+        metricTelemetry.Properties.Add("Message", logMsg.Message)
         metricTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
         metricTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
         metricTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
@@ -215,8 +211,7 @@ module FileWriter =
 
     let trackError fileWriterInfo logMsg exn =
         let client = getClient fileWriterInfo
-        printfn "SeverityLevel: %A %s %s %s %s" logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue
-            logMsg.Operation.GetValue logMsg.Destination.GetValue
+        printMsg logMsg
         let exceptionTelemetry = ExceptionTelemetry(exn)
         exceptionTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
         exceptionTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
@@ -224,13 +219,13 @@ module FileWriter =
         exceptionTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
         exceptionTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
         exceptionTelemetry.SeverityLevel <- logMsg.SeverityLevel |> Nullable
+        exceptionTelemetry.Message <- logMsg.Message
         client.TrackException(exceptionTelemetry)
 
     let getLogTxt status logMsg =
 
         let msg =
-            sprintf "SeverityLevel: %A %s %s %s %s" logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue
-                logMsg.Operation.GetValue logMsg.Destination.GetValue
+            sprintf "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
         sprintf "%O: %s - %s - %O" DateTime.Now
             (match status with
              | Ok _ -> "Ok"
@@ -239,7 +234,7 @@ module FileWriter =
              | Ok _ -> msg
              | Error er -> er.ToString()) logMsg.TimeSpan
 
-    let writeLog (status: Result<_, exn>) severity source processMsg operation destination timeSpan fileWriterInfo =
+    let writeLog (status: Result<_, exn>) message severity source processMsg operation destination timeSpan fileWriterInfo =
         let devOption = fileWriterInfo.DevOption
 
         let logMsg =
@@ -248,7 +243,8 @@ module FileWriter =
               Destination = destination
               Process = processMsg
               SeverityLevel = severity
-              TimeSpan = timeSpan }
+              TimeSpan = timeSpan
+              Message = message }
 
         let date = DateTime.Now
         let file = miniLogFile (date, fileWriterInfo)
@@ -307,11 +303,11 @@ module FileWriter =
     let logOk = writeLog (Ok())
     let logError exn = writeLog (Error exn)
 
-    let logWithTimingTask (fn: unit -> Task<'a>) severity source processMsg operation destination timeSpan fileWriterInfo =
+    let logWithTimingTask (fn: unit -> Task<'a>) message severity source processMsg operation destination timeSpan fileWriterInfo =
         task {
             let sw = Diagnostics.Stopwatch.StartNew()
             let! res = fn()
-            writeLog (Ok()) severity source processMsg operation destination timeSpan fileWriterInfo
+            writeLog (Ok()) message severity source processMsg operation destination timeSpan fileWriterInfo
             return res
         }
 
