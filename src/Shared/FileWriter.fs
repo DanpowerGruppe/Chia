@@ -79,7 +79,7 @@ module FileWriter =
             | AzureInfrastucture -> "AzureInfrastucture"
             | SPSCommunication -> "SPSCommunication"
 
-    type Operation =
+    type Operation = //Post//Get
         | Upload
         | Download
         | Insert
@@ -87,6 +87,8 @@ module FileWriter =
         | Create
         | Delete
         | Calculation
+        | Post
+        | Get
         member this.GetValue =
             match this with
             | Upload -> "Upload"
@@ -96,6 +98,8 @@ module FileWriter =
             | Create -> "Create"
             | Delete -> "Delete"
             | Calculation -> "Calculation"
+            | Post -> "Post"
+            | Get -> "Get"
 
     type Destination =
         | AzureTable
