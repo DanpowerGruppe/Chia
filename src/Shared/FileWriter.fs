@@ -194,7 +194,7 @@ module FileWriter =
         let traceTelemetry = TraceTelemetry()
         traceTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
         traceTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
-        traceTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
+        // traceTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
         traceTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
         traceTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
         traceTelemetry.SeverityLevel <- logMsg.SeverityLevel |> Nullable
@@ -208,7 +208,7 @@ module FileWriter =
         metricTelemetry.Properties.Add("Message", logMsg.Message)
         metricTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
         metricTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
-        metricTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
+        // metricTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
         metricTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
         metricTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
         client.TrackMetric metricTelemetry
@@ -219,7 +219,7 @@ module FileWriter =
         let exceptionTelemetry = ExceptionTelemetry(exn)
         exceptionTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
         exceptionTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
-        exceptionTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
+        // exceptionTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
         exceptionTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
         exceptionTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
         exceptionTelemetry.SeverityLevel <- logMsg.SeverityLevel |> Nullable
