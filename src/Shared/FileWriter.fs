@@ -270,6 +270,7 @@ module FileWriter =
                 printfn "Couldn't write LogFile: %s" exn.Message
                 failwithf "Couldn't write LogFile: %s" exn.Message
         | LocalAndAzure ->
+            printfn "Msg %s" logTxt
             match status with
             | Error exn -> trackError fileWriterInfo logMsg exn
             | Ok _ -> trackMetric fileWriterInfo logMsg
