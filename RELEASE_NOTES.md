@@ -1,3 +1,37 @@
+### 0.2.0 - 29.11.2019
+Get rid of TimeSpan for now
+### 0.1.99 - 29.11.2019
+Add Msg
+### 0.1.98 - 29.11.2019
+Get Rid of FileWriter in Fable Client
+### 0.1.97 - 29.11.2019
+Add Post and Get
+### 0.1.96 - 29.11.2019
+Optimize Log module
+### 0.1.95 - 28.11.2019
+Optimize Naming
+### 0.1.94 - 28.11.2019
+Move Logger into Chia NameSpace
+### 0.1.93 - 27.11.2019
+Add Tracer to Logger
+### 0.1.92 - 27.11.2019
+Add AppInsightsTracer
+### 0.1.91 - 27.11.2019
+Add back massages
+### 0.1.90 - 26.11.2019
+Actually executing Azure logging
+### 0.1.89 - 26.11.2019
+Add TelemetryClient to FileWriter
+### 0.1.88 - 26.11.2019
+Return Client
+### 0.1.87 - 26.11.2019
+Fix Application Insights
+### 0.1.86 - 25.11.2019
+Update Packages
+### 0.1.85 - 23.10.2019
+try again
+### 0.1.84 - 23.10.2019
+add remove key methode and optimize azure devops
 ### 0.1.83 - 16.10.2019
 CleanUp
 ### 0.1.82 - 14.10.2019
