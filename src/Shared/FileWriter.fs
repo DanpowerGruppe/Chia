@@ -265,6 +265,8 @@ module FileWriter =
                 | Error _ -> "Error"
                 | Ok _ -> "Ok"
             try
+                let logPath = logPath fileWriterInfo
+                if not (Directory.Exists(logPath)) then Directory.CreateDirectory(logPath) |> ignore
                 File.AppendAllText(file, date.Date.ToString() + ";" + status + ";" + logTxt + Environment.NewLine)
             with exn ->
                 printfn "Couldn't write LogFile: %s" exn.Message
@@ -279,6 +281,8 @@ module FileWriter =
                 | Error _ -> "Error"
                 | Ok _ -> "Ok"
             try
+                let logPath = logPath fileWriterInfo
+                if not (Directory.Exists(logPath)) then Directory.CreateDirectory(logPath) |> ignore
                 File.AppendAllText(file, date.Date.ToString() + ";" + status + ";" + logTxt + Environment.NewLine)
             with exn ->
                 printfn "Couldn't write LogFile: %s" exn.Message
@@ -338,7 +342,7 @@ module FileWriter =
             sprintf "Array: %A\n" array
         File.AppendAllText(path, log)
 
-    ///Printing query duration to logfile dsadsa
+    ///Printing query duration to logfile
     let printLogFile (stopWatch: Diagnostics.Stopwatch) query querynr func name par length () =
         printfn "Creating log file: %s" name
         let duration = stopWatch.Elapsed.TotalSeconds
@@ -346,7 +350,7 @@ module FileWriter =
         let projDir = Path.Combine(Environment.CurrentDirectory, @"..\..\")
         if not (Directory.Exists(projDir + "logs")) then Directory.CreateDirectory(projDir + "logs") |> ignore
         let path =
-            Path.Combine(Environment.CurrentDirectory, @"..\..\")
+            projDir
             + (sprintf "logs\\log_%s_%s.txt" name (DateTime.Now.ToString("yyyyMMdd")))
         printfn "writing to logfile %s" path
         let printlog query (duration: float) func par length =
