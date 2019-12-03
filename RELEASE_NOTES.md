@@ -1,3 +1,7 @@
+### 0.2.1 - 03.12.2019
+Add create new log directory
+### 0.2.0 - 29.11.2019
+Get rid of TimeSpan for now
 ### 0.2.0 - 29.11.2019
 Get rid of TimeSpan for now
 ### 0.1.99 - 29.11.2019
