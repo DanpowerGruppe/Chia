@@ -171,6 +171,25 @@ let filter partKey = TableQuery.GenerateFilterCondition("PartitionKey", QueryCom
 let filteredValues partKey = getValuesWithFilter (filter partKey) azureTable
 ```
 
+## PostToQueue
+
+You can use Chia to sent out a AzureQueue message like this:
+
+```fs
+open Chia.PostToQueue
+open Chia.CreateTable
+
+
+let connected =
+    let connection = AzureConnection StorageAccount.storageConnString
+    connection.Connect()
+
+[<Literal>]
+let SendMail = "sendmail-queue"
+
+let sendQueue = getQueue connected SendMail fileWriterInfo
+```
+
 ## RedisCache
 
 Helper to create or directly query a RedisCache:
@@ -200,7 +219,7 @@ Start your excel app like this:
 let excelPackage = startExcelApp ()
 ```
 
-## TableMapper
+## Example for a bigger TableMapper
 
 If you want to map your data from Azure to your specific domain types you could do it like this.
 
