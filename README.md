@@ -10,22 +10,41 @@ Chia contains HelperFunctions for reporting. Chia contains some Azure Storage fu
 
 ## FileWriter
 
-Initialize your FileWriter instant with `initFileWriter`:
+Initialize your FileWriter instant with `initFileWriter`.
+If you want to log to ApplicationInsight you have to create a new Application Insight resource in Azure and set your ApplicationInsights key.
 
 ```fs
 open Chia.Domain.Logging
 open Chia.Domain.Config
 open Chia.FileWriter
 let devStatus = Development
-let fileWriterInfo = initFileWriter devStatus "ProjectName" Local
-let fileWriterInfoAzure = initFileWriter devStatus "PIvy" Azure
+let aiKey = "<InsertYourApplicationInsightsKey" ///Get this key from your app.config or from KeyFault
+let fileWriterInfo = initFileWriter devStatus "ProjectName" Local ""
+let fileWriterInfoAzure = initFileWriter devStatus "ProjectName" Azure aiKey
+let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAndAzure aiKey
 ```
 
-You can now use an `logOk` and `logError` like this:
+## Log
+
+Once you set configured your filewriter you can now log to Application Insight or just to a local file
+
+There are three many log functions. `logStarting`, `logFinished` and `logCritical`.
+
+The log function is using categories for clustering events in ApplicationInsights. This will help you to get the most out of the ApplicationInsight dashboard and LogAnalytics.
+
+If you want to log a information that a process is starting you can use `logStarting` like this:
 
 ```fs
-logOk fileWriterInfo ("Something went ok!")
+Log.logStarting("Starting to get Data",LocalServer,Get,AzureTable,fileWriterInfo)
 ```
+
+If a process finished as expected use `logFinished`:
+
+```fs
+Log.logFinished("Finisehd receiving Data",LocalServer,Get,AzureTable,fileWriterInfo)
+```
+
+If a process crashed unexpected use can track the error message with `logCritical`:
 
 ```fs
 try
@@ -33,8 +52,45 @@ try
 with
 | exn ->
     let msg = sprintf  "Your error message: %s" exn.Message
-    logError exn fileWriterInfo msg  //or use fileWriterInfoAzure for logging to Azure
+    Log.logCritical (msg,LocalService,LocalServer,Get,AzureTable,exn,fileWriterInfo)
     failwith msg
+```
+
+The logger uses following clusters.
+
+```fs
+Log.logStarting("UsefullMessage",Source,Operation,Destination,filewriterInfo)
+```
+
+Here are the implemented descriminated unions:
+
+```fs
+type Source =
+| LocalService
+| LocalServer
+| AzureFunction
+| AzureInfrastucture
+| PiServer
+| Client
+| SPSCommunication
+
+type Operation =
+| Upload
+| Download
+| Insert
+| Query
+| Create
+| Delete
+| Calculation
+| Post
+| Get
+
+type Destination =
+| AzureTable
+| QueueTable
+| BlobTable
+| SqlTable
+| LocalStorage
 ```
 
 ## CreateTable
@@ -142,4 +198,32 @@ Start your excel app like this:
 
 ```fs
 let excelPackage = startExcelApp ()
+```
+
+## TableMapper
+
+If you want to map your data from Azure to your specific domain types you could do it like this.
+
+```fs
+open Chia.CreateTable
+
+type Address =
+    { LocationId : Ids.LocationId
+      PostalCode : string
+      StreetNr : int option
+      Additions : string option
+      Street : string option
+      Location : string option
+      Country : string option
+      FedState : string option }
+
+let mapAddress (entity : DynamicTableEntity) : Address =
+    { LocationId = LocationId (entity.PartitionKey |> int64)
+      PostalCode = entity.RowKey
+      StreetNr = getOptionalIntProperty "StreetNr" entity
+      Street = getOptionalStringProperty "Street" entity
+      Additions = getOptionalStringProperty "Additions" entity
+      Location = getOptionalStringProperty "Location" entity
+      Country = getOptionalStringProperty "Country" entity
+      FedState = getOptionalStringProperty "FedState" entity }
 ```
