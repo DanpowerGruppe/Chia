@@ -157,14 +157,14 @@ module FileWriter =
         | Development -> Path.Combine(@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
         | Productive -> Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
 
-    let miniLogFile (dt: DateTime, fileWriterInfo) =
+    let miniLogFile (dt: DateTime,logMsg, fileWriterInfo) =
         let year = dt.Year
         let day = dt.Day
         let month = dt.Month
         let hour = dt.Hour
         let min = dt.Minute
         let logPath = logPath fileWriterInfo
-        logPath + (sprintf "log_%i%i%i%i%i.txt" year day month hour min)
+        logPath + (sprintf "log_%s_%s_%s_%s_%i%i%i%i%i.txt" logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue year day month hour min)
 
     let activateTSL() =
         Net.ServicePointManager.SecurityProtocol <-
@@ -251,7 +251,7 @@ module FileWriter =
               Message = message }
 
         let date = DateTime.Now
-        let file = miniLogFile (date, fileWriterInfo)
+        let file = miniLogFile (date,logMsg, fileWriterInfo)
         let logTxt = getLogTxt status logMsg
         match devOption with
         | Azure ->
