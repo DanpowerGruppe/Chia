@@ -91,6 +91,7 @@ type Destination =
 | BlobTable
 | SqlTable
 | LocalStorage
+| EventHub
 ```
 
 ## CreateTable

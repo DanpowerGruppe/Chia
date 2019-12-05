@@ -1,4 +1,6 @@
 ### 0.2.2 - 05.12.2019
+Add destination EventHub
+### 0.2.2 - 05.12.2019
 Optimize LocalLogging
 ### 0.2.1 - 03.12.2019
 Add create new log directory

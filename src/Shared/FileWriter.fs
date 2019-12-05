@@ -107,6 +107,7 @@ module FileWriter =
         | BlobTable
         | SqlTable
         | LocalStorage
+        | EventHub
         member this.GetValue =
             match this with
             | AzureTable -> "AzureTable"
@@ -114,6 +115,7 @@ module FileWriter =
             | BlobTable -> "BlobTable"
             | SqlTable -> "SqlTable"
             | LocalStorage -> "LocalStorage"
+            | EventHub -> "EventHub"
 
     type Process =
         | Finished
