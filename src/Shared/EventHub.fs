@@ -11,36 +11,24 @@ open Domain
 open Logging
 open Config
 open System.Collections.Generic
-open Microsoft.Azure.EventHubs 
+open Chia
+open FileWriter
+open Microsoft.Azure.EventHubs
 module EventHub =
     let getEventHubClient eventHubConnectionString = EventHubClient.CreateFromConnectionString(eventHubConnectionString)
 
-    let pushSingleEvent (record: Reading) phase =
+    let pushSingleEvent (record: 'a,partitionKey) =
         task {
-            let eventHubClient =
-                match phase with
-                | Minute -> getEventHubClient eventHubConnectionStringMinute
-                | FifteenMinutes -> getEventHubClient eventHubConnectionStringFifteenMinutes
-                | Hourly -> getEventHubClient eventHubConnectionStringHourly
-                | Daily -> getEventHubClient eventHubConnectionStringDaily
-                | _ -> failwithf "unmatched Phase"
-
+            let eventHubClient = getEventHubClient "EventHubSASConnectionString"
             let messageAsText = Newtonsoft.Json.JsonConvert.SerializeObject record
             use event = new EventData(System.Text.Encoding.UTF8.GetBytes(messageAsText))
-            do! eventHubClient.SendAsync(event, record.MeterId.GetValue)
+            do! eventHubClient.SendAsync(event, partitionKey)
         }
-    let pushEvent (data: Reading []) (phase: Phase) =
+    let pushEvent (data: 'a,fileWriterInfo) =
         task {
             try
                 Log.logStarting ("UploadingEvents", LocalServer, Upload, EventHub, fileWriterInfo)
-                let eventHubClient =
-                    match phase with
-                    | Minute -> getEventHubClient eventHubConnectionStringMinute
-                    | FifteenMinutes -> getEventHubClient eventHubConnectionStringFifteenMinutes
-                    | Hourly -> getEventHubClient eventHubConnectionStringHourly
-                    | Daily -> getEventHubClient eventHubConnectionStringDaily
-                    | _ -> failwithf "unmatched Phase"
-
+                let eventHubClient = getEventHubClient "EventHubSASConnectionString"
                 let batch = eventHubClient.CreateBatch()
                 for x in data do
                     let messageAsText = Newtonsoft.Json.JsonConvert.SerializeObject x
@@ -48,7 +36,7 @@ module EventHub =
                     batch.TryAdd event |> ignore
 
                 do! eventHubClient.SendAsync batch
-                Log.logFinished ("Finished Upload", AzureFunction, Upload, EventHub, fileWriterInfo)
+                Log.logFinished ("Finished UploadingEvents", AzureFunction, Upload, EventHub, fileWriterInfo)
             with
             | exn ->  Log.logCritical ("Push Event failed", AzureFunction, Upload, EventHub,exn, fileWriterInfo)
         }

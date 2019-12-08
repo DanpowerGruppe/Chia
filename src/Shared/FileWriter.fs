@@ -61,6 +61,9 @@ module FileWriter =
     let masterStatus info = info.MasterStatus
     let projectName info = info.ProjectName
 
+    // type Source =
+    //     | Source of string
+    //     member this.Value = (fun (Source name) -> name) this
     type Source =
         | LocalService
         | LocalServer
@@ -79,7 +82,7 @@ module FileWriter =
             | AzureInfrastucture -> "AzureInfrastucture"
             | SPSCommunication -> "SPSCommunication"
 
-    type Operation = //Post//Get
+    type Operation =
         | Upload
         | Download
         | Insert
@@ -119,6 +122,8 @@ module FileWriter =
 
     type Process =
         | Finished
+        // | Information
+
         | Incomplete
         | Starting
         member this.GetValue =
@@ -192,6 +197,9 @@ module FileWriter =
         printfn "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
     let trackTrace fileWriterInfo logMsg =
         let client = getClient fileWriterInfo
+        // let operation = client.StartOperation<RequestTelemetry>(logMsg.Operation.GetValue)
+        // operation.Telemetry.ResponseCode <- "200"
+        // client.StopOperation(operation)
         printMsg logMsg
         let traceTelemetry = TraceTelemetry()
         traceTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
@@ -259,7 +267,7 @@ module FileWriter =
         | Azure ->
             match status with
             | Error exn -> trackError fileWriterInfo logMsg exn
-            | Ok _ -> trackMetric fileWriterInfo logMsg
+            | Ok _ -> trackTrace fileWriterInfo logMsg
         | Local ->
             printfn "Msg %s" logTxt
             let status =
@@ -277,7 +285,7 @@ module FileWriter =
             printfn "Msg %s" logTxt
             match status with
             | Error exn -> trackError fileWriterInfo logMsg exn
-            | Ok _ -> trackMetric fileWriterInfo logMsg
+            | Ok _ -> trackTrace fileWriterInfo logMsg
             let status =
                 match status with
                 | Error _ -> "Error"

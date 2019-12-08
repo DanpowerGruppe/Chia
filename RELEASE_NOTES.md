@@ -1,3 +1,5 @@
+### 0.2.4 - 08.12.2019
+Add EventHub module
 ### 0.2.3 - 05.12.2019
 Add destination EventHub
 ### 0.2.2 - 05.12.2019
