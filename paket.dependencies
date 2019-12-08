@@ -1,5 +1,6 @@
 
 group Chia
+    storage: none
     source https://api.nuget.org/v3/index.json
     nuget FSharp.Core
     nuget EPPlus
@@ -16,6 +17,7 @@ group Chia
     nuget System.Configuration.ConfigurationManager
     nuget System.Drawing.Common
     nuget StackExchange.Redis
+    nuget Microsoft.Azure.EventHubs
 
 group Chia.Client
     source https://api.nuget.org/v3/index.json

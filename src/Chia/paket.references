@@ -12,3 +12,4 @@ group Chia
     Microsoft.ApplicationInsights.PerfCounterCollector
     System.Configuration.ConfigurationManager
     StackExchange.Redis
+    Microsoft.Azure.EventHubs
