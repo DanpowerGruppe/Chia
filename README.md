@@ -140,7 +140,7 @@ With the GetTableEntry module you can easily query Azure Tables.
 
 Get just on single tableValue like this:
 ```fs
-let value = getValue (request.PartKey, request.RowKey) azureTable
+let! value = getValue (request.PartKey, request.RowKey) azureTable
 ```
 
 Get all values in a table by using a table mapper.
@@ -156,7 +156,7 @@ let mapper (entity : DynamicTableEntity) : Mapper =
     { PartyKey = entity.PartitionKey
       RowKey = SortableRowKey entity.RowKey
 
-let values = getValues mapper azureTable
+let! values = getValues mapper azureTable
 ```
 
 You can also get all values by one rowKey like this:
@@ -212,6 +212,25 @@ You also should pass in a task to receive your data. The function tries to find 
 ```fs
 let! plants = tryGetCachedData JsonConvert.DeserializeObject<Plant[]> cacheInfo getPlants
 ```
+
+## EventHub
+
+You can use Chia to sent out a event to Azure Event Hubs like this:
+
+```fs
+open Chia.EventHubs
+
+let eventHubClient = getEventHubClient "EventHubSASConnectionString"
+
+type Data = int
+
+let data = 100
+
+do! pushEvent (eventHubClient,data,fileWriterInfoAzure)
+do! pushSingleEvent (eventHubClient,data,fileWriterInfoAzure)
+
+```
+
 ## ExcelUtils
 
 Mini Helper to start and ExcelApp using the EPPlus package:
