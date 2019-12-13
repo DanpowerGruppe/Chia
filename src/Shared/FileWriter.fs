@@ -91,7 +91,9 @@ module FileWriter =
         | Delete
         | Calculation
         | Restart
+        | Start
         | Stop
+        | Update
         | Post
         | Get
         member this.GetValue =
@@ -104,9 +106,11 @@ module FileWriter =
             | Delete -> "Delete"
             | Calculation -> "Calculation"
             | Restart -> "Restart"
+            | Start -> "Start"
             | Stop -> "Stop"
             | Post -> "Post"
             | Get -> "Get"
+            | Update -> "Update"
 
     type Destination =
         | AzureTable
@@ -126,8 +130,7 @@ module FileWriter =
 
     type Process =
         | Finished
-        // | Information
-
+        | Information
         | Incomplete
         | Starting
         member this.GetValue =
@@ -135,6 +138,7 @@ module FileWriter =
             | Finished -> "Finished"
             | Incomplete -> "Incomplete"
             | Starting -> "Starting"
+            | Information -> "Information"
 
     type LogMsg =
         { Source: Source

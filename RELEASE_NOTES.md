@@ -1,3 +1,5 @@
+### 0.2.8 - 13.12.2019
+Add more logger types
 ### 0.2.7 - 13.12.2019
 Add more operations
 ### 0.2.6 - 08.12.2019
