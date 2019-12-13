@@ -1,3 +1,5 @@
+### 0.2.7 - 13.12.2019
+Add more operations
 ### 0.2.6 - 08.12.2019
 Optimize EventHub module
 ### 0.2.5 - 08.12.2019

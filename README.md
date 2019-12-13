@@ -84,6 +84,8 @@ type Operation =
 | Calculation
 | Post
 | Get
+| Restart
+| Stop
 
 type Destination =
 | AzureTable

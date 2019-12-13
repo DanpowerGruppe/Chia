@@ -90,6 +90,8 @@ module FileWriter =
         | Create
         | Delete
         | Calculation
+        | Restart
+        | Stop
         | Post
         | Get
         member this.GetValue =
@@ -101,6 +103,8 @@ module FileWriter =
             | Create -> "Create"
             | Delete -> "Delete"
             | Calculation -> "Calculation"
+            | Restart -> "Restart"
+            | Stop -> "Stop"
             | Post -> "Post"
             | Get -> "Get"
 
