@@ -1,3 +1,5 @@
+### 0.2.10 - 19.12.2019
+Optimize gettable
 ### 0.2.9 - 19.12.2019
 Add get single blob
 ### 0.2.8 - 13.12.2019

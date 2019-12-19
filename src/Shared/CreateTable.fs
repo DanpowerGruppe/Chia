@@ -35,8 +35,7 @@ module CreateTable =
             }
 
     let getTable tableName info (connection : CloudStorageAccount) =
-        printfn "GetTable %s" tableName
-        async {
+        task {
             let client = connection.CreateCloudTableClient()
 
             let table =
@@ -51,18 +50,18 @@ module CreateTable =
             Log.logFinished(msg,AzureInfrastucture,Create,AzureTable,info)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
-                async {
+                task {
                     try
                         let! _ = table.CreateIfNotExistsAsync()
-                                 |> Async.AwaitTask
                         ()
                     with _ ->
-                        do! Task.Delay 5000 |> Async.AwaitTask
+                        do! Task.Delay 5000
                         return! createTableSafe()
                 }
             do! createTableSafe()
             return table
         }
+        |> Async.AwaitTask
         |> Async.RunSynchronously
 
     let getTableReference tableName (connection : CloudStorageAccount) =
