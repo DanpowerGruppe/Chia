@@ -28,6 +28,8 @@ module CreateBlob =
             if exists then return! listBlobs Seq.empty null
             else return Seq.empty
         }
+    let getSingleBlob (container : CloudBlobContainer) blobName =
+        container.GetBlockBlobReference(blobName)
 
     type BlobLoggingInfo =
         { FileName : string
