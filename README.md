@@ -206,11 +206,11 @@ let cacheInfo : RedisCache = {
     FileWriterInfo = fileWriterInfo }
 ```
 
-To deserialze your Redis values to your pass in a Newtonsoft mapper.
+To deserialze your Redis values to your pass in a System.Text.Json mapper.
 You also should pass in a task to receive your data. The function tries to find the cache in Redis. If there is no Redis cache it will create a new cache by executing you task. The following example showes how to reveice a a Plant array directly out of Redis or creates a new cache if theres no existing cache and returns the Plant array.
 
 ```fs
-let! plants = tryGetCachedData JsonConvert.DeserializeObject<Plant[]> cacheInfo getPlants
+let! plants = tryGetCachedData JsonSerializer.Parse<Plant[]> cacheInfo getPlants
 ```
 
 ## EventHub

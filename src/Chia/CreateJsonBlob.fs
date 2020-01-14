@@ -7,6 +7,7 @@ module CreateJsonBlob =
     open Microsoft.WindowsAzure.Storage.Blob
     open System.Threading.Tasks
     open System
+    open System.Text.Json
     type JsonBlobInfo = {
                 Date : DateTime
                 DataName : string
@@ -30,7 +31,7 @@ module CreateJsonBlob =
                     // printfn "Data: %A" data
                     let json =
                         try
-                            Newtonsoft.Json.JsonConvert.SerializeObject data
+                            JsonSerializer.Serialize data
                         with exn ->
                             printfn "Error %s" exn.Message
                             let msg =
