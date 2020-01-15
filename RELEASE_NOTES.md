@@ -1,3 +1,5 @@
+### 0.3.2 - 15.01.2020
+Support netcoreapp3.0 as well
 ### 0.3.1 - 14.01.2020
 Use System.Text.Json instead of Newtonsoft.Json
 ### 0.3.0 - 02.01.2020
