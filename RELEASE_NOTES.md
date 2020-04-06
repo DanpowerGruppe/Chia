@@ -1,3 +1,5 @@
+### 0.3.6 - 06.04.2020
+get rid of farmer for now
 ### 0.3.5 - 06.04.2020
 add devstatus to client
 ### 0.3.4 - 06.04.2020

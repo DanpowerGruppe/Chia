@@ -22,24 +22,6 @@ namespace Chia.Client
                     | PreProductive -> "preproductive"
                     | Productive -> "productive"
 
-            let tryGetEnv =
-                System.Environment.GetEnvironmentVariable
-                >> function
-                | null
-                | "" -> None
-                | x -> Some x
-
-            let matchEnvironVarToDeployStatus environVar =
-                match environVar with
-                | Some "Development" -> Development
-                | Some "Test" -> Test
-                | Some "PreProductive" -> PreProductive
-                | Some "Productive" -> Productive
-                | environVar ->
-                    printfn "unmatched EnvironVar %A, please choose between Test and Productive " environVar
-                    failwithf "unmatched EnvironVar %A, please choose between Test and Productive " environVar
-
-            let getDevStatusFromEnv = tryGetEnv "status" |> matchEnvironVarToDeployStatus
         module Time =
 
             type ReportIntervall =
