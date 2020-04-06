@@ -34,8 +34,9 @@ module FileWriter =
         | ProjectName of string
         member this.Value = (fun (ProjectName name) -> name) this
 
+
     type FileWriterInfo =
-        { MasterStatus: Config.DevStatus
+        { DevStatus: Config.DevStatus
           ProjectName: ProjectName
           DevOption: Logging.DevOption
           Client: TelemetryClient option }
@@ -43,22 +44,22 @@ module FileWriter =
     let initFileWriter masterStatus projectName devOption aiKey =
         match devOption with
         | Local ->
-            { MasterStatus = masterStatus
+            { DevStatus = masterStatus
               ProjectName = ProjectName projectName
               DevOption = devOption
               Client = None }
         | Azure ->
-            { MasterStatus = masterStatus
+            { DevStatus = masterStatus
               ProjectName = ProjectName projectName
               DevOption = devOption
               Client = startAIAndGetClient aiKey |> Some }
         | LocalAndAzure ->
-            { MasterStatus = masterStatus
+            { DevStatus = masterStatus
               ProjectName = ProjectName projectName
               DevOption = devOption
               Client = startAIAndGetClient aiKey |> Some }
 
-    let masterStatus info = info.MasterStatus
+    let masterStatus info = info.DevStatus
     let projectName info = info.ProjectName
 
     // type Source =
@@ -155,21 +156,27 @@ module FileWriter =
           Dict: IDictionary<string, string> }
     ///Get the relative log path for a code structure like this: src/Project/***.fsproj
     let getLogPath fileWriterInfo =
-        match fileWriterInfo.MasterStatus with
+        match fileWriterInfo.DevStatus with
         | Development -> @".\..\..\logs\"
+        | Test
+        | PreProductive
         | Productive -> @"C:\logs\"
 
     let logPath fileWriterInfo = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
     let logArchivPath fileWriterInfo = Path.Combine(logPath fileWriterInfo, "Archiv" + @"\")
 
     let cachePath fileWriterInfo =
-        match fileWriterInfo.MasterStatus with
+        match fileWriterInfo.DevStatus with
         | Development -> Path.Combine(@".\..\..\cache\", fileWriterInfo.ProjectName.Value + @"\")
+        | Test
+        | PreProductive
         | Productive -> Path.Combine(@"C:\cache\", fileWriterInfo.ProjectName.Value + @"\")
 
     let testPath fileWriterInfo =
-        match fileWriterInfo.MasterStatus with
+        match fileWriterInfo.DevStatus with
         | Development -> Path.Combine(@".\..\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
+        | Test
+        | PreProductive
         | Productive -> Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
 
     let miniLogFile (dt: DateTime,logMsg, fileWriterInfo) =

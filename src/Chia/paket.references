@@ -13,3 +13,4 @@ group Chia
     System.Configuration.ConfigurationManager
     StackExchange.Redis
     Microsoft.Azure.EventHubs
+    Farmer
