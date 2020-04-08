@@ -2,9 +2,14 @@
 
 [![Build Status](https://dev.azure.com/DanpowerEnergyData/Chia/_apis/build/status/DanpowerGruppe.Chia?branchName=master)](https://dev.azure.com/DanpowerEnergyData/Chia/_build/latest?definitionId=4&branchName=master)
 
-[![nuget - Chia](https://img.shields.io/nuget/v/Chia.svg?colorB=green)](https://www.nuget.org/packages/Chia/)
+## Available Packages:
 
-[![nuget - ChiaClient](https://img.shields.io/nuget/v/Chia.Client.svg?colorB=green)](https://www.nuget.org/packages/Chia.Client/)
+| Library  | Version |
+| ------------- | ------------- |
+| Chia  | [![nuget - Chia](https://img.shields.io/nuget/v/Chia.svg?colorB=green)](https://www.nuget.org/packages/Chia/) |
+| Chia.Client  | [![nuget - ChiaClient](https://img.shields.io/nuget/v/Chia.Client.svg?colorB=green)](https://www.nuget.org/packages/Chia.Client/)  |
+| Chia.NetStandard  | [![nuget - ChiaNetStandard](https://img.shields.io/nuget/v/Chia.NetStandard.svg?colorB=green)](https://www.nuget.org/packages/Chia.NetStandard)  |
+
 
 Chia contains HelperFunctions for reporting. Chia contains some Azure Storage functions, logging features and some excel utils.
 
