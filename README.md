@@ -22,7 +22,7 @@ If you want to log to ApplicationInsight you have to create a new Application In
 open Chia.Domain.Logging
 open Chia.Domain.Config
 open Chia.FileWriter
-let devStatus = Development
+let devStatus = getDevStatusFromEnv  /// Get your devStatus from you enviroment variable. For example pass in an enviroment variable in Fake --> '-e devStatus=Productive
 let aiKey = "<InsertYourApplicationInsightsKey" ///Get this key from your app.config or from KeyFault
 let fileWriterInfo = initFileWriter devStatus "ProjectName" Local ""
 let fileWriterInfoAzure = initFileWriter devStatus "ProjectName" Azure aiKey
