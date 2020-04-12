@@ -1,3 +1,5 @@
+### 0.3.9 - 12.04.2020
+check for log directory if not create directory
 ### 0.3.8 - 07.04.2020
 get rid of farmer for real
 ### 0.3.7 - 06.04.2020
