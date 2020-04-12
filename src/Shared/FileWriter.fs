@@ -162,9 +162,16 @@ module FileWriter =
         | PreProductive
         | Productive -> @"C:\logs\"
 
-    let logPath fileWriterInfo = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
-    let logArchivPath fileWriterInfo = Path.Combine(logPath fileWriterInfo, "Archiv" + @"\")
-
+    let logPath fileWriterInfo =
+        let path = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
+        if not(Directory.Exists(path)) then
+            Directory.CreateDirectory(path) |> ignore
+        path
+    let logArchivPath fileWriterInfo =
+        let archivPath = Path.Combine(logPath fileWriterInfo, "Archiv" + @"\")
+        if not(Directory.Exists(archivPath)) then
+                Directory.CreateDirectory(archivPath) |> ignore
+        archivPath
     let cachePath fileWriterInfo =
         match fileWriterInfo.DevStatus with
         | Development -> Path.Combine(@".\..\..\cache\", fileWriterInfo.ProjectName.Value + @"\")
