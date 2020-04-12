@@ -1,3 +1,5 @@
+### 0.4.1 - 12.04.2020
+add infrastructure to chia namespace
 ### 0.4.0 - 12.04.2020
 bring back Farmer
 ### 0.3.9 - 12.04.2020
