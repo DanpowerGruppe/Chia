@@ -16,7 +16,7 @@ module Infrastructure =
             }
         deployment, projectName + info.DevStatus.GetValue, storageAccount.Key
 
-    let createNewInfrastruture info area =
+    let createNewOrTakeExistingInfrastruture info area =
         let deployment, resourceGroupName, storageAccountKey = buildEnvironment info area
         deployment |> Deploy.quick resourceGroupName
         storageAccountKey.Value

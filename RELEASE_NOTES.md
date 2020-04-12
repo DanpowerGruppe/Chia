@@ -1,3 +1,5 @@
+### 0.4.2 - 12.04.2020
+optimize naming getinfrastructure
 ### 0.4.1 - 12.04.2020
 add infrastructure to chia namespace
 ### 0.4.0 - 12.04.2020
