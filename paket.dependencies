@@ -18,6 +18,7 @@ group Chia
     nuget System.Drawing.Common
     nuget StackExchange.Redis
     nuget Microsoft.Azure.EventHubs
+    nuget Farmer
 
 group Chia.Client
     source https://api.nuget.org/v3/index.json
@@ -49,3 +50,4 @@ group Chia.NetStandard
     nuget System.Configuration.ConfigurationManager
     nuget System.Drawing.Common
     nuget StackExchange.Redis
+    nuget Farmer

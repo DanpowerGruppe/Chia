@@ -12,3 +12,4 @@ group Chia.NetStandard
     Microsoft.ApplicationInsights.PerfCounterCollector
     System.Configuration.ConfigurationManager
     StackExchange.Redis
+    Farmer
