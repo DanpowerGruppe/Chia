@@ -5,7 +5,7 @@ module Infrastructure =
     open Farmer
     open Farmer.Resources
     open Chia.FileWriter
-    open Chia.CreateTable
+    open Microsoft.WindowsAzure.Storage
 
     let buildEnvironment (info: FileWriterInfo) area =
         let storageAccountName =
@@ -32,9 +32,21 @@ module Infrastructure =
             | None -> failwithf "Cant find storage Key"
         | Error err -> failwithf "Error creating infrastructure for %s , exn : %A " resourceGroupName err
 
+    type AzureConnection =
+        | AzureConnection of string
+        member this.Connect() =
+            match this with
+            | AzureConnection connectionString -> CloudStorageAccount.Parse connectionString
+
+    type AzAccount =
+        { StorageAccount: CloudStorageAccount
+          FileWriterInfo: FileWriterInfo }
+
     let azConnection info area =
         let storageConnString = createNewOrTakeExistingInfrastruture info area
+
         let connected =
             let connection = AzureConnection storageConnString
             connection.Connect()
-        connected
+        { StorageAccount = connected
+          FileWriterInfo = info }

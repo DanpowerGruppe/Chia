@@ -1,16 +1,6 @@
 namespace Chia
 
-open System
-open System.IO
-open Microsoft.ApplicationInsights
-open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
-open Microsoft.ApplicationInsights.Extensibility
 open FSharp.Control.Tasks.ContextInsensitive
-open System.Threading.Tasks
-open Domain
-open Logging
-open Config
-open System.Collections.Generic
 open Chia
 open FileWriter
 open Microsoft.Azure.EventHubs

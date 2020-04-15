@@ -1,26 +1,19 @@
 namespace Chia
 
-open Microsoft.WindowsAzure.Storage
 open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
 open FileWriter
 open System
 open FSharp.Control.Tasks.ContextInsensitive
+open Chia.Infrastructure
 module CreateTable =
-    type AzureConnection =
-        | AzureConnection of string
-        member this.Connect() =
-            match this with
-            | AzureConnection connectionString ->
-                CloudStorageAccount.Parse connectionString
-
-    let deleteTable tableName info (connection : CloudStorageAccount) =
+    let deleteTable tableName (azConnection:AzAccount) =
         printfn "Try to Delete %s" tableName
         task {
-            let client = connection.CreateCloudTableClient()
+            let client = azConnection.StorageAccount.CreateCloudTableClient()
             let table = client.GetTableReference tableName
             let msg = sprintf "Got TableReference to Delete %A" table
-            Log.logFinished(msg,AzureInfrastucture,Delete,AzureTable,info)
+            Log.logFinished(msg,AzureInfrastucture,Delete,AzureTable,azConnection.FileWriterInfo)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec deleteTableSafe() = async {
                     try
@@ -34,9 +27,9 @@ module CreateTable =
             do! deleteTableSafe()
             }
 
-    let getTable tableName info (connection : CloudStorageAccount) =
+    let getTable tableName (azConnection:AzAccount) =
         task {
-            let client = connection.CreateCloudTableClient()
+            let client = azConnection.StorageAccount.CreateCloudTableClient()
 
             let table =
                 try
@@ -44,10 +37,10 @@ module CreateTable =
                 with exn ->
                     let msg =
                         sprintf "Could not get TableReference %s" exn.Message
-                    Log.logCritical(msg,AzureFunction,Create,AzureTable,exn,info)
+                    Log.logCritical(msg,AzureFunction,Create,AzureTable,exn,azConnection.FileWriterInfo)
                     failwith msg
             let msg = sprintf "Got tableReference %A" table
-            Log.logFinished(msg,AzureInfrastucture,Create,AzureTable,info)
+            Log.logFinished(msg,AzureInfrastucture,Create,AzureTable,azConnection.FileWriterInfo)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
                 task {
@@ -64,8 +57,8 @@ module CreateTable =
         |> Async.AwaitTask
         |> Async.RunSynchronously
 
-    let getTableReference tableName (connection : CloudStorageAccount) =
-        let client = connection.CreateCloudTableClient()
+    let getTableReference tableName (azConnection:AzAccount) =
+        let client = azConnection.StorageAccount.CreateCloudTableClient()
         client.GetTableReference tableName
 
     let inline getProperty (propName : string) (entity : DynamicTableEntity) =

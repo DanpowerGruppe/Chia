@@ -11,7 +11,7 @@ open Farmer
 open Chia.CreateTable
 let devStatus = Development
 let fileWriterInfo = initFileWriter devStatus "dp" "TestChia" Local ""
-let connected = azConnection fileWriterInfo WestEurope
+let azAccount = azConnection fileWriterInfo WestEurope
 [<Literal>]
 let TestTable = "TestTable"
 [<Tests>]
@@ -20,7 +20,7 @@ let simpleTest =
     testCase "FileWriterInfo" <| fun () ->
         Expect.isNotEmpty fileWriterInfo.ProjectName.Value "FileWriter"
     testCase "Create Table" <| fun () ->
-        let testTable = getTable TestTable fileWriterInfo connected
+        let testTable = getTable TestTable azAccount
         Expect.isNotEmpty testTable.Name "TableName"
     testCase "ReportIntervall should be equal" <| fun () ->
       let expected = "monatlich"

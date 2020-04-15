@@ -9,8 +9,8 @@
     <Compile Include="../Shared/FileWriter.fs" />
     <Compile Include="../Shared/Logger.fs" />
     <Compile Include="../Shared/ExcelUtils.fs" />
-    <Compile Include="../Shared/CreateTable.fs" />
     <Compile Include="../Shared/Infrastructure.fs" />
+    <Compile Include="../Shared/CreateTable.fs" />
     <Compile Include="../Shared/CreateXml.fs" />
     <Compile Include="../Shared/CreateBlob.fs" />
     <Compile Include="CreateJsonBlob.fs" />
