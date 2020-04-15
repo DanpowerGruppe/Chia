@@ -1,3 +1,5 @@
+### 0.4.4 - 15.04.2020
+ad azConnection
 ### 0.4.3 - 15.04.2020
 use new farmer execute function
 ### 0.4.2 - 12.04.2020

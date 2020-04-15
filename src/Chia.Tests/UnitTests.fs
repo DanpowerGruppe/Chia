@@ -11,11 +11,7 @@ open Farmer
 open Chia.CreateTable
 let devStatus = Development
 let fileWriterInfo = initFileWriter devStatus "dp" "TestChia" Local ""
-let storageConnString = createNewOrTakeExistingInfrastruture fileWriterInfo WestEurope
-let connected =
-    let connection = AzureConnection storageConnString
-    connection.Connect()
-
+let connected = azConnection fileWriterInfo WestEurope
 [<Literal>]
 let TestTable = "TestTable"
 [<Tests>]
@@ -23,8 +19,6 @@ let simpleTest =
   testList "Chia" [
     testCase "FileWriterInfo" <| fun () ->
         Expect.isNotEmpty fileWriterInfo.ProjectName.Value "FileWriter"
-    testCase "Create Infrastructure" <| fun () ->
-        Expect.isNotEmpty storageConnString "StorageAccount"
     testCase "Create Table" <| fun () ->
         let testTable = getTable TestTable fileWriterInfo connected
         Expect.isNotEmpty testTable.Name "TableName"
