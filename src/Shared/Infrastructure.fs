@@ -1,4 +1,5 @@
 namespace Chia
+
 module Infrastructure =
 
     open Farmer
@@ -6,17 +7,26 @@ module Infrastructure =
     open Chia.FileWriter
 
     let buildEnvironment (info: FileWriterInfo) area =
-        let projectName = info.ProjectName.Value
-        let storageAccount = storageAccount { name (projectName + info.DevStatus.GetValue) }
+        let storageAccountName =
+            info.CompanyInitials.Value + "-" + info.ProjectName.Value + "-" + info.DevStatus.GetValue
+        let storageAccount = storageAccount { name storageAccountName }
+        let resourceGroupName =
+            info.CompanyInitials.Value + "-" + info.ProjectName.Value + "-" + info.DevStatus.GetValue
 
         let deployment =
             arm {
                 location area
                 add_resource storageAccount
+                output "storage_key" storageAccount.Key
             }
-        deployment, projectName + info.DevStatus.GetValue, storageAccount.Key
+        deployment, resourceGroupName
 
     let createNewOrTakeExistingInfrastruture info area =
-        let deployment, resourceGroupName, storageAccountKey = buildEnvironment info area
-        deployment |> Deploy.quick resourceGroupName
-        storageAccountKey.Value
+        let deployment, resourceGroupName: Deployment * string = buildEnvironment info area
+        let outputs = deployment |> Deploy.execute resourceGroupName []
+        match outputs with
+        | Ok x ->
+            match x.TryFind "storage_key" with
+            | Some x -> x.ToString()
+            | None -> failwithf "Cant find storage Key"
+        | Error err -> failwithf "Error creating infrastructure for %s , exn : %A " resourceGroupName err

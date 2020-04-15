@@ -33,28 +33,30 @@ module FileWriter =
     type ProjectName =
         | ProjectName of string
         member this.Value = (fun (ProjectName name) -> name) this
+    type CompanyInitials =
+        | CompanyInitials of string
+        member this.Value = (fun (CompanyInitials name) -> name) this
 
 
     type FileWriterInfo =
-        { DevStatus: Config.DevStatus
+        {
+          DevStatus: Config.DevStatus
+          CompanyInitials : CompanyInitials
           ProjectName: ProjectName
           DevOption: Logging.DevOption
           Client: TelemetryClient option }
     // constructor
-    let initFileWriter masterStatus projectName devOption aiKey =
+    let initFileWriter masterStatus companyInitials projectName devOption aiKey =
         match devOption with
         | Local ->
             { DevStatus = masterStatus
+              CompanyInitials = CompanyInitials companyInitials
               ProjectName = ProjectName projectName
               DevOption = devOption
               Client = None }
-        | Azure ->
+        | _ ->
             { DevStatus = masterStatus
-              ProjectName = ProjectName projectName
-              DevOption = devOption
-              Client = startAIAndGetClient aiKey |> Some }
-        | LocalAndAzure ->
-            { DevStatus = masterStatus
+              CompanyInitials = CompanyInitials companyInitials
               ProjectName = ProjectName projectName
               DevOption = devOption
               Client = startAIAndGetClient aiKey |> Some }

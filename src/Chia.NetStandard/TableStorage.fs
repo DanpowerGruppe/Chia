@@ -1,6 +1,6 @@
 namespace Chia
 
-    module TableStorage = 
+    module TableStorage =
 
         open Microsoft.WindowsAzure.Storage.Table
         open FSharp.Control.Tasks.ContextInsensitive
@@ -9,24 +9,24 @@ namespace Chia
 
         let saveDataArrayBatch mapper (table:CloudTable) info (messages:'a [] ) = task {
             let entities =
-                messages 
+                messages
                 |> Array.map mapper
-            let batchOperation = 
+            let batchOperation =
                 try
-                    TableBatchOperation () 
+                    TableBatchOperation ()
                 with
                 | exn -> failwithf "Couldn't Open New Table operation. Message: %s" exn.Message
-            try 
+            try
                 entities
                 |> Array.iter batchOperation.InsertOrReplace
             with
-                | exn ->    printfn  "Couldn't Add Entity Message: %s" exn.Message   
-                            failwithf  "Couldn't Add Entity Message: %s" exn.Message   
-            try 
+                | exn ->    printfn  "Couldn't Add Entity Message: %s" exn.Message
+                            failwithf  "Couldn't Add Entity Message: %s" exn.Message
+            try
                 table.ExecuteBatchAsync(batchOperation) |> ignore
             with
-                | exn ->    
-                    let msg = sprintf  "Couldn't Add Entity Message: %s" exn.Message   
+                | exn ->
+                    let msg = sprintf  "Couldn't Add Entity Message: %s" exn.Message
                     logError exn info msg
                     failwith msg
 

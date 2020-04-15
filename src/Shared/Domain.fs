@@ -20,10 +20,10 @@ module Domain =
             | Productive
             member this.GetValue =
                 match this with
-                | Development -> "development"
+                | Development -> "dev"
                 | Test -> "test"
-                | PreProductive -> "preproductive"
-                | Productive -> "productive"
+                | PreProductive -> "preprod"
+                | Productive -> "prod"
 
         let tryGetEnv =
             System.Environment.GetEnvironmentVariable
