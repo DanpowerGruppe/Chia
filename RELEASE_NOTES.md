@@ -1,3 +1,5 @@
+### 0.4.6 - 15.04.2020
+add existing storage account
 ### 0.4.5 - 15.04.2020
 clean up
 ### 0.4.4 - 15.04.2020

@@ -50,3 +50,10 @@ module Infrastructure =
             connection.Connect()
         { StorageAccount = connected
           FileWriterInfo = info }
+    let azConnectionExisting info storageConnString =
+
+        let connected =
+            let connection = AzureConnection storageConnString
+            connection.Connect()
+        { StorageAccount = connected
+          FileWriterInfo = info }
