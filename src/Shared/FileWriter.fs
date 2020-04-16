@@ -165,10 +165,13 @@ module FileWriter =
         | Productive -> @"C:\logs\"
 
     let logPath fileWriterInfo =
-        let path = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
-        if not(Directory.Exists(path)) then
-            Directory.CreateDirectory(path) |> ignore
-        path
+        match fileWriterInfo.DevOption with
+        | Local ->
+            let path = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
+            if not(Directory.Exists(path)) then
+                Directory.CreateDirectory(path) |> ignore
+            path
+        | _ -> failwithf "should not log"
     let logArchivPath fileWriterInfo =
         let archivPath = Path.Combine(logPath fileWriterInfo, "Archiv" + @"\")
         if not(Directory.Exists(archivPath)) then
