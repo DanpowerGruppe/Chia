@@ -171,7 +171,9 @@ module FileWriter =
             if not(Directory.Exists(path)) then
                 Directory.CreateDirectory(path) |> ignore
             path
-        | _ -> failwithf "should not log"
+        | _ ->
+            printfn "should not log"
+            failwithf "should not log"
     let logArchivPath fileWriterInfo =
         let archivPath = Path.Combine(logPath fileWriterInfo, "Archiv" + @"\")
         if not(Directory.Exists(archivPath)) then
@@ -276,54 +278,58 @@ module FileWriter =
              | Error er -> er.ToString()) logMsg.TimeSpan
 
     let writeLog (status: Result<_, exn>) message severity source processMsg operation destination timeSpan fileWriterInfo =
-        let devOption = fileWriterInfo.DevOption
+        try
+            let devOption = fileWriterInfo.DevOption
 
-        let logMsg =
-            { Source = source
-              Operation = operation
-              Destination = destination
-              Process = processMsg
-              SeverityLevel = severity
-              TimeSpan = timeSpan
-              Message = message }
+            let logMsg =
+                { Source = source
+                  Operation = operation
+                  Destination = destination
+                  Process = processMsg
+                  SeverityLevel = severity
+                  TimeSpan = timeSpan
+                  Message = message }
 
-        let date = DateTime.Now
-        let file = miniLogFile (date,logMsg, fileWriterInfo)
-        let logTxt = getLogTxt status logMsg
-        match devOption with
-        | Azure ->
-            match status with
-            | Error exn -> trackError fileWriterInfo logMsg exn
-            | Ok _ -> trackTrace fileWriterInfo logMsg
-        | Local ->
-            printfn "Msg %s" logTxt
-            let status =
+            let date = DateTime.Now
+            let file = miniLogFile (date,logMsg, fileWriterInfo)
+            let logTxt = getLogTxt status logMsg
+            match devOption with
+            | Azure ->
                 match status with
-                | Error _ -> "Error"
-                | Ok _ -> "Ok"
-            try
-                let logPath = logPath fileWriterInfo
-                if not (Directory.Exists(logPath)) then Directory.CreateDirectory(logPath) |> ignore
-                File.AppendAllText(file, date.Date.ToString() + ";" + status + ";" + logTxt + Environment.NewLine)
-            with exn ->
-                printfn "Couldn't write LogFile: %s" exn.Message
-                failwithf "Couldn't write LogFile: %s" exn.Message
-        | LocalAndAzure ->
-            printfn "Msg %s" logTxt
-            match status with
-            | Error exn -> trackError fileWriterInfo logMsg exn
-            | Ok _ -> trackTrace fileWriterInfo logMsg
-            let status =
+                | Error exn -> trackError fileWriterInfo logMsg exn
+                | Ok _ -> trackTrace fileWriterInfo logMsg
+            | Local ->
+                printfn "Msg %s" logTxt
+                let status =
+                    match status with
+                    | Error _ -> "Error"
+                    | Ok _ -> "Ok"
+                try
+                    let logPath = logPath fileWriterInfo
+                    if not (Directory.Exists(logPath)) then Directory.CreateDirectory(logPath) |> ignore
+                    File.AppendAllText(file, date.Date.ToString() + ";" + status + ";" + logTxt + Environment.NewLine)
+                with exn ->
+                    printfn "Couldn't write LogFile: %s" exn.Message
+                    failwithf "Couldn't write LogFile: %s" exn.Message
+            | LocalAndAzure ->
+                printfn "Msg %s" logTxt
                 match status with
-                | Error _ -> "Error"
-                | Ok _ -> "Ok"
-            try
-                let logPath = logPath fileWriterInfo
-                if not (Directory.Exists(logPath)) then Directory.CreateDirectory(logPath) |> ignore
-                File.AppendAllText(file, date.Date.ToString() + ";" + status + ";" + logTxt + Environment.NewLine)
-            with exn ->
-                printfn "Couldn't write LogFile: %s" exn.Message
-                failwithf "Couldn't write LogFile: %s" exn.Message
+                | Error exn -> trackError fileWriterInfo logMsg exn
+                | Ok _ -> trackTrace fileWriterInfo logMsg
+                let status =
+                    match status with
+                    | Error _ -> "Error"
+                    | Ok _ -> "Ok"
+                try
+                    let logPath = logPath fileWriterInfo
+                    if not (Directory.Exists(logPath)) then Directory.CreateDirectory(logPath) |> ignore
+                    File.AppendAllText(file, date.Date.ToString() + ";" + status + ";" + logTxt + Environment.NewLine)
+                with exn ->
+                    printfn "Couldn't write LogFile: %s" exn.Message
+                    failwithf "Couldn't write LogFile: %s" exn.Message
+        with
+        | exn -> failwithf "Couldn't write log: %s" exn.Message
+
 
     let moveOldLogFiles fileWriterInfo =
         let destinationDirectory = Path.GetFullPath(logArchivPath fileWriterInfo)

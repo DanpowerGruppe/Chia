@@ -51,9 +51,12 @@ module Infrastructure =
         { StorageAccount = connected
           FileWriterInfo = info }
     let azConnectionExisting info storageConnString =
+        try
 
-        let connected =
-            let connection = AzureConnection storageConnString
-            connection.Connect()
-        { StorageAccount = connected
-          FileWriterInfo = info }
+            let connected =
+                let connection = AzureConnection storageConnString
+                connection.Connect()
+            { StorageAccount = connected
+              FileWriterInfo = info }
+        with
+        | exn -> failwithf "Can not connect to azure storage account: %s" exn.Message
