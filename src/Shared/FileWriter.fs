@@ -289,9 +289,7 @@ module FileWriter =
                   SeverityLevel = severity
                   TimeSpan = timeSpan
                   Message = message }
-
             let date = DateTime.Now
-            let file = miniLogFile (date,logMsg, fileWriterInfo)
             let logTxt = getLogTxt status logMsg
             match devOption with
             | Azure ->
@@ -299,6 +297,7 @@ module FileWriter =
                 | Error exn -> trackError fileWriterInfo logMsg exn
                 | Ok _ -> trackTrace fileWriterInfo logMsg
             | Local ->
+                let file = miniLogFile (date,logMsg, fileWriterInfo)
                 printfn "Msg %s" logTxt
                 let status =
                     match status with
@@ -313,6 +312,7 @@ module FileWriter =
                     failwithf "Couldn't write LogFile: %s" exn.Message
             | LocalAndAzure ->
                 printfn "Msg %s" logTxt
+                let file = miniLogFile (date,logMsg, fileWriterInfo)
                 match status with
                 | Error exn -> trackError fileWriterInfo logMsg exn
                 | Ok _ -> trackTrace fileWriterInfo logMsg
