@@ -25,11 +25,9 @@ module Domain =
                 | PreProductive -> "preprod"
                 | Productive -> "prod"
 
-        let tryGetEnv =
-            System.Environment.GetEnvironmentVariable
-            >> function
-            | null
-            | "" -> None
+        let tryGetEnv key =
+            match Environment.GetEnvironmentVariable key with
+            | x when String.IsNullOrWhiteSpace x -> None
             | x -> Some x
 
         let matchEnvironVarToDeployStatus environVar =

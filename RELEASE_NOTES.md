@@ -1,3 +1,5 @@
+### 0.5.1 - 20.04.2020
+Add DeleteContainer Safe and optimize tryGetEnv
 ### 0.5.0 - 16.04.2020
 Add AIUtils
 ### 0.4.9 - 16.04.2020

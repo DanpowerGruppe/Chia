@@ -6,12 +6,33 @@ module CreateBlob =
     open Microsoft.WindowsAzure.Storage.Blob
     open FSharp.Control.Tasks.ContextInsensitive
     open FileWriter
-
+    open Infrastructure
+    open System.Threading.Tasks
     let getContainer (connection : CloudStorageAccount,containerName) =
         let blobClient = connection.CreateCloudBlobClient()
         let container = blobClient.GetContainerReference containerName
         container.CreateIfNotExistsAsync() |> ignore
         container
+
+    let deleteContainer (azConnection:AzAccount,containerName) =
+        printfn "Try to Delete %s" containerName
+        task {
+            let blobClient = azConnection.StorageAccount.CreateCloudBlobClient()
+            let container = blobClient.GetContainerReference containerName
+            let msg = sprintf "Got ContainerReference to Delete %A" containerName
+            Log.logFinished(msg,AzureInfrastucture,Delete,BlobTable,azConnection.FileWriterInfo)
+            // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
+            let rec deleteContainerSafe() = async {
+                    try
+                        let! _ = container.DeleteIfExistsAsync() |> Async.AwaitTask
+                        ()
+                    with
+                    | _ ->
+                        do! Task.Delay 5000 |> Async.AwaitTask
+                        return! deleteContainerSafe() }
+
+            do! deleteContainerSafe()
+            }
 
     let getBlobs (container : CloudBlobContainer) =
         let rec listBlobs results token =
@@ -28,6 +49,8 @@ module CreateBlob =
             if exists then return! listBlobs Seq.empty null
             else return Seq.empty
         }
+
+
     let getSingleBlob (container : CloudBlobContainer) blobName =
         container.GetBlockBlobReference(blobName)
 
