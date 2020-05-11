@@ -64,84 +64,33 @@ module FileWriter =
     let masterStatus info = info.DevStatus
     let projectName info = info.ProjectName
 
-    // type Source =
-    //     | Source of string
-    //     member this.Value = (fun (Source name) -> name) this
-    type Source =
-        | LocalService
-        | LocalServer
-        | AzureFunction
-        | AzureInfrastucture
-        | PiServer
-        | Client
-        | SPSCommunication
-        member this.GetValue =
-            match this with
-            | LocalService -> "LocalService"
-            | LocalServer -> "LocalServer"
-            | PiServer -> "PiServer"
-            | Client -> "Client"
-            | AzureFunction -> "AzureFunction"
-            | AzureInfrastucture -> "AzureInfrastucture"
-            | SPSCommunication -> "SPSCommunication"
+    // /// Represents a name of an Source
+    // type SourceName =
+    //     | SourceName of string
+    //     static member Empty = SourceName ""
+    //     member this.Value =
+    //         let (SourceName path) = this
+    //         path
+    //     member this.IfEmpty fallbackValue =
+    //         match this with
+    //         | r when r = SourceName.Empty -> SourceName fallbackValue
+    //         | r -> r
+    //     member this.Map mapper = match this with SourceName r -> SourceName (mapper r)
 
-    type Operation =
-        | Upload
-        | Download
-        | Insert
-        | Query
-        | Create
-        | Delete
-        | Calculation
-        | Restart
-        | Start
-        | Stop
-        | Update
-        | Post
-        | Get
-        member this.GetValue =
-            match this with
-            | Upload -> "Upload"
-            | Download -> "Download"
-            | Insert -> "Insert"
-            | Query -> "Query"
-            | Create -> "Create"
-            | Delete -> "Delete"
-            | Calculation -> "Calculation"
-            | Restart -> "Restart"
-            | Start -> "Start"
-            | Stop -> "Stop"
-            | Post -> "Post"
-            | Get -> "Get"
-            | Update -> "Update"
+    /// Represents a name of an Operation
+    // type OperationName =
+    //     | OperationName of string
+    //     static member Empty = OperationName ""
+    //     member this.Value =
+    //         let (OperationName path) = this
+    //         path
+    //     member this.IfEmpty fallbackValue =
+    //         match this with
+    //         | r when r = OperationName.Empty -> OperationName fallbackValue
+    //         | r -> r
+    //     member this.Map mapper = match this with OperationName r -> OperationName (mapper r)
 
-    type Destination =
-        | AzureTable
-        | QueueTable
-        | BlobTable
-        | SqlTable
-        | LocalStorage
-        | EventHub
-        member this.GetValue =
-            match this with
-            | AzureTable -> "AzureTable"
-            | QueueTable -> "QueueTable"
-            | BlobTable -> "BlobTable"
-            | SqlTable -> "SqlTable"
-            | LocalStorage -> "LocalStorage"
-            | EventHub -> "EventHub"
-
-    type Process =
-        | Finished
-        | Information
-        | Incomplete
-        | Starting
-        member this.GetValue =
-            match this with
-            | Finished -> "Finished"
-            | Incomplete -> "Incomplete"
-            | Starting -> "Starting"
-            | Information -> "Information"
+    open Chia
 
     type LogMsg =
         { Source: Source
@@ -150,7 +99,8 @@ module FileWriter =
           Process: Process
           SeverityLevel: SeverityLevel
           TimeSpan: TimeSpan
-          Message : string }
+          Message : string
+          FileWriterInfo : FileWriterInfo option}
 
 
     type Trace =
@@ -192,15 +142,18 @@ module FileWriter =
         | Test
         | PreProductive
         | Productive -> Path.Combine(@".\..\..\..\tests\", fileWriterInfo.ProjectName.Value + @"\")
-
-    let miniLogFile (dt: DateTime,logMsg, fileWriterInfo) =
+    let matchInfo logMsg =
+        match logMsg.FileWriterInfo with
+        | Some info -> info
+        | None -> failwithf "Please initialize FileWriterInfo with the constructor initFileWriter"
+    let miniLogFile (dt: DateTime,logMsg) =
         let year = dt.Year
         let day = dt.Day
         let month = dt.Month
         let hour = dt.Hour
         let min = dt.Minute
-        let logPath = logPath fileWriterInfo
-        logPath + (sprintf "log_%s_%s_%s_%s_%i%i%i%i%i.txt" logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue year day month hour min)
+        let logPath = logPath (matchInfo logMsg)
+        logPath + (sprintf "log_%s_%s_%s_%s_%i%i%i%i%i.txt" logMsg.Source.Value logMsg.Process.Value logMsg.Operation.Value logMsg.Destination.Value year day month hour min)
 
     let activateTSL() =
         Net.ServicePointManager.SecurityProtocol <-
@@ -223,44 +176,44 @@ module FileWriter =
             printfn "No Client"
             failwithf "No Client"
     let printMsg logMsg =
-        printfn "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
-    let trackTrace fileWriterInfo logMsg =
-        let client = getClient fileWriterInfo
+        printfn "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.Value logMsg.Process.Value logMsg.Operation.Value logMsg.Destination.Value
+    let trackTrace logMsg =
+        let client = getClient (matchInfo logMsg)
         // let operation = client.StartOperation<RequestTelemetry>(logMsg.Operation.GetValue)
         // operation.Telemetry.ResponseCode <- "200"
         // client.StopOperation(operation)
         printMsg logMsg
         let traceTelemetry = TraceTelemetry()
-        traceTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
-        traceTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
+        traceTelemetry.Properties.Add("Process", logMsg.Process.Value)
+        traceTelemetry.Properties.Add("Destination", logMsg.Destination.Value)
         // traceTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
-        traceTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
-        traceTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
+        traceTelemetry.Context.Operation.Name <- logMsg.Operation.Value
+        traceTelemetry.Context.Cloud.RoleName <- logMsg.Source.Value
         traceTelemetry.SeverityLevel <- logMsg.SeverityLevel |> Nullable
         traceTelemetry.Message <- logMsg.Message
         client.TrackTrace traceTelemetry
 
-    let trackMetric fileWriterInfo logMsg =
-        let client = getClient fileWriterInfo
+    let trackMetric logMsg =
+        let client = getClient (matchInfo logMsg)
         printMsg logMsg
-        let metricTelemetry = MetricTelemetry(Name = logMsg.Source.GetValue)
+        let metricTelemetry = MetricTelemetry(Name = logMsg.Source.Value)
         metricTelemetry.Properties.Add("Message", logMsg.Message)
-        metricTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
-        metricTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
+        metricTelemetry.Properties.Add("Process", logMsg.Process.Value)
+        metricTelemetry.Properties.Add("Destination", logMsg.Destination.Value)
         // metricTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
-        metricTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
-        metricTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
+        metricTelemetry.Context.Operation.Name <- logMsg.Operation.Value
+        metricTelemetry.Context.Cloud.RoleName <- logMsg.Source.Value
         client.TrackMetric metricTelemetry
 
-    let trackError fileWriterInfo logMsg exn =
-        let client = getClient fileWriterInfo
+    let trackError logMsg exn =
+        let client = getClient (matchInfo logMsg)
         printMsg logMsg
         let exceptionTelemetry = ExceptionTelemetry(exn)
-        exceptionTelemetry.Properties.Add("Process", logMsg.Process.GetValue)
-        exceptionTelemetry.Properties.Add("Destination", logMsg.Destination.GetValue)
+        exceptionTelemetry.Properties.Add("Process", logMsg.Process.Value)
+        exceptionTelemetry.Properties.Add("Destination", logMsg.Destination.Value)
         // exceptionTelemetry.Properties.Add("TimeSpan", logMsg.TimeSpan.ToString("O"))
-        exceptionTelemetry.Context.Operation.Name <- logMsg.Operation.GetValue
-        exceptionTelemetry.Context.Cloud.RoleName <- logMsg.Source.GetValue
+        exceptionTelemetry.Context.Operation.Name <- logMsg.Operation.Value
+        exceptionTelemetry.Context.Cloud.RoleName <- logMsg.Source.Value
         exceptionTelemetry.SeverityLevel <- logMsg.SeverityLevel |> Nullable
         exceptionTelemetry.Message <- logMsg.Message
         client.TrackException(exceptionTelemetry)
@@ -268,7 +221,7 @@ module FileWriter =
     let getLogTxt status logMsg =
 
         let msg =
-            sprintf "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.GetValue logMsg.Process.GetValue logMsg.Operation.GetValue logMsg.Destination.GetValue
+            sprintf "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.Value logMsg.Process.Value logMsg.Operation.Value logMsg.Destination.Value
         sprintf "%O: %s - %s - %O" DateTime.Now
             (match status with
              | Ok _ -> "Ok"
@@ -288,16 +241,17 @@ module FileWriter =
                   Process = processMsg
                   SeverityLevel = severity
                   TimeSpan = timeSpan
-                  Message = message }
+                  Message = message
+                  FileWriterInfo = Some fileWriterInfo}
             let date = DateTime.Now
             let logTxt = getLogTxt status logMsg
             match devOption with
             | Azure ->
                 match status with
-                | Error exn -> trackError fileWriterInfo logMsg exn
-                | Ok _ -> trackTrace fileWriterInfo logMsg
+                | Error exn -> trackError logMsg exn
+                | Ok _ -> trackTrace logMsg
             | Local ->
-                let file = miniLogFile (date,logMsg, fileWriterInfo)
+                let file = miniLogFile (date,logMsg)
                 printfn "Msg %s" logTxt
                 let status =
                     match status with
@@ -312,10 +266,10 @@ module FileWriter =
                     failwithf "Couldn't write LogFile: %s" exn.Message
             | LocalAndAzure ->
                 printfn "Msg %s" logTxt
-                let file = miniLogFile (date,logMsg, fileWriterInfo)
+                let file = miniLogFile (date,logMsg)
                 match status with
-                | Error exn -> trackError fileWriterInfo logMsg exn
-                | Ok _ -> trackTrace fileWriterInfo logMsg
+                | Error exn -> trackError logMsg exn
+                | Ok _ -> trackTrace logMsg
                 let status =
                     match status with
                     | Error _ -> "Error"

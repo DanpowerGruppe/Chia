@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../Shared/Domain.fs" />
+    <Compile Include="../Shared/Common.fs" />
     <Compile Include="../Shared/FileWriter.fs" />
     <Compile Include="../Shared/Logger.fs" />
     <Compile Include="../Shared/ExcelUtils.fs" />
@@ -22,6 +23,7 @@
     <Compile Include="../Shared/TimeCalculation.fs" />
     <Compile Include="../Shared/EventHub.fs" />
     <Compile Include="../Shared/AIUtils.fs" />
+    <Compile Include="../Shared/DapperHelper.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

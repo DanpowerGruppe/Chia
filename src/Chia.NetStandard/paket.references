@@ -13,3 +13,5 @@ group Chia.NetStandard
     System.Configuration.ConfigurationManager
     StackExchange.Redis
     Farmer
+    Dapper
+    Microsoft.Data.SqlClient

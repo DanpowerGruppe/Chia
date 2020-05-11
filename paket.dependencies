@@ -19,6 +19,8 @@ group Chia
     nuget StackExchange.Redis
     nuget Microsoft.Azure.EventHubs
     nuget Farmer
+    nuget Dapper
+    nuget Microsoft.Data.SqlClient
 
 group Chia.Client
     source https://api.nuget.org/v3/index.json
