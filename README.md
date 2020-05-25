@@ -28,6 +28,20 @@ let fileWriterInfo = initFileWriter devStatus "ProjectName" Local ""
 let fileWriterInfoAzure = initFileWriter devStatus "ProjectName" Azure aiKey
 let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAndAzure aiKey
 ```
+## Infrastructure
+
+Chia now can help you to set up your Azure infractruture with using Chia on top of Farmer. You simply create a new FileWriter and then Chia will create a fresh AzureConnection in your prefered location. Here is an example:
+
+```fs
+open Chia.Infrastructure
+open Chia.FileWriter
+open Chia.Domain.Config
+open Chia.Domain.Logging
+open Farmer
+let devStatus = Development
+let fileWriterInfo = initFileWriter devStatus "dp" "TestChia" Local ""
+let azAccount = azConnection fileWriterInfo Location.WestEurope
+```
 
 ## Log
 
