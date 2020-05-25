@@ -3,7 +3,8 @@ namespace Chia
 module Infrastructure =
 
     open Farmer
-    open Farmer.Resources
+    open Farmer.Builders
+    open Farmer.CoreTypes
     open Chia.FileWriter
     open Microsoft.WindowsAzure.Storage
 
@@ -24,7 +25,7 @@ module Infrastructure =
 
     let createNewOrTakeExistingInfrastruture info area =
         let deployment, resourceGroupName: Deployment * string = buildEnvironment info area
-        let outputs = deployment |> Deploy.execute resourceGroupName []
+        let outputs = deployment |> Deploy.tryExecute resourceGroupName []
         match outputs with
         | Ok x ->
             match x.TryFind "storage_key" with

@@ -4,7 +4,6 @@ group Chia
     Expecto.BenchmarkDotNet
     Expecto.FsCheck
     Expecto.TestResults
-    System.Data.SqlClient
     WindowsAzure.Storage
     Taskbuilder.fs
     Microsoft.ApplicationInsights
