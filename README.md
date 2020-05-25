@@ -31,7 +31,8 @@ let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAn
 
 ## Infrastructure
 
-Chia now can help you to set up your Azure infractruture with using Chia on top of Farmer. You simply create a new FileWriter and then Chia will create a fresh AzureConnection in your prefered location. Here is an example:
+Chia now can help you to set up your Azure infractruture by using Chia on top of Farmer. You simply create a new FileWriter and then Chia will create a fresh Azure storageaccount in your prefered location. CHia will connect to your storage account and you don't need to add you storage account at all.
+Here is an example:
 
 ```fs
 open Chia.Infrastructure
