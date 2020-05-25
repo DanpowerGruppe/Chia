@@ -11,7 +11,6 @@ open Domain
 open Logging
 open Config
 open System.Collections.Generic
-
 module ApplicationInsights =
     let startAIAndGetClient key =
         let config = new TelemetryConfiguration(InstrumentationKey = key)

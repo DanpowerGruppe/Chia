@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../Shared/Domain.fs" />
+    <Compile Include="../Shared/Common.fs" />
     <Compile Include="../Shared/FileWriter.fs" />
     <Compile Include="../Shared/Logger.fs" />
     <Compile Include="../Shared/ExcelUtils.fs" />

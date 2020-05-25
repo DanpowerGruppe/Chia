@@ -11,7 +11,7 @@ open Farmer
 open Chia.CreateTable
 let devStatus = Development
 let fileWriterInfo = initFileWriter devStatus "dp" "TestChia" Local ""
-let azAccount = azConnection fileWriterInfo WestEurope
+let azAccount = azConnection fileWriterInfo Location.WestEurope
 [<Literal>]
 let TestTable = "TestTable"
 [<Tests>]

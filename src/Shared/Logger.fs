@@ -14,30 +14,30 @@ module Log =
     //     Process : Process
     //     FileWriterInfo : string
     // }
-    type Logger () =
-        member _.Yield _ =
-            {   Source = Source.LocalService
-                SeverityLevel = SeverityLevel.Information
-                Operation = Operation.Start
-                Destination = Destination.LocalStorage
-                TimeSpan = TimeSpan.Zero
-                Process = Process.Starting
-                FileWriterInfo = None
-                Message = ""
-            }
-        member __.Run(state) = state
-        /// Sets the FileWriter of the Logger.
-        [<CustomOperation("fileWriterInfo")>]
-        member __.FileWriterInfo(state, fileWriterInfo) = { state with FileWriterInfo = Some fileWriterInfo }
-        /// Sets the SeverityLevel of the Logger.
-        [<CustomOperation "severityLevel">]
-        member __.SeverityLevel(state, severityLevel) = { state with SeverityLevel = severityLevel }
-    let log = Logger ()
-    let x = log {
-        do ()
-        fileWriterInfo info
-        severityLevel SeverityLevel.Information
-    }
+    // type Logger () =
+    //     member _.Yield _ =
+    //         {   Source = Source.LocalService
+    //             SeverityLevel = SeverityLevel.Information
+    //             Operation = Operation.Start
+    //             Destination = Destination.LocalStorage
+    //             TimeSpan = TimeSpan.Zero
+    //             Process = Process.Starting
+    //             FileWriterInfo = None
+    //             Message = ""
+    //         }
+    //     member __.Run(state) = state
+    //     /// Sets the FileWriter of the Logger.
+    //     [<CustomOperation("fileWriterInfo")>]
+    //     member __.FileWriterInfo(state, fileWriterInfo) = { state with FileWriterInfo = Some fileWriterInfo }
+    //     /// Sets the SeverityLevel of the Logger.
+    //     [<CustomOperation "severityLevel">]
+    //     member __.SeverityLevel(state, severityLevel) = { state with SeverityLevel = severityLevel }
+    // let log = Logger ()
+    // let x = log {
+    //     do ()
+    //     fileWriterInfo info
+    //     severityLevel SeverityLevel.Information
+    // }
 
 
 
