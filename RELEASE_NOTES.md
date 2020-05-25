@@ -1,3 +1,5 @@
+### 0.5.2 - 20.05.2020
+Update Farmer Packages
 ### 0.5.1 - 20.04.2020
 Add DeleteContainer Safe and optimize tryGetEnv
 ### 0.5.0 - 16.04.2020

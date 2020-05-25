@@ -30,7 +30,7 @@ module Infrastructure =
         | Ok x ->
             match x.TryFind "storage_key" with
             | Some x -> x.ToString()
-            | None -> failwithf "Cant find storage Key"
+            | None -> failwithf "Can't find storage Key"
         | Error err -> failwithf "Error creating infrastructure for %s , exn : %A " resourceGroupName err
 
     type AzureConnection =
