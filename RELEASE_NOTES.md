@@ -1,3 +1,5 @@
+### 0.5.4 - 26.05.2020
+Add saveData to TableStorage
 ### 0.5.3 - 20.05.2020
 Latest Farmer Package
 ### 0.5.2 - 20.05.2020

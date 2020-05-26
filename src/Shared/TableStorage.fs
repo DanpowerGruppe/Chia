@@ -4,7 +4,19 @@ module TableStorage =
 
     open Microsoft.WindowsAzure.Storage.Table
     open FSharp.Control.Tasks.ContextInsensitive
-    open FileWriter
+
+    let saveData mapper (table:CloudTable) info (message:'a ) =
+        task {
+            let entity = mapper message
+            let operation = TableOperation.InsertOrReplace entity
+            try
+                 let! _ = table.ExecuteAsync operation
+                 return ()
+            with
+                | exn ->
+                    let msg = sprintf "Couldn't Add Entity Message: %s" exn.Message
+                    Log.logCritical(msg,LocalService,Insert,AzureTable,exn,info)
+                    failwithf  "Couldn't Add Entity Message: %s" exn.Message }
     let saveDataArrayBatch mapper (table: CloudTable) info (messages: 'a []) =
         task {
             let entities = messages |> Array.map mapper
