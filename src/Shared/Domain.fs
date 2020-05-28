@@ -75,6 +75,11 @@ module Domain =
             | Accumulated
             | Explicit
 
+        type TimeModel =
+            { ReportIntervall: ReportIntervall
+              DateStart: DateTimeOffset
+              DateEnd: DateTimeOffset }
+
     module Ids =
         type ReportId =
             | ReportId of reportId: int

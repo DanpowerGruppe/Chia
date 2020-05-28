@@ -53,6 +53,10 @@ namespace Chia.Client
             type Aggregation =
             | Accumulated
             | Explicit
+            type TimeModel =
+                { ReportIntervall: ReportIntervall
+                  DateStart: DateTimeOffset
+                  DateEnd: DateTimeOffset }
 
         module Ids =
             type ReportId =

@@ -6,12 +6,6 @@ module TimeModelHelper =
     open System
     open Chia.Client.Domain.Time
 
-    type TimeModel =
-        { ReportIntervall: ReportIntervall
-          DateStart: DateTimeOffset
-          DateEnd: DateTimeOffset }
-
-
     type Selection<'a> = { Value: 'a; Text: string }
 
     let initTimeSpanSelection: Selection<ReportIntervall> list =
