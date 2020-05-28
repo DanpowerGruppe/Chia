@@ -18,6 +18,8 @@
     <Compile Include="Elements.fs" />
     <Compile Include="Tables.fs" />
     <Compile Include="Utils.fs" />
+    <Compile Include="Style.fs" />
+    <Compile Include="TimeModelHelper.fs" />
     <Compile Include="TimeCalculation.fs" />
   </ItemGroup>
   <ItemGroup>

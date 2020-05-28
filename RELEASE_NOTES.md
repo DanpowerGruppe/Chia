@@ -1,3 +1,5 @@
+### 0.5.5 - 28.05.2020
+Add Style and TimeModelHelper
 ### 0.5.4 - 26.05.2020
 Add saveData to TableStorage
 ### 0.5.3 - 20.05.2020
