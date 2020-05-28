@@ -6,8 +6,6 @@ module TimeModelHelper =
     open System
     open Chia.Client.Domain.Time
 
-    type Selection<'a> = { Value: 'a; Text: string }
-
     let initTimeSpanSelection: Selection<ReportIntervall> list =
         [ { Value = Monthly; Text = "Monatlich" }
           { Value = Dayly; Text = "Täglich" } ]

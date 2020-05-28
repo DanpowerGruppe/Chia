@@ -57,6 +57,7 @@ namespace Chia.Client
                 { ReportIntervall: ReportIntervall
                   DateStart: DateTimeOffset
                   DateEnd: DateTimeOffset }
+        type Selection<'a> = { Value: 'a; Text: string }
 
         module Ids =
             type ReportId =
