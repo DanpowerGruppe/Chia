@@ -1,3 +1,5 @@
+### 0.5.8 - 28.05.2020
+Add PageFlexer
 ### 0.5.7 - 28.05.2020
 Move Selection to domain
 ### 0.5.6 - 28.05.2020
