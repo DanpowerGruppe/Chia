@@ -9,8 +9,7 @@ open Chia.Domain.Config
 open Chia.Domain.Logging
 open Farmer
 open Chia.CreateTable
-let devStatus = Development
-let fileWriterInfo = initFileWriter devStatus (CompanyInitials "dp") (ProjectName "TestChia") Local ""
+let fileWriterInfo = initFileWriter Development (CompanyInitials "dp") (ProjectName "TestChia") Local ""
 let azAccount = azConnection fileWriterInfo Location.WestEurope
 [<Literal>]
 let TestTable = "TestTable"
