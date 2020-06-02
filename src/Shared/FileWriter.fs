@@ -49,14 +49,14 @@ module FileWriter =
         match devOption with
         | Local ->
             { DevStatus = masterStatus
-              CompanyInitials = CompanyInitials companyInitials
-              ProjectName = ProjectName projectName
+              CompanyInitials = companyInitials
+              ProjectName = projectName
               DevOption = devOption
               Client = None }
         | _ ->
             { DevStatus = masterStatus
-              CompanyInitials = CompanyInitials companyInitials
-              ProjectName = ProjectName projectName
+              CompanyInitials = companyInitials
+              ProjectName = projectName
               DevOption = devOption
               Client = startAIAndGetClient aiKey |> Some }
 
@@ -116,7 +116,7 @@ module FileWriter =
     let logPath fileWriterInfo =
         match fileWriterInfo.DevOption with
         | Local ->
-            let path = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.ProjectName.Value + @"\")
+            let path = Path.Combine(getLogPath fileWriterInfo, fileWriterInfo.CompanyInitials.Value,fileWriterInfo.ProjectName.Value + @"\")
             if not(Directory.Exists(path)) then
                 Directory.CreateDirectory(path) |> ignore
             path
