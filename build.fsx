@@ -30,7 +30,8 @@ open Fake.IO
 open Fake.Core.TargetOperators
 open Fake.IO.Globbing.Operators
 open Fake.Tools
-
+open Fake.IO.FileSystemOperators
+open Fake.Core.TargetOperators
 //-----------------------------------------------
 // Information about the project to be used at NuGet and in AssemblyInfo files
 // --------------------------------------------------------------------------------------
@@ -85,6 +86,9 @@ let platformTool tool winTool =
             "See https://safe-stack.github.io/docs/quickstart/#install-pre-requisites for more info"
         failwith errorMsg
 
+let nodeTool = platformTool "node" "node.exe"
+let yarnTool = platformTool "yarn" "yarn.cmd"
+let npmTool = platformTool "npm" "npm.cmd"
 
 // --------------------------------------------------------------------------------------
 // Standard DotNet Build Steps
@@ -229,5 +233,29 @@ Target.create "Push" (fun _ -> pushPackage [] )
     ==> "PrepareRelease"
     ==> "Pack"
     ==> "Push"
+
+let docsSrcPath = Path.getFullName "./src/docs"
+let docsDeployPath = "docs"
+
+Target.create "InstallDocs" (fun _ ->
+
+    runTool yarnTool "install --frozen-lockfile" docsSrcPath
+    runDotNet "restore" docsSrcPath )
+
+Target.create "PublishDocs" (fun _ ->
+    let docsDeployLocalPath = (docsSrcPath </> "deploy")
+    [ docsDeployPath; docsDeployLocalPath] |> Shell.cleanDirs
+    runTool yarnTool"webpack-cli -p" docsSrcPath
+    Shell.copyDir docsDeployPath docsDeployLocalPath FileFilter.allFiles
+)
+
+
+Target.create "RunDocs" (fun _ -> runTool yarnTool "webpack-dev-server" docsSrcPath)
+
+"InstallDocs"
+==> "RunDocs"
+
+"InstallDocs"
+==> "PublishDocs"
 
 Target.runOrDefault "Build"

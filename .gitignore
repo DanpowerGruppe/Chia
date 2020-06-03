@@ -10,3 +10,4 @@ test/obj/
 .fake/*
 tests/*
 reports/*
+node_modules
