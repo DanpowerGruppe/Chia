@@ -5,6 +5,9 @@ open Feliz.Router
 type Page =
     | Chia
     | ChiaInstallation
+    | ChiaClient
+    | ChiaClientInstallation
+
     // | BulmaAPIDescription
     // | QuickViewOverview
     // | QuickViewInstallation
@@ -26,6 +29,8 @@ let defaultPage = Chia
 let parseUrl = function
     | [ "" ] -> Chia
     | [ "installation" ] -> ChiaInstallation
+    | [ "client" ] -> ChiaClient
+    | [ "clientinstallation" ] -> ChiaClientInstallation
     // | [ "installation" ] -> BulmaInstallation
     // | [ "api-description" ] -> BulmaAPIDescription
     // | [ "quickview"; "installation" ] -> QuickViewInstallation
@@ -47,6 +52,8 @@ let parseUrl = function
 let getHref = function
     | Chia -> Router.format("")
     | ChiaInstallation -> Router.format("installation")
+    | ChiaClient -> Router.format("client")
+    | ChiaClientInstallation -> Router.format("clientinstallation")
     // | BulmaInstallation -> Router.format("installation")
     // | BulmaAPIDescription -> Router.format("api-description")
     // | QuickViewOverview -> Router.format("quickview")

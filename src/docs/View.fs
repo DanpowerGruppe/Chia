@@ -23,6 +23,13 @@ let menuPart model =
         Bulma.menuList [
             item "Installation" ChiaInstallation
         ]
+        Bulma.menuLabel "Chia.Client"
+        Bulma.menuList [
+            item "Overview" ChiaClient
+        ]
+        Bulma.menuList [
+            item "Installation" ChiaClientInstallation
+        ]
         // Bulma.menuLabel "Feliz.Bulma.QuickView"
         // Bulma.menuList [
         //     item "Overview" QuickViewOverview
@@ -63,6 +70,8 @@ let contentPart model dispatch =
     match model.CurrentPage with
     | Chia -> Chia.overview
     | ChiaInstallation -> Chia.installation
+    | ChiaClient -> ChiaClient.overview
+    | ChiaClientInstallation -> ChiaClient.installation
     // | BulmaInstallation -> Views.Bulma.installation
     // | BulmaAPIDescription -> Views.Bulma.apiDescription
     // | QuickViewOverview -> Views.QuickView.overview model dispatch

@@ -8,6 +8,7 @@
     <Compile Include="Domain.fs" />
     <Compile Include="Shared.fs" />
     <Compile Include="Chia.fs" />
+    <Compile Include="ChiaClient.fs" />
     <Compile Include="View.fs" />
     <Compile Include="State.fs" />
     <Compile Include="App.fs" />
