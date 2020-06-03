@@ -20,6 +20,9 @@ let menuPart model =
         Bulma.menuList [
             item "Overview" Chia
         ]
+        Bulma.menuList [
+            item "Installation" ChiaInstallation
+        ]
         // Bulma.menuLabel "Feliz.Bulma.QuickView"
         // Bulma.menuList [
         //     item "Overview" QuickViewOverview
@@ -59,6 +62,7 @@ let menuPart model =
 let contentPart model dispatch =
     match model.CurrentPage with
     | Chia -> Chia.overview
+    | ChiaInstallation -> Chia.installation
     // | BulmaInstallation -> Views.Bulma.installation
     // | BulmaAPIDescription -> Views.Bulma.apiDescription
     // | QuickViewOverview -> Views.QuickView.overview model dispatch
@@ -93,6 +97,6 @@ let view (model : Model) (dispatch : Msg -> unit) =
             ]
         ]
     Router.router [
-        Router.onUrlChanged (Router.parseUrl >> UrlChanged >> dispatch)
+        Router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)
         Router.application render
     ]

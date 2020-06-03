@@ -6,6 +6,7 @@
   <ItemGroup>
     <Compile Include="Router.fs" />
     <Compile Include="Domain.fs" />
+    <Compile Include="Shared.fs" />
     <Compile Include="Chia.fs" />
     <Compile Include="View.fs" />
     <Compile Include="State.fs" />
