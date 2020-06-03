@@ -7,8 +7,8 @@
     <Compile Include="Router.fs" />
     <Compile Include="Domain.fs" />
     <Compile Include="Shared.fs" />
-    <Compile Include="Chia.fs" />
-    <Compile Include="ChiaClient.fs" />
+    <Compile Include="views\Chia\Chia.fs" />
+    <Compile Include="views\ChiaClient\ChiaClient.fs" />
     <Compile Include="View.fs" />
     <Compile Include="State.fs" />
     <Compile Include="App.fs" />
