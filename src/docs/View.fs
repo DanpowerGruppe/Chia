@@ -6,106 +6,94 @@ open Feliz.Bulma
 open Router
 
 let menuPart model =
-    let item (t:string) p =
+    let item (t: string) p =
         let isActive =
-            if model.CurrentPage = p then [ helpers.isActive; color.hasBackgroundPrimary ] else []
-        Bulma.menuItem.a [
-            yield! isActive
-            yield prop.text t
-            yield prop.href (getHref p)
-        ]
+            if model.CurrentPage = p then
+                [ helpers.isActive
+                  color.hasBackgroundPrimary ]
+            else
+                []
 
-    Bulma.menu [
-        Bulma.menuLabel "Chia"
-        Bulma.menuList [
-            item "Overview" Chia
-        ]
-        Bulma.menuList [
-            item "Installation" ChiaInstallation
-        ]
-        Bulma.menuLabel "Chia.Client"
-        Bulma.menuList [
-            item "Overview" ChiaClient
-        ]
-        Bulma.menuList [
-            item "Installation" ChiaClientInstallation
-        ]
-        // Bulma.menuLabel "Feliz.Bulma.QuickView"
-        // Bulma.menuList [
-        //     item "Overview" QuickViewOverview
-        //     item "Installation" QuickViewInstallation
-        // ]
-        // Bulma.menuLabel "Feliz.Bulma.Calendar"
-        // Bulma.menuList [
-        //     item "Overview" CalendarOverview
-        //     item "Installation" CalendarInstallation
-        // ]
-        // Bulma.menuLabel "Feliz.Bulma.Tooltip"
-        // Bulma.menuList [
-        //     item "Overview" TooltipOverview
-        //     item "Installation" TooltipInstallation
-        // ]
-        // Bulma.menuLabel "Feliz.Bulma.Checkradio"
-        // Bulma.menuList [
-        //     item "Overview" CheckradioOverview
-        //     item "Installation" CheckradioInstallation
-        // ]
-        // Bulma.menuLabel "Feliz.Bulma.Popover"
-        // Bulma.menuList [
-        //     item "Overview" PopoverOverview
-        // ]
-        // Bulma.menuLabel "Feliz.Bulma.PageLoader"
-        // Bulma.menuList [
-        //     item "Overview" PageLoaderOverview
-        //     item "Installation" PageLoaderInstallation
-        // ]
-        // Bulma.menuLabel "Feliz.Bulma.Switch"
-        // Bulma.menuList [
-        //     item "Overview" SwitchOverview
-        //     item "Installation" SwitchInstallation
-        // ]
-    ]
+        Bulma.menuItem.a
+            [ yield! isActive
+              yield prop.text t
+              yield prop.href (getHref p) ]
+
+    Bulma.menu
+        [ Bulma.menuLabel "Chia"
+          Bulma.menuList [ item "Overview" Chia ]
+          Bulma.menuList
+              [ item "Installation" ChiaInstallation
+                item "FileWriter" ChiaFileWriter
+                item "Infrastructure" ChiaInfrastructure
+                item "Logger" ChiaLogger
+                item "CreateTable" ChiaCreateTable
+                item "CreateBlob" ChiaCreateBlob
+                item "CreateJsonBlob" ChiaCreateJsonBlob
+                item "CreateXml" ChiaCreateXml
+                item "PostToQueue" ChiaPostToQueue
+                item "GetTableEntry" ChiaGetTableEntry
+                item "RedisCache" ChiaRedisCache
+                item "EventHub" ChiaEventHub
+                item "TableStorage" ChiaTableStorage
+                item "AiUtils" ChiaAiUtils
+                item "ExcelUtils" ChiaExcelUtils ]
+          Bulma.menuLabel "Chia.Client"
+          Bulma.menuList
+              [ item "Overview" ChiaClient
+                item "Installation" ChiaClientInstallation
+                item "PageFlexer" ChiaClientPageFlexer ] ]
 
 let contentPart model dispatch =
     match model.CurrentPage with
     | Chia -> Chia.overview
     | ChiaInstallation -> Chia.installation
+    | ChiaFileWriter -> ChiaFileWriter.overview
+    | ChiaAiUtils -> ChiaAiUtils.overview
+    | ChiaRedisCache -> ChiaRedisCache.overview
+    | ChiaEventHub -> ChiaEventHub.overview
+    | ChiaCreateXml -> ChiaCreateXml.overview
+    | ChiaCreateTable -> ChiaCreateTable.overview
+    | ChiaCreateBlob -> ChiaCreateBlob.overview
+    | ChiaCreateJsonBlob -> ChiaCreateJsonBlob.overview
+    | ChiaPostToQueue -> ChiaPostToQueue.overview
+    | ChiaGetTableEntry -> ChiaGetTableEntry.overview
+    | ChiaLogger -> ChiaLogger.overview
+    | ChiaInfrastructure -> ChiaInfrastructure.overview
+    | ChiaExcelUtils -> ChiaExcelUtils.overview
+    | ChiaTableStorage -> ChiaTableStorage.overview
     | ChiaClient -> ChiaClient.overview
     | ChiaClientInstallation -> ChiaClient.installation
-    // | BulmaInstallation -> Views.Bulma.installation
-    // | BulmaAPIDescription -> Views.Bulma.apiDescription
-    // | QuickViewOverview -> Views.QuickView.overview model dispatch
-    // | QuickViewInstallation -> Views.QuickView.installation
-    // | CalendarOverview -> Views.Calendar.overview
-    // | CalendarInstallation -> Views.Calendar.installation
-    // | TooltipOverview -> Views.Tooltip.overview
-    // | TooltipInstallation -> Views.Tooltip.installation
-    // | CheckradioOverview -> Views.Checkradio.overview
-    // | CheckradioInstallation -> Views.Checkradio.installation
-    // | SwitchOverview -> Views.Switch.overview
-    // | SwitchInstallation -> Views.Switch.installation
-    // | PopoverOverview -> Views.Popover.overview
-    // | PopoverInstallation -> Views.Popover.installation
-    // | PageLoaderOverview -> Views.PageLoader.overview model dispatch
-    // | PageLoaderInstallation -> Views.PageLoader.installation
+    | ChiaClientPageFlexer -> ChiaPageFlexer.overview
+// | BulmaInstallation -> Views.Bulma.installation
+// | BulmaAPIDescription -> Views.Bulma.apiDescription
+// | QuickViewOverview -> Views.QuickView.overview model dispatch
+// | QuickViewInstallation -> Views.QuickView.installation
+// | CalendarOverview -> Views.Calendar.overview
+// | CalendarInstallation -> Views.Calendar.installation
+// | TooltipOverview -> Views.Tooltip.overview
+// | TooltipInstallation -> Views.Tooltip.installation
+// | CheckradioOverview -> Views.Checkradio.overview
+// | CheckradioInstallation -> Views.Checkradio.installation
+// | SwitchOverview -> Views.Switch.overview
+// | SwitchInstallation -> Views.Switch.installation
+// | PopoverOverview -> Views.Popover.overview
+// | PopoverInstallation -> Views.Popover.installation
+// | PageLoaderOverview -> Views.PageLoader.overview model dispatch
+// | PageLoaderInstallation -> Views.PageLoader.installation
 
-let view (model : Model) (dispatch : Msg -> unit) =
+let view (model: Model) (dispatch: Msg -> unit) =
     let render =
-        Bulma.container [
-            Bulma.section [
-                Bulma.tile [
-                    tile.isAncestor
-                    prop.children [
-                        Bulma.tile [
-                            tile.is2
-                            prop.children (menuPart model)
-                        ]
-                        Bulma.tile (contentPart model dispatch)
-                    ]
-                ]
-            ]
-        ]
-    Router.router [
-        Router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)
-        Router.application render
-    ]
+        Bulma.container
+            [ Bulma.section
+                [ Bulma.tile
+                    [ tile.isAncestor
+                      prop.children
+                          [ Bulma.tile
+                              [ tile.is2
+                                prop.children (menuPart model) ]
+                            Bulma.tile (contentPart model dispatch) ] ] ] ]
+
+    Router.router
+        [ Router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)
+          Router.application render ]

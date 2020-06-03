@@ -5,8 +5,23 @@ open Feliz.Router
 type Page =
     | Chia
     | ChiaInstallation
+    | ChiaFileWriter
+    | ChiaAiUtils
+    | ChiaRedisCache
+    | ChiaEventHub
+    | ChiaCreateXml
+    | ChiaCreateTable
+    | ChiaCreateBlob
+    | ChiaCreateJsonBlob
+    | ChiaPostToQueue
+    | ChiaLogger
+    | ChiaInfrastructure
+    | ChiaGetTableEntry
+    | ChiaExcelUtils
+    | ChiaTableStorage
     | ChiaClient
     | ChiaClientInstallation
+    | ChiaClientPageFlexer
 
     // | BulmaAPIDescription
     // | QuickViewOverview
@@ -29,8 +44,25 @@ let defaultPage = Chia
 let parseUrl = function
     | [ "" ] -> Chia
     | [ "installation" ] -> ChiaInstallation
+    | [ "filewriter" ] -> ChiaFileWriter
+    | [ "aiutils" ] -> ChiaAiUtils
+    | [ "rediscache" ] -> ChiaRedisCache
+    | [ "eventhub" ] -> ChiaEventHub
+    | [ "createxml" ] -> ChiaCreateXml
+    | [ "createtable" ] -> ChiaCreateTable
+    | [ "createblob" ] -> ChiaCreateBlob
+    | [ "createjsonblob" ] -> ChiaCreateJsonBlob
+    | [ "posttoqueue" ] -> ChiaPostToQueue
+    | [ "gettableentry" ] -> ChiaGetTableEntry
+    | [ "logger" ] -> ChiaLogger
+    | [ "infrastructure" ] -> ChiaInfrastructure
+    | [ "excelutils" ] -> ChiaExcelUtils
+    | [ "tablestorage" ] -> ChiaTableStorage
     | [ "client" ] -> ChiaClient
     | [ "clientinstallation" ] -> ChiaClientInstallation
+    | [ "clientpageflexer" ] -> ChiaClientPageFlexer
+
+
     // | [ "installation" ] -> BulmaInstallation
     // | [ "api-description" ] -> BulmaAPIDescription
     // | [ "quickview"; "installation" ] -> QuickViewInstallation
@@ -52,8 +84,23 @@ let parseUrl = function
 let getHref = function
     | Chia -> Router.format("")
     | ChiaInstallation -> Router.format("installation")
+    | ChiaFileWriter -> Router.format("filewriter")
+    | ChiaAiUtils -> Router.format("aiutils")
+    | ChiaRedisCache -> Router.format("rediscache")
+    | ChiaEventHub -> Router.format("eventhub")
+    | ChiaCreateXml -> Router.format("createxml")
+    | ChiaCreateTable -> Router.format("createtable")
+    | ChiaCreateBlob -> Router.format("createblob")
+    | ChiaCreateJsonBlob -> Router.format("createjsonblob")
+    | ChiaPostToQueue -> Router.format("posttoqueue")
+    | ChiaGetTableEntry -> Router.format("gettableentry")
+    | ChiaLogger -> Router.format("logger")
+    | ChiaInfrastructure -> Router.format("infrastructure")
+    | ChiaExcelUtils -> Router.format("excelutils")
+    | ChiaTableStorage -> Router.format("tablestorage")
     | ChiaClient -> Router.format("client")
     | ChiaClientInstallation -> Router.format("clientinstallation")
+    | ChiaClientPageFlexer -> Router.format("clientpageflexer")
     // | BulmaInstallation -> Router.format("installation")
     // | BulmaAPIDescription -> Router.format("api-description")
     // | QuickViewOverview -> Router.format("quickview")
