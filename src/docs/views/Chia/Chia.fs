@@ -21,7 +21,7 @@ let overview =
         ]
         Html.hr []
         Bulma.content [
-            Html.p "Chia contains HelperFunctions for reporting.. Instead of writing:"
+            Html.p "Chia contains HelperFunctions for reporting."
             Html.p "Chia contains some Azure Storage functions, logging features and some excel utils."
         ]
         Bulma.content [
