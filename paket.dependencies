@@ -53,3 +53,22 @@ group Chia.NetStandard
     nuget System.Drawing.Common
     nuget StackExchange.Redis
     nuget Farmer
+
+group Chia.Docs
+    source https://api.nuget.org/v3/index.json
+    framework: netstandard2.0
+    nuget FSharp.Core
+    nuget Fable.Core
+    nuget Fable.Elmish.React
+    nuget Fable.React
+    nuget Feliz.Router
+    nuget Zanaptak.TypedCssClasses
+    nuget Fable.SimpleHttp
+    nuget Feliz.ElmishComponents
+    nuget Feliz.UseDeferred
+    nuget Feliz.Popover
+    nuget Feliz
+    nuget Feliz.Markdown
+    nuget Fable.Elmish.Debugger
+    nuget Fable.Elmish.HMR
+    nuget Feliz.Bulma

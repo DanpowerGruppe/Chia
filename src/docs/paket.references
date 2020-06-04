@@ -1,4 +1,4 @@
-group Docs
+group Chia.Docs
     FSharp.Core
     Fable.Core
     Fable.Elmish.React
