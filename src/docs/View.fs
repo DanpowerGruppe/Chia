@@ -11,7 +11,7 @@ let menuPart model dispatch =
         let isActive =
             if model.CurrentPage = p then
                 [ helpers.isActive
-                  color.hasBackgroundPrimary ]
+                   ]
             else
                 []
 
