@@ -7,10 +7,7 @@ let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.AiUtils " ]
           Bulma.subtitle.h2
-              [ Html.a
-                  [ prop.href "https://wikiki.github.io/components/quickview/"
-                    prop.text "QuickView" ]
-                Html.text " extension for Feliz.Bulma" ]
+              [ Html.text "Helper for ApplicationInsights" ]
           Html.hr []
           Bulma.content
               [ Html.p "This library extends Feliz.Bulma by adding QuickView component"

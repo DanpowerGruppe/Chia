@@ -4,8 +4,9 @@ open Domain
 open Feliz
 open Feliz.Bulma
 open Router
+open Chia.Client.PageFlexer
 
-let menuPart model dispatch=
+let menuPart model dispatch =
     let item (t: string) p =
         let isActive =
             if model.CurrentPage = p then
@@ -21,9 +22,9 @@ let menuPart model dispatch=
               prop.href (getHref p) ]
 
     Bulma.menu
-        [
-          Bulma.menuLabel "Chia"
-          Bulma.menuList [ item "Overview" Chia ]
+        [ Bulma.menuLabel "Chia"
+          Bulma.menuList [
+              item "Overview" Chia ]
           Bulma.menuList
               [ item "Installation" ChiaInstallation
                 item "FileWriter" ChiaFileWriter
@@ -45,6 +46,7 @@ let menuPart model dispatch=
               [ item "Overview" ChiaClient
                 item "Installation" ChiaClientInstallation
                 item "PageFlexer" ChiaClientPageFlexer ] ]
+
 let contentPart model dispatch =
     match model.CurrentPage with
     | Chia -> Chia.overview
@@ -84,6 +86,7 @@ let contentPart model dispatch =
 // | PageLoaderInstallation -> Views.PageLoader.installation
 
 let view (model: Model) (dispatch: Msg -> unit) =
+
     let render =
         Bulma.container
             [ Bulma.section

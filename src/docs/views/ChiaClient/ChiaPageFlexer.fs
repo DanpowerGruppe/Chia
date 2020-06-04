@@ -7,24 +7,13 @@ open Chia.Client.PageFlexer
 
 let content =
     Bulma.content
-      [ Html.p "This library extends Feliz.Bulma by adding QuickView component"
+      [ Html.p "Use PageFlexer like this"
         code """
-        open Feliz.Bulma.QuickView
-        QuickView.quickview [
-            if model.ShowQuickView then yield quickview.isActive
-            yield prop.children [
-                QuickView.header [
-                    Html.div "Header"
-                    Bulma.delete [ prop.onClick (fun _ -> ToggleQuickView |> dispatch) ]
-                ]
-                QuickView.body [
-                    QuickView.block "Bulma is great"
-                ]
-                QuickView.footer [
-                    Bulma.button "Save"
-                ]
-            ]
-        ]""" ]
+        pageFlexer [] [
+            Html.div
+                [ Bulma.title.h1 [ Html.text "Chia.Client.PageFlexer" ]
+                  Bulma.subtitle.h2 ]]""" ]
+
 let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.Client.PageFlexer" ]
@@ -34,6 +23,4 @@ let overview =
                     prop.text "QuickView" ]
                 Html.text " extension for Feliz.Bulma" ]
           Html.hr []
-          content
-          Html.hr []
-          pageFlexer [] [content]     ]
+          content ]

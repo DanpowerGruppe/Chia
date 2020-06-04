@@ -14,7 +14,6 @@ let private delay (msg:Msg) =
 let update (msg : Msg) (currentModel : Model) : Model * Cmd<Msg> =
     match msg with
     | UrlChanged p -> { currentModel with CurrentPage = p }, Cmd.none
-    | ToggleQuickView ->  { currentModel with ShowQuickView = not currentModel.ShowQuickView }, Cmd.none
     | SentToast page -> currentModel, successToast (currentModel.CurrentPage.ToString()) page
     | ToggleLoader ->
         let cmd =
