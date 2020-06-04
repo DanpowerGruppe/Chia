@@ -28,5 +28,8 @@
     <Compile Include="State.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Chia.Client\Chia.Client.fsproj" />
+  </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

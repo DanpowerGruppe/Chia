@@ -5,7 +5,7 @@ open Feliz
 open Feliz.Bulma
 open Router
 
-let menuPart model =
+let menuPart model dispatch=
     let item (t: string) p =
         let isActive =
             if model.CurrentPage = p then
@@ -16,11 +16,13 @@ let menuPart model =
 
         Bulma.menuItem.a
             [ yield! isActive
-              yield prop.text t
-              yield prop.href (getHref p) ]
+              prop.onClick (fun _ -> (SentToast t) |> dispatch)
+              prop.text t
+              prop.href (getHref p) ]
 
     Bulma.menu
-        [ Bulma.menuLabel "Chia"
+        [
+          Bulma.menuLabel "Chia"
           Bulma.menuList [ item "Overview" Chia ]
           Bulma.menuList
               [ item "Installation" ChiaInstallation
@@ -43,7 +45,6 @@ let menuPart model =
               [ item "Overview" ChiaClient
                 item "Installation" ChiaClientInstallation
                 item "PageFlexer" ChiaClientPageFlexer ] ]
-
 let contentPart model dispatch =
     match model.CurrentPage with
     | Chia -> Chia.overview
@@ -91,7 +92,7 @@ let view (model: Model) (dispatch: Msg -> unit) =
                       prop.children
                           [ Bulma.tile
                               [ tile.is2
-                                prop.children (menuPart model) ]
+                                prop.children (menuPart model dispatch) ]
                             Bulma.tile (contentPart model dispatch) ] ] ] ]
 
     Router.router

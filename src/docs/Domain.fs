@@ -15,5 +15,5 @@ module Model =
 
 type Msg =
     | UrlChanged of Router.Page
-    | ToggleQuickView
     | ToggleLoader
+    | SentToast of string
