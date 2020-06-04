@@ -7,28 +7,15 @@ open Shared
 let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.CreateBlob" ]
-          Bulma.subtitle.h2
-              [ Html.a
-                  [ prop.href "https://wikiki.github.io/components/quickview/"
-                    prop.text "QuickView" ]
-                Html.text " extension for Feliz.Bulma" ]
+          Bulma.subtitle.h2 [ Html.text "Helper to create a Azure blobs" ]
           Html.hr []
           Bulma.content
-              [ Html.p "This library extends Feliz.Bulma by adding QuickView component"
+              [ Html.p "First create your blob container"
                 code """
-                open Feliz.Bulma.QuickView
-                QuickView.quickview [
-                    if model.ShowQuickView then yield quickview.isActive
-                    yield prop.children [
-                        QuickView.header [
-                            Html.div "Header"
-                            Bulma.delete [ prop.onClick (fun _ -> ToggleQuickView |> dispatch) ]
-                        ]
-                        QuickView.body [
-                            QuickView.block "Bulma is great"
-                        ]
-                        QuickView.footer [
-                            Bulma.button "Save"
-                        ]
-                    ]
-                ]""" ] ]
+                open Chia.CreateBlob
+                let containerInfo = {   StorageConnString = StorageConnString = StorageAccount.storageConnString
+                                        ContainerName = "ContainerName"}
+                let myContainer = getContainer containerInfo"""
+                Html.p "Now you can get a list of all you blobs in the container like this:"
+                code """
+                let blobItems = getBlobs myContainero""" ] ]
