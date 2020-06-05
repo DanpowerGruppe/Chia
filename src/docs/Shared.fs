@@ -7,7 +7,7 @@ open Feliz.Bulma
 
 type Highlight =
     static member inline highlight (properties: IReactProperty list) =
-        Interop.reactApi.createElement(JsInterop.importDefault "react-highlight", JsInterop.createObj !!properties)
+        Interop.reactApi.createElement(importDefault "react-highlight", createObj !!properties)
 
 let code (c:string) =
     Highlight.highlight [

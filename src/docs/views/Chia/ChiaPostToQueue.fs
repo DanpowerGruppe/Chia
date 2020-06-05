@@ -9,27 +9,20 @@ let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.PostToQueue" ]
           Bulma.subtitle.h2
-              [ Html.a
-                  [ prop.href "https://wikiki.github.io/components/quickview/"
-                    prop.text "QuickView" ]
-                Html.text " extension for Feliz.Bulma" ]
+              [ Html.text "Helper for Azure Queue messages" ]
           Html.hr []
           Bulma.content
-              [ Html.p "This library extends Feliz.Bulma by adding QuickView component"
+              [ Html.p "You can use Chia to sent out a Azure Queue message like this:"
                 code """
-                open Feliz.Bulma.QuickView
-                QuickView.quickview [
-                    if model.ShowQuickView then yield quickview.isActive
-                    yield prop.children [
-                        QuickView.header [
-                            Html.div "Header"
-                            Bulma.delete [ prop.onClick (fun _ -> ToggleQuickView |> dispatch) ]
-                        ]
-                        QuickView.body [
-                            QuickView.block "Bulma is great"
-                        ]
-                        QuickView.footer [
-                            Bulma.button "Save"
-                        ]
-                    ]
-                ]""" ] ]
+                open Chia.PostToQueue
+                open Chia.CreateTable
+
+
+                let connected =
+                    let connection = AzureConnection StorageAccount.storageConnString
+                    connection.Connect()
+
+                [<Literal>]
+                let SendMail = "sendmail-queue"
+
+                let sendQueue = getQueue connected SendMail fileWriterInfo""" ] ]
