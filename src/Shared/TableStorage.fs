@@ -31,18 +31,18 @@ module TableStorage =
 
             try
                 entities
-                |> Array.iter batchOperation.InsertOrReplace
+                |> Array.iter (fun x -> batchOperation.Add(TableOperation.InsertOrReplace x))
             with exn ->
                 printfn "Couldn't Add Entity Message: %s" exn.Message
                 failwithf "Couldn't Add Entity Message: %s" exn.Message
             try
-                table.ExecuteBatchAsync(batchOperation) |> ignore
+                let! _ = table.ExecuteBatchAsync(batchOperation)
+                return ()
             with exn ->
                 let msg =
                     sprintf "Couldn't Add Entity Message: %s" exn.Message
 
                 Log.logCritical (msg, LocalService, Insert, AzureTable, exn, info)
-                failwith msg
-
+                return failwith msg
             ()
         }
