@@ -19,8 +19,13 @@ let overview =
         [ Bulma.title.h1 [ Html.text "Chia.Client.PageFlexer" ]
           Bulma.subtitle.h2
               [ Html.a
-                  [ prop.href "https://wikiki.github.io/components/quickview/"
-                    prop.text "QuickView" ]
-                Html.text " extension for Feliz.Bulma" ]
+                  [ prop.href "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+                    prop.text "Flexbox" ]
+                Html.text " extension for Chia" ]
           Html.hr []
-          content ]
+          Html.p "Use PageFlexer like this"
+          code """
+          pageFlexer [] [
+              Html.div
+                  [ Bulma.title.h1 [ Html.text "Chia.Client.PageFlexer" ]
+                    Bulma.subtitle.h2 ]]""" ]

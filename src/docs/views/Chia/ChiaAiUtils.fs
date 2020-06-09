@@ -18,4 +18,14 @@ let overview =
                 eventMsg "FTP files uploaded"
                     [ "Files", missingFiles |> Set.toList |> sprintf "%A"
                       "ExistingFiles", existingFiles |> Seq.length |> sprintf "%i" ] fileWriterInfo
+                """
+                Html.p "Use the AI helper to track an exception"
+                code """
+                open Chia
+                open FileWriter
+                open Microsoft.ApplicationInsights.DataContracts
+                errorMsg (exn "NoAttachmentError")
+                    [ "Mail", details.Mail
+                      "EmailAddress", details.EmailAddress
+                      "Subject", details.Subject ] fileWriterInfo
                 """ ] ]
