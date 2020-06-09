@@ -39,7 +39,7 @@ let menuPart model dispatch =
                 item "RedisCache" ChiaRedisCache
                 item "EventHub" ChiaEventHub
                 item "TableStorage" ChiaTableStorage
-                item "AiUtils" ChiaAiUtils
+                item "AIUtils" ChiaAIUtils
                 item "ExcelUtils" ChiaExcelUtils ]
           Bulma.menuLabel "Chia.Client"
           Bulma.menuList
@@ -52,7 +52,7 @@ let contentPart model dispatch =
     | Chia -> Chia.overview
     | ChiaInstallation -> Chia.installation
     | ChiaFileWriter -> ChiaFileWriter.overview
-    | ChiaAiUtils -> ChiaAiUtils.overview
+    | ChiaAIUtils -> ChiaAIUtils.overview
     | ChiaRedisCache -> ChiaRedisCache.overview
     | ChiaEventHub -> ChiaEventHub.overview
     | ChiaCreateXml -> ChiaCreateXml.overview

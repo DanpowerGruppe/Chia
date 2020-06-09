@@ -11,7 +11,7 @@
     <Compile Include="Shared.fs" />
     <Compile Include="views\Chia\Chia.fs" />
     <Compile Include="views\Chia\ChiaFileWriter.fs" />
-    <Compile Include="views\Chia\ChiaAiUtils.fs" />
+    <Compile Include="views\Chia\ChiaAIUtils.fs" />
     <Compile Include="views\Chia\ChiaRedisCache.fs" />
     <Compile Include="views\Chia\ChiaEventHub.fs" />
     <Compile Include="views\Chia\ChiaCreateXml.fs" />

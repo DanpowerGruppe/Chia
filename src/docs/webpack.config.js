@@ -20,7 +20,7 @@ var CONFIG = {
     cssEntry: './style.scss',
     outputDir: './deploy',
     assetsDir: './public',
-    devServerPort: 8080,
+    devServerPort: 4000,
     // When using webpack-dev-server, you may need to redirect some calls
     // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
     devServerProxy: {

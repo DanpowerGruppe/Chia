@@ -1,30 +1,21 @@
-module ChiaAiUtils
+module ChiaAIUtils
 
 open Feliz
 open Feliz.Bulma
 open Shared
 let overview =
     Html.div
-        [ Bulma.title.h1 [ Html.text "Chia.AiUtils " ]
+        [ Bulma.title.h1 [ Html.text "Chia.AIUtils " ]
           Bulma.subtitle.h2
               [ Html.text "Helper for ApplicationInsights" ]
           Html.hr []
           Bulma.content
-              [ Html.p "This library extends Feliz.Bulma by adding QuickView component"
+              [ Html.p "Use the AI helper to post a EventTelemetry"
                 code """
-                open Feliz.Bulma.QuickView
-                QuickView.quickview [
-                    if model.ShowQuickView then yield quickview.isActive
-                    yield prop.children [
-                        QuickView.header [
-                            Html.div "Header"
-                            Bulma.delete [ prop.onClick (fun _ -> ToggleQuickView |> dispatch) ]
-                        ]
-                        QuickView.body [
-                            QuickView.block "Bulma is great"
-                        ]
-                        QuickView.footer [
-                            Bulma.button "Save"
-                        ]
-                    ]
-                ]""" ] ]
+                open Chia
+                open FileWriter
+                open Microsoft.ApplicationInsights.DataContracts
+                eventMsg "FTP files uploaded"
+                    [ "Files", missingFiles |> Set.toList |> sprintf "%A"
+                      "ExistingFiles", existingFiles |> Seq.length |> sprintf "%i" ] fileWriterInfo
+                """ ] ]

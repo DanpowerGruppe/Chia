@@ -6,7 +6,7 @@ type Page =
     | Chia
     | ChiaInstallation
     | ChiaFileWriter
-    | ChiaAiUtils
+    | ChiaAIUtils
     | ChiaRedisCache
     | ChiaEventHub
     | ChiaCreateXml
@@ -45,7 +45,7 @@ let parseUrl = function
     | [ "" ] -> Chia
     | [ "installation" ] -> ChiaInstallation
     | [ "filewriter" ] -> ChiaFileWriter
-    | [ "aiutils" ] -> ChiaAiUtils
+    | [ "aiutils" ] -> ChiaAIUtils
     | [ "rediscache" ] -> ChiaRedisCache
     | [ "eventhub" ] -> ChiaEventHub
     | [ "createxml" ] -> ChiaCreateXml
@@ -85,7 +85,7 @@ let getHref = function
     | Chia -> Router.format("")
     | ChiaInstallation -> Router.format("installation")
     | ChiaFileWriter -> Router.format("filewriter")
-    | ChiaAiUtils -> Router.format("aiutils")
+    | ChiaAIUtils -> Router.format("aiutils")
     | ChiaRedisCache -> Router.format("rediscache")
     | ChiaEventHub -> Router.format("eventhub")
     | ChiaCreateXml -> Router.format("createxml")

@@ -8,13 +8,10 @@ let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.TableStorage" ]
           Bulma.subtitle.h2
-              [ Html.a
-                  [ prop.href "https://wikiki.github.io/components/quickview/"
-                    prop.text "QuickView" ]
-                Html.text " extension for Feliz.Bulma" ]
+              [ Html.text "Helper to save data to Azure tables" ]
           Html.hr []
           Bulma.content
-              [ Html.p "This library extends Feliz.Bulma by adding QuickView component"
+              [ Html.p "Save single entity"
                 code """
                 open Feliz.Bulma.QuickView
                 QuickView.quickview [
