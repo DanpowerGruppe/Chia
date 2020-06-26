@@ -1,3 +1,5 @@
+### 0.6.3 - 26.06.2020
+Update packages
 ### 0.6.2 - 08.06.2020
 Fix table Upload batch
 ### 0.6.1 - 08.06.2020
