@@ -25,4 +25,18 @@ let overview =
                 open Farmer
                 let devStatus = Development
                 let fileWriterInfo = initFileWriter devStatus "dp" "TestChia" Local ""
-                let azAccount = azConnection fileWriterInfo Location.WestEurope""" ] ]
+                let azAccount = azConnection fileWriterInfo Location.WestEurope""" ]
+          Html.hr []
+          Bulma.content
+              [ Html.p " You use Farmer to create a fresh storage accout by using:"
+                code """
+                let azAccount = azConnection fileWriterInfo Location.WestEurope""" ]
+
+
+          Html.hr []
+          Bulma.content
+              [ Html.p " And if you want to connect to an existing storage account you can do this:"
+                code """
+                azConnectionExisting fileWriterInfo "StorageAccountConnectionString" """ ]
+
+                ]
