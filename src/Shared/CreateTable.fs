@@ -2,29 +2,28 @@ namespace Chia
 
 open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
-open FileWriter
 open System
 open FSharp.Control.Tasks.ContextInsensitive
 open Chia.Infrastructure
 module CreateTable =
     let deleteTable tableName (azConnection:AzAccount) =
-        printfn "Try to Delete %s" tableName
+        printfn "Try to delete %s" tableName
         task {
             let client = azConnection.StorageAccount.CreateCloudTableClient()
             let table = client.GetTableReference tableName
-            let msg = sprintf "Got TableReference to Delete %A" table
+            let msg = sprintf "Got TableReference to delete %A" table
             Log.logFinished(msg,AzureInfrastucture,Delete,AzureTable,azConnection.FileWriterInfo)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec deleteTableSafe() = async {
                     try
-                        let! _ = table.DeleteIfExistsAsync() |> Async.AwaitTask
-                        ()
+                        let! x = table.DeleteIfExistsAsync() |> Async.AwaitTask
+                        return x
                     with
                     | _ ->
                         do! Task.Delay 5000 |> Async.AwaitTask
                         return! deleteTableSafe() }
 
-            do! deleteTableSafe()
+            return! deleteTableSafe()
             }
 
     let getTable tableName (azConnection:AzAccount) =
