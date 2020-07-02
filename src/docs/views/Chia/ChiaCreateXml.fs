@@ -14,20 +14,19 @@ let overview =
           Html.hr []
           Bulma.content
               [ Html.p "This library extends Feliz.Bulma by adding QuickView component"
-                code """
-                open Feliz.Bulma.QuickView
-                QuickView.quickview [
-                    if model.ShowQuickView then yield quickview.isActive
-                    yield prop.children [
-                        QuickView.header [
-                            Html.div "Header"
-                            Bulma.delete [ prop.onClick (fun _ -> ToggleQuickView |> dispatch) ]
-                        ]
-                        QuickView.body [
-                            QuickView.block "Bulma is great"
-                        ]
-                        QuickView.footer [
-                            Bulma.button "Save"
-                        ]
-                    ]
-                ]""" ] ]
+                code """open Feliz.Bulma.QuickView
+                        QuickView.quickview [
+                            if model.ShowQuickView then yield quickview.isActive
+                            yield prop.children [
+                                QuickView.header [
+                                    Html.div "Header"
+                                    Bulma.delete [ prop.onClick (fun _ -> ToggleQuickView |> dispatch) ]
+                                ]
+                                QuickView.body [
+                                    QuickView.block "Bulma is great"
+                                ]
+                                QuickView.footer [
+                                    Bulma.button "Save"
+                                ]
+                            ]
+                        ]""" ] ]

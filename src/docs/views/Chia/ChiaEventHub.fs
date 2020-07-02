@@ -8,8 +8,7 @@ let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.EventHub" ]
           Bulma.subtitle.h2
-              [ Html.a
-                  [ prop.text "Helper for Azure Event Hub" ]
+              [ Html.a [ prop.text "Helper for Azure Event Hub" ]
                 Html.text " extension for Feliz.Bulma" ]
           Html.hr []
           Bulma.content

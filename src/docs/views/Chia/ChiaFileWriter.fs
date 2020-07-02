@@ -23,6 +23,6 @@ let overview =
                 open Chia.FileWriter
                 let devStatus = getDevStatusFromEnv  /// Get your devStatus from you enviroment variable. For example pass in an enviroment variable in Fake --> '-e devStatus=Productive
                 let aiKey = "<InsertYourApplicationInsightsKey" ///Get this key from your app.config or from KeyFault
-                let fileWriterInfo = initFileWriter devStatus "ProjectName" Local ""
-                let fileWriterInfoAzure = initFileWriter devStatus "ProjectName" Azure aiKey
+                let fileWriterInfo = initFileWriter devStatus (CompanyInitials "CompanyInitials") (ProjectName "ProjectName") Local ""
+                let fileWriterInfoAzure = initFileWriter devStatus (CompanyInitials "CompanyInitials") (ProjectName "ProjectNames") Azure aiKey
                 let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAndAzure aiKey""" ] ]

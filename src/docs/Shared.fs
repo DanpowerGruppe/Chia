@@ -1,6 +1,5 @@
 module Shared
 
-open Fable.Core
 open Fable.Core.JsInterop
 open Feliz
 open Feliz.Bulma
