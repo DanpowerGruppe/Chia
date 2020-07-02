@@ -57,7 +57,7 @@ let simpleTest =
           |> setStringProperty "Text" testData.Text
 
         let! _ = saveData tableMapper testTable fileWriterInfo testData
-        let mapTestData (entity : DynamicTableEntity) : TestData =
+        let mapTestData entity : TestData =
               { Date = getDateTimeOffsetProperty "Date" entity
                 PartKey = entity.PartitionKey
                 RowKey = SortableRowKey entity.RowKey

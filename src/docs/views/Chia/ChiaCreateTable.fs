@@ -27,23 +27,7 @@ let overview =
                     return textTable
                 } """ ]
 
-          Html.hr []
-          // getProperties
 
-          // setProperties
-
-          Bulma.content
-              [ Html.p "Get properties from a DynamicTableEntity:"
-                code """
-                open Chia.CreateTable
-                let mapWaterMarkValues (entity : DynamicTableEntity) : WaterMark =
-                    { WaterMarkPartKey = WaterMarkPartKey entity.PartitionKey
-                      MeterId = getMeterIdFromKey entity.RowKey
-                      WaterMarkSortableRowKey = SortableRowKey (getStringProperty "WaterMarkSortableRowKey" entity)
-                      WaterMarkDateTime = getStringProperty "DateTime" entity
-                      Source = getStringProperty "Source" entity
-                      UploadType = getStringProperty "UploadType" entity }
-                 """ ]
 
 
                 ]

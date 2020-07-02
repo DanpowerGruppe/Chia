@@ -38,7 +38,7 @@ module CreateTable =
                         sprintf "Could not get TableReference %s" exn.Message
                     Log.logCritical(msg,AzureFunction,Create,AzureTable,exn,azConnection.FileWriterInfo)
                     failwith msg
-            let msg = sprintf "Got tableReference %A" table
+            let msg = sprintf "Got TableReference %A" table
             Log.logFinished(msg,AzureInfrastucture,Create,AzureTable,azConnection.FileWriterInfo)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
