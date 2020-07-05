@@ -29,7 +29,7 @@ let overview =
                         companyInitials "dp"
                         projectName "TestChia"
                         devOption (Azure "aiKey")
-                    } ]
+                    }""" ]
           Html.hr []
           Bulma.content
               [ Html.p "If you want to log to ApplicationInsight you additionally have to create a new Application Insight resource in Azure and set your ApplicationInsights key."
