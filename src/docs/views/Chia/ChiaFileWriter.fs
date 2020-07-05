@@ -23,9 +23,13 @@ let overview =
                 open Chia.Domain.Config
                 open Chia.FileWriter
                 let devStatus = getDevStatusFromEnv  /// Get your devStatus from you enviroment variable. For example pass in an enviroment variable in Fake --> '-e devStatus=Productive
-                let fileWriterInfo = initFileWriter devStatus (CompanyInitials "CompanyInitials") (ProjectName "ProjectName") Local NoKey
-                let fileWriterInfoAzure = initFileWriter devStatus (CompanyInitials "CompanyInitials") (ProjectName "ProjectName") Azure NoAIKey
-                let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAndAzure aiKey""" ]
+                let fileWriterConfig =
+                    initWriter {
+                        devStatus Development
+                        companyInitials "dp"
+                        projectName "TestChia"
+                        devOption (Azure "aiKey")
+                    } ]
           Html.hr []
           Bulma.content
               [ Html.p "If you want to log to ApplicationInsight you additionally have to create a new Application Insight resource in Azure and set your ApplicationInsights key."

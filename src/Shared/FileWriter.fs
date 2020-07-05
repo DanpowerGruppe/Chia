@@ -182,7 +182,7 @@ module FileWriter =
             let date = DateTime.Now
             let logTxt = getLogTxt status logMsg
             match devOption with
-            | Azure ->
+            | Azure _ ->
                 match status with
                 | Error exn -> trackError logMsg exn
                 | Ok _ -> trackTrace logMsg
@@ -210,7 +210,7 @@ module FileWriter =
                 with exn ->
                     printfn "Couldn't write LogFile: %s" exn.Message
                     failwithf "Couldn't write LogFile: %s" exn.Message
-            | LocalAndAzure ->
+            | LocalAndAzure _ ->
                 printfn "Msg %s" logTxt
                 let file = miniLogFile (date, logMsg)
                 match status with
