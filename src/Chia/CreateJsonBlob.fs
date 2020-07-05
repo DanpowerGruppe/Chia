@@ -3,15 +3,16 @@ namespace Chia
 module CreateJsonBlob =
     open FSharp.Control.Tasks.ContextInsensitive
     open System.IO
-    open FileWriter
+    open Chia.InitBuilder
     open Microsoft.WindowsAzure.Storage.Blob
     open System.Threading.Tasks
     open System
     open System.Text.Json
+    open Chia.FileWriter
     type JsonBlobInfo = {
                 Date : DateTime
                 DataName : string
-                FileWriterInfo : FileWriterInfo
+                FileWriterConfig : FileWriterConfig
                 Container : CloudBlobContainer option
             }
 
@@ -23,11 +24,11 @@ module CreateJsonBlob =
         let saveDataToJsonFile (data:'a,jsonInfo : JsonBlobInfo) =
             task {
                 try
-                    Log.logStarting("DataToJsonBlob",LocalService,Upload,BlobTable,jsonInfo.FileWriterInfo)
-                    let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
+                    Log.logStarting("DataToJsonBlob",LocalService,Upload,BlobTable,jsonInfo.FileWriterConfig)
+                    let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterConfig)
                     let blobId = getBlobId jsonInfo
                     let path = sourceDirectoryRoot + (sprintf "%s.json" blobId)
-                    Log.logStarting(sprintf "Path: %s" path,LocalService,Create,BlobTable,jsonInfo.FileWriterInfo)
+                    Log.logStarting(sprintf "Path: %s" path,LocalService,Create,BlobTable,jsonInfo.FileWriterConfig)
                     // printfn "Data: %A" data
                     let json =
                         try
@@ -37,51 +38,51 @@ module CreateJsonBlob =
                             let msg =
                                 sprintf "Error : Exception %s InnerException : %s" exn.Message
                                     exn.InnerException.Message
-                            Log.logCritical("JsonConvert",LocalService,Calculation,LocalStorage,exn,jsonInfo.FileWriterInfo)
+                            Log.logCritical("JsonConvert",LocalService,Calculation,LocalStorage,exn,jsonInfo.FileWriterConfig)
                             failwith msg
-                    Log.logFinished("GotJson",LocalService,Calculation,LocalStorage,jsonInfo.FileWriterInfo)
+                    Log.logFinished("GotJson",LocalService,Calculation,LocalStorage,jsonInfo.FileWriterConfig)
                     do! File.WriteAllTextAsync(path, json)
-                    Log.logFinished("JsonCache",LocalService,Create,BlobTable,jsonInfo.FileWriterInfo)
+                    Log.logFinished("JsonCache",LocalService,Create,BlobTable,jsonInfo.FileWriterConfig)
                 with exn ->
                     let msg =
                         sprintf "Error Msg: Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                    Log.logCritical("SaveDataToJson",LocalService,Insert,LocalStorage,exn,jsonInfo.FileWriterInfo)
+                    Log.logCritical("SaveDataToJson",LocalService,Insert,LocalStorage,exn,jsonInfo.FileWriterConfig)
                     failwith msg
             }
 
         let readJsonFile (jsonInfo : JsonBlobInfo, mapper: string -> 'a) =
             task {
                 let blobId = getBlobId jsonInfo
-                Log.logStarting("ReadJsonData",LocalService,Create,LocalStorage,jsonInfo.FileWriterInfo)
+                Log.logStarting("ReadJsonData",LocalService,Create,LocalStorage,jsonInfo.FileWriterConfig)
 
-                let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterInfo)
+                let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterConfig)
                 let path = sourceDirectoryRoot + (sprintf "%s.json" blobId)
                 let! txt = File.ReadAllTextAsync(path)
-                Log.logFinished("GotText",LocalService,Download,LocalStorage,jsonInfo.FileWriterInfo)
-                // logOk jsonInfo.FileWriterInfo "Got txt"
+                Log.logFinished("GotText",LocalService,Download,LocalStorage,jsonInfo.FileWriterConfig)
+                // logOk jsonInfo.FileWriterConfig "Got txt"
                 let data =
                     try
                         txt |> mapper
                     with exn ->
                         let msg =
                             sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                        Log.logCritical ("ReadJsonFile",LocalService,Calculation,LocalStorage,exn,jsonInfo.FileWriterInfo)
-                        // logError exn jsonInfo.FileWriterInfo msg
+                        Log.logCritical ("ReadJsonFile",LocalService,Calculation,LocalStorage,exn,jsonInfo.FileWriterConfig)
+                        // logError exn jsonInfo.FileWriterConfig msg
                         failwith msg
                 return data
             }
         let getCachedData (jsonInfo : JsonBlobInfo,mapper: string -> 'a) (getDataTask: unit -> Task<'a>) =
             task {
             try
-                Log.logStarting("ReadCachedData",LocalService,Download,LocalStorage,jsonInfo.FileWriterInfo)
-                // logOk jsonInfo.FileWriterInfo "Trying to read cached data"
+                Log.logStarting("ReadCachedData",LocalService,Download,LocalStorage,jsonInfo.FileWriterConfig)
+                // logOk jsonInfo.FileWriterConfig "Trying to read cached data"
                 let! cachedData = readJsonFile (jsonInfo,mapper)
-                Log.logFinished ("GotCachedData",LocalService,Download,LocalStorage,jsonInfo.FileWriterInfo)
-                // logOk jsonInfo.FileWriterInfo "Got CachedData"
+                Log.logFinished ("GotCachedData",LocalService,Download,LocalStorage,jsonInfo.FileWriterConfig)
+                // logOk jsonInfo.FileWriterConfig "Got CachedData"
                 return cachedData
             with
             | exn ->
-                Log.logCritical ("GetCachedData",LocalService,Download,LocalStorage,exn,jsonInfo.FileWriterInfo)
+                Log.logCritical ("GetCachedData",LocalService,Download,LocalStorage,exn,jsonInfo.FileWriterConfig)
                 let! data = getDataTask ()
                 do! saveDataToJsonFile (data,jsonInfo)
                 return data
@@ -91,7 +92,7 @@ module CreateJsonBlob =
         ///Function to save Json Blobs
         let saveDataToJsonBlob (data:'a,jsonInfo : JsonBlobInfo) (container : CloudBlobContainer) =
             task {
-                Log.logStarting ("ExportDataAsJsonBlob",AzureFunction,Upload,BlobTable,jsonInfo.FileWriterInfo)
+                Log.logStarting ("ExportDataAsJsonBlob",AzureFunction,Upload,BlobTable,jsonInfo.FileWriterConfig)
                 let blobId = getBlobId jsonInfo
                 let blobBlock = container.GetBlockBlobReference(blobId)
                 blobBlock.Properties.ContentType <- "application/json"
@@ -103,7 +104,7 @@ module CreateJsonBlob =
                     with exn ->
                         let msg =
                             sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                        Log.logCritical (msg,AzureFunction,Calculation,BlobTable,exn,jsonInfo.FileWriterInfo)
+                        Log.logCritical (msg,AzureFunction,Calculation,BlobTable,exn,jsonInfo.FileWriterConfig)
                         failwith msg
                 let writer = new StreamWriter(ms)
                 writer.Write(json)
@@ -111,12 +112,12 @@ module CreateJsonBlob =
                 ms.Position <- int64 0
                 printfn "Memory Stream Length %i" ms.Length
                 do! blobBlock.UploadFromStreamAsync(ms)
-                Log.logFinished ("JsonCache",AzureFunction,Create,BlobTable,jsonInfo.FileWriterInfo)
+                Log.logFinished ("JsonCache",AzureFunction,Create,BlobTable,jsonInfo.FileWriterConfig)
             }
 
         let getDataFromJsonBlob (mapper: string -> 'a) (jsonInfo : JsonBlobInfo) =
             task {
-                Log.logStarting("DataFromJsonBlob",AzureFunction,Download,BlobTable,jsonInfo.FileWriterInfo)
+                Log.logStarting("DataFromJsonBlob",AzureFunction,Download,BlobTable,jsonInfo.FileWriterConfig)
                 let blobId = getBlobId jsonInfo
                 let blockBlob = jsonInfo.Container.Value.GetBlockBlobReference(blobId)
                 let! txt = blockBlob.DownloadTextAsync()

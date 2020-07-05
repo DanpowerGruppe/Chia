@@ -13,10 +13,17 @@ open Chia.TableStorage
 open Microsoft.WindowsAzure.Storage.Table
 open Chia.Domain.Ids
 open System
+open Chia.PostToQueue
 open Chia.GetTableEntry
+open Chia.InitBuilder
 
-let fileWriterInfo = initFileWriter Development (CompanyInitials "dp") (ProjectName "TestChia") Local ""
-let azAccount = azConnection fileWriterInfo Location.WestEurope
+let fileWriterConfig = initWriter {
+    devStatus Development
+    companyInitials "dp"
+    projectName "TestChia"
+    devOption (Azure "aiKey")
+}
+let azAccount = azConnection fileWriterConfig Location.WestEurope
 [<Literal>]
 let TestTable = "TestTable"
 
@@ -31,8 +38,8 @@ type TestData = {
 [<Tests>]
 let simpleTest =
   testList "Chia" [
-    testCase "FileWriterInfo" <| fun () ->
-        Expect.isNotEmpty fileWriterInfo.ProjectName.Value "FileWriter"
+    testCase "FileWriterConfig" <| fun () ->
+        Expect.isNotEmpty fileWriterConfig.ProjectName.Value "FileWriter"
     testCase "Create Table" <| fun () ->
         let testTable = getTable TestTable azAccount
         Expect.isNotEmpty testTable.Name "TableName"
@@ -56,7 +63,7 @@ let simpleTest =
           |> setDoubleProperty "Value" testData.Value
           |> setStringProperty "Text" testData.Text
 
-        let! _ = saveData tableMapper testTable fileWriterInfo testData
+        let! _ = saveData tableMapper testTable fileWriterConfig testData
         let mapTestData entity : TestData =
               { Date = getDateTimeOffsetProperty "Date" entity
                 PartKey = entity.PartitionKey
@@ -68,6 +75,11 @@ let simpleTest =
             values
             |> Array.head
         Expect.equal data testData "Insert test data is the same the readed testdata"
+    }
+    testTask "PostToQueue" {
+      let testQueue = getQueue azAccount "test-queue-msg"
+      let content = ["Data1";"Data2"]
+      do! postToQueue testQueue content
     }
     testCase "ReportIntervall should be equal" <| fun () ->
       let expected = "monatlich"

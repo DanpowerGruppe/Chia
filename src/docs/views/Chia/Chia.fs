@@ -6,7 +6,7 @@ open Feliz.Bulma
 let overview =
     Html.div [
         Bulma.title.h1 [
-            Html.text "Chia - Docs are WIP"
+            Html.text "Chia - Documentation"
             Html.a [
                 prop.href "https://www.nuget.org/packages/Chia/"
                 prop.children [

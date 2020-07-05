@@ -5,10 +5,10 @@ module Infrastructure =
     open Farmer
     open Farmer.Builders
     open Farmer.CoreTypes
-    open Chia.FileWriter
+    open Chia.InitBuilder
     open Microsoft.WindowsAzure.Storage
 
-    let buildEnvironment (info: FileWriterInfo) area =
+    let buildEnvironment (info: FileWriterConfig) area =
         let storageAccountName =
             info.CompanyInitials.Value + "-" + info.ProjectName.Value + "-" + info.DevStatus.GetValue
         let storageAccount = storageAccount { name storageAccountName }
@@ -41,7 +41,7 @@ module Infrastructure =
 
     type AzAccount =
         { StorageAccount: CloudStorageAccount
-          FileWriterInfo: FileWriterInfo }
+          FileWriterConfig: FileWriterConfig }
 
     let azConnection info area =
         let storageConnString = createNewOrTakeExistingInfrastruture info area
@@ -50,7 +50,7 @@ module Infrastructure =
             let connection = AzureConnection storageConnString
             connection.Connect()
         { StorageAccount = connected
-          FileWriterInfo = info }
+          FileWriterConfig = info }
     let azConnectionExisting info storageConnString =
         try
 
@@ -58,6 +58,6 @@ module Infrastructure =
                 let connection = AzureConnection storageConnString
                 connection.Connect()
             { StorageAccount = connected
-              FileWriterInfo = info }
+              FileWriterConfig = info }
         with
         | exn -> failwithf "Can not connect to azure storage account: %s" exn.Message

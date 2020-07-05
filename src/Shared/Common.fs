@@ -8,6 +8,7 @@ type Source =
     | PiServer
     | Client
     | SPSCommunication
+    | NoSource
     | CustomSource of string
     member this.Value =
         match this with
@@ -28,6 +29,7 @@ type Operation =
     | Update
     | Post
     | Get
+    | NoOperation
     | CustomOperation of string
     member this.Value =
         match this with
@@ -41,6 +43,7 @@ type Destination =
     | SqlTable
     | LocalStorage
     | EventHub
+    | NoDestination
     | CustomDestination of string
     member this.Value =
         match this with
@@ -52,6 +55,7 @@ type Process =
     | Information
     | Incomplete
     | Starting
+    | NoProcess
     | CustomProcess of string
     member this.Value =
         match this with

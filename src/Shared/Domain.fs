@@ -8,8 +8,8 @@ module Domain =
     module Logging =
         type DevOption =
             | Local
-            | Azure
-            | LocalAndAzure
+            | Azure of string
+            | LocalAndAzure of string
 
     module Config =
 

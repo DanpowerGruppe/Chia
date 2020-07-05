@@ -12,7 +12,6 @@ type Page =
     | ChiaCreateXml
     | ChiaCreateTable
     | ChiaCreateBlob
-    | ChiaCreateJsonBlob
     | ChiaPostToQueue
     | ChiaLogger
     | ChiaInfrastructure
@@ -22,22 +21,6 @@ type Page =
     | ChiaClient
     | ChiaClientInstallation
     | ChiaClientPageFlexer
-
-    // | BulmaAPIDescription
-    // | QuickViewOverview
-    // | QuickViewInstallation
-    // | CalendarOverview
-    // | CalendarInstallation
-    // | TooltipOverview
-    // | TooltipInstallation
-    // | CheckradioOverview
-    // | CheckradioInstallation
-    // | SwitchOverview
-    // | SwitchInstallation
-    // | PopoverOverview
-    // | PopoverInstallation
-    // | PageLoaderOverview
-    // | PageLoaderInstallation
 
 let defaultPage = Chia
 
@@ -51,7 +34,6 @@ let parseUrl = function
     | [ "createxml" ] -> ChiaCreateXml
     | [ "createtable" ] -> ChiaCreateTable
     | [ "createblob" ] -> ChiaCreateBlob
-    | [ "createjsonblob" ] -> ChiaCreateJsonBlob
     | [ "posttoqueue" ] -> ChiaPostToQueue
     | [ "gettableentry" ] -> ChiaGetTableEntry
     | [ "logger" ] -> ChiaLogger
@@ -61,24 +43,6 @@ let parseUrl = function
     | [ "client" ] -> ChiaClient
     | [ "clientinstallation" ] -> ChiaClientInstallation
     | [ "clientpageflexer" ] -> ChiaClientPageFlexer
-
-
-    // | [ "installation" ] -> BulmaInstallation
-    // | [ "api-description" ] -> BulmaAPIDescription
-    // | [ "quickview"; "installation" ] -> QuickViewInstallation
-    // | [ "quickview" ] -> QuickViewOverview
-    // | [ "calendar"; "installation" ] -> CalendarInstallation
-    // | [ "calendar" ] -> CalendarOverview
-    // | [ "tooltip"; "installation" ] -> TooltipInstallation
-    // | [ "tooltip" ] -> TooltipOverview
-    // | [ "checkradio"; "installation" ] -> CheckradioInstallation
-    // | [ "checkradio" ] -> CheckradioOverview
-    // | [ "switch"; "installation" ] -> SwitchInstallation
-    // | [ "switch" ] -> SwitchOverview
-    // | [ "popover"; "installation" ] -> PopoverInstallation
-    // | [ "popover" ] -> PopoverOverview
-    // | [ "pageloader"; "installation" ] -> PageLoaderInstallation
-    // | [ "pageloader" ] -> PageLoaderOverview
     | _ -> defaultPage
 
 let getHref = function
@@ -91,7 +55,6 @@ let getHref = function
     | ChiaCreateXml -> Router.format("createxml")
     | ChiaCreateTable -> Router.format("createtable")
     | ChiaCreateBlob -> Router.format("createblob")
-    | ChiaCreateJsonBlob -> Router.format("createjsonblob")
     | ChiaPostToQueue -> Router.format("posttoqueue")
     | ChiaGetTableEntry -> Router.format("gettableentry")
     | ChiaLogger -> Router.format("logger")

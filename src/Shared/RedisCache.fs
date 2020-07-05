@@ -19,18 +19,18 @@ module RedisCache =
 
 module RedisHelpers =
     open Newtonsoft.Json
-    open Chia.FileWriter
+    open Chia.InitBuilder
 
     type RedisCache =
         {
           Cache : IDatabase
           Key : string
-          FileWriterInfo : FileWriterInfo }
+          FileWriterConfig : FileWriterConfig }
     type RedisCacheData =
         {
           Cache : IDatabase
           Key : string
-          FileWriterInfo : FileWriterInfo }
+          FileWriterConfig : FileWriterConfig }
 
     let inline (!>) (x : ^a) : ^b = ((^a or ^b) : (static member op_Implicit : ^a -> ^b) x)
     /// Setting a value - need to convert both arguments:
@@ -45,7 +45,7 @@ module RedisHelpers =
                 with exn ->
                     printfn "Error %s" exn.Message
                     let msg = sprintf "Error : Exception %s InnerException : %s" exn.Message exn.InnerException.Message
-                    Log.logCritical(msg,LocalService,Calculation,AzureTable,exn,cacheData.FileWriterInfo)
+                    Log.logCritical(msg,LocalService,Calculation,AzureTable,exn,cacheData.FileWriterConfig)
                     failwith msg
             cacheData.Cache.StringSet(redisKey, redisValue) |> ignore
         }
@@ -75,7 +75,7 @@ module RedisHelpers =
                 let redisCacheData =
                     { Cache = cache.Cache
                       Key = cache.Key
-                      FileWriterInfo = cache.FileWriterInfo }
+                      FileWriterConfig = cache.FileWriterConfig }
                 let! data = saveCacheAndReturnData (data,redisCacheData)
                 return data
         }

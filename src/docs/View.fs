@@ -32,7 +32,6 @@ let menuPart model dispatch =
                 item "Logger" ChiaLogger
                 item "CreateTable" ChiaCreateTable
                 item "CreateBlob" ChiaCreateBlob
-                item "CreateJsonBlob" ChiaCreateJsonBlob
                 item "CreateXml" ChiaCreateXml
                 item "PostToQueue" ChiaPostToQueue
                 item "GetTableEntry" ChiaGetTableEntry
@@ -58,7 +57,6 @@ let contentPart model dispatch =
     | ChiaCreateXml -> ChiaCreateXml.overview
     | ChiaCreateTable -> ChiaCreateTable.overview
     | ChiaCreateBlob -> ChiaCreateBlob.overview
-    | ChiaCreateJsonBlob -> ChiaCreateJsonBlob.overview
     | ChiaPostToQueue -> ChiaPostToQueue.overview
     | ChiaGetTableEntry -> ChiaGetTableEntry.overview
     | ChiaLogger -> ChiaLogger.overview
