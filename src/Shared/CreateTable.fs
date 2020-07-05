@@ -12,7 +12,7 @@ module CreateTable =
             let client = azConnection.StorageAccount.CreateCloudTableClient()
             let table = client.GetTableReference tableName
             let msg = sprintf "Got TableReference to delete %A" table
-            Log.logFinished(msg,AzureInfrastucture,Delete,AzureTable,azConnection.FileWriterInfo)
+            Log.logFinished(msg,AzureInfrastucture,Delete,AzureTable,azConnection.FileWriterConfig)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec deleteTableSafe() = async {
                     try
@@ -36,10 +36,10 @@ module CreateTable =
                 with exn ->
                     let msg =
                         sprintf "Could not get TableReference %s" exn.Message
-                    Log.logCritical(msg,AzureFunction,Create,AzureTable,exn,azConnection.FileWriterInfo)
+                    Log.logCritical(msg,AzureFunction,Create,AzureTable,exn,azConnection.FileWriterConfig)
                     failwith msg
             let msg = sprintf "Got TableReference %A" table
-            Log.logFinished(msg,AzureInfrastucture,Create,AzureTable,azConnection.FileWriterInfo)
+            Log.logFinished(msg,AzureInfrastucture,Create,AzureTable,azConnection.FileWriterConfig)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec createTableSafe() =
                 task {

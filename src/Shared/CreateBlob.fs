@@ -20,7 +20,7 @@ module CreateBlob =
             let blobClient = azConnection.StorageAccount.CreateCloudBlobClient()
             let container = blobClient.GetContainerReference containerName
             let msg = sprintf "Got ContainerReference to Delete %A" containerName
-            Log.logFinished(msg,AzureInfrastucture,Delete,BlobTable,azConnection.FileWriterInfo)
+            Log.logFinished(msg,AzureInfrastucture,Delete,BlobTable,azConnection.FileWriterConfig)
             // Azure will temporarily lock table names after deleting and can take some time before the table name is made available again.
             let rec deleteContainerSafe() = async {
                     try

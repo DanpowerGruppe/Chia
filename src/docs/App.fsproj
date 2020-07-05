@@ -17,7 +17,6 @@
     <Compile Include="views\Chia\ChiaCreateXml.fs" />
     <Compile Include="views\Chia\ChiaCreateTable.fs" />
     <Compile Include="views\Chia\ChiaCreateBlob.fs" />
-    <Compile Include="views\Chia\ChiaCreateJsonBlob.fs" />
     <Compile Include="views\Chia\ChiaPostToQueue.fs" />
     <Compile Include="views\Chia\ChiaGetTableEntry.fs" />
     <Compile Include="views\Chia\ChiaLogger.fs" />

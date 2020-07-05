@@ -16,13 +16,11 @@ let overview =
                 code """
                 open Chia.PostToQueue
                 open Chia.CreateTable
+                open Chia.Infrastructure
 
-
-                let connected =
-                    let connection = AzureConnection StorageAccount.storageConnString
-                    connection.Connect()
-
-                [<Literal>]
-                let SendMail = "sendmail-queue"
-
-                let sendQueue = getQueue connected SendMail fileWriterInfo""" ] ]
+                let azAccount = azConnection fileWriterInfo Location.WestEurope
+                let testQueue = getQueue azAccount "test-queue-msg"
+                let postToQueue = task {
+                  let content = ["Data1";"Data2"]
+                  do! postToQueue testQueue content
+                }""" ] ]
