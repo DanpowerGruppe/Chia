@@ -1,3 +1,5 @@
+### 0.6.4 - 05.07.2020
+Implement Logger CE and InitWriter CE
 ### 0.6.3 - 26.06.2020
 Update packages
 ### 0.6.2 - 08.06.2020

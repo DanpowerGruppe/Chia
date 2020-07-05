@@ -14,7 +14,6 @@
       "kind": "StorageV2",
       "location": "westeurope",
       "name": "dptestchiadev",
-      "resources": [],
       "sku": {
         "name": "Standard_LRS"
       },

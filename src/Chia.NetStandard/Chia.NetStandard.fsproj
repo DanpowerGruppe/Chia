@@ -8,8 +8,10 @@
   <ItemGroup>
     <Compile Include="../Shared/Domain.fs" />
     <Compile Include="../Shared/Common.fs" />
-    <Compile Include="../Shared/FileWriter.fs" />
+    <Compile Include="../Shared/ApplicationInsights.fs" />
     <Compile Include="../Shared/InitBuilder.fs" />
+    <Compile Include="../Shared/LogBuilder.fs" />
+    <Compile Include="../Shared/FileWriter.fs" />
     <Compile Include="../Shared/Logger.fs" />
     <Compile Include="../Shared/ExcelUtils.fs" />
     <Compile Include="../Shared/Infrastructure.fs" />
