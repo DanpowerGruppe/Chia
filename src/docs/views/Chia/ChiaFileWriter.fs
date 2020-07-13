@@ -41,4 +41,5 @@ let overview =
                 let aiKey = "<InsertYourApplicationInsightsKey" ///Get this key from your app.config or from KeyFault
                 let fileWriterInfo = initFileWriter devStatus (CompanyInitials "CompanyInitials") (ProjectName "ProjectName") Local ""
                 let fileWriterInfoAzure = initFileWriter devStatus (CompanyInitials "CompanyInitials") (ProjectName "ProjectNames") Azure aiKey
-                let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAndAzure aiKey""" ] ]
+                let fileWriterInfoLocalAndAzure = initFileWriter devStatus "ProjectName" LocalAndAzure aiKey""" ]
+          fixDocsView "ChiaFileWriter" false      ]

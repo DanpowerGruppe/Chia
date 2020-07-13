@@ -23,4 +23,5 @@ let overview =
                 let postToQueue = task {
                   let content = ["Data1";"Data2"]
                   do! postToQueue testQueue content
-                }""" ] ]
+                }""" ]
+          fixDocsView "ChiaPostToQueue" false       ]

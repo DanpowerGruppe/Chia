@@ -18,4 +18,6 @@ let overview =
           pageFlexer [] [
               Html.div
                   [ Bulma.title.h1 [ Html.text "Chia.Client.PageFlexer" ]
-                    Bulma.subtitle.h2 ]]""" ]
+                    Bulma.subtitle.h2 ]]"""
+          fixDocsView "ChiaPageFlexer" true
+           ]

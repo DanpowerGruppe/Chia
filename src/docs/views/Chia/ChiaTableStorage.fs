@@ -28,4 +28,5 @@ let overview =
                             Bulma.button "Save"
                         ]
                     ]
-                ]""" ] ]
+                ]""" ]
+          fixDocsView "ChiaTableStorage" false ]

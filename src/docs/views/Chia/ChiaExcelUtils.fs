@@ -14,4 +14,5 @@ let overview =
               [ Html.p "Mini Helper to start and ExcelApp using the EPPlus package."
                 Html.p "Start your excel app like this:"
                 code """
-                let excelPackage = startExcelApp ()""" ] ]
+                let excelPackage = startExcelApp ()""" ]
+          fixDocsView "ChiaExcelUtils" false       ]

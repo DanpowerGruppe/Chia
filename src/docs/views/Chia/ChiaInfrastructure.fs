@@ -36,5 +36,5 @@ let overview =
               [ Html.p " And if you want to connect to an existing storage account you can do this:"
                 code """
                 azConnectionExisting fileWriterInfo "StorageAccountConnectionString" """ ]
-
+          fixDocsView "ChiaInfrastructure" false
                 ]

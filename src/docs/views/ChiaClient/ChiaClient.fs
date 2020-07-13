@@ -2,6 +2,7 @@ module ChiaClient
 
 open Feliz
 open Feliz.Bulma
+open Shared
 
 let overview =
     Html.div [
@@ -34,10 +35,8 @@ let overview =
                 Html.li "TableHelper"
             ]
         ]
+        fixDocsView "ChiaClient" true
     ]
-
-let installation = Shared.installationView "Chia.Client"
-
 
 let fileWriter =
     Html.div [
@@ -70,3 +69,5 @@ let fileWriter =
             ]
         ]
     ]
+
+let installation = Shared.installationView "Chia.Client"

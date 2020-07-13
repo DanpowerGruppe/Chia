@@ -25,7 +25,8 @@ $tertiary-color : #46BDCF;
 
 .menu-list a {
     color: $primary-color;
-
+    flex-shrink: 1;
+    flex-basis: auto;
     &:hover {
         background-color: transparent;
         color: $secondary-color;

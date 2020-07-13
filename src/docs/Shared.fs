@@ -15,6 +15,18 @@ let code (c:string) =
     ]
 
 
+let fixDocsView fileName client =
+    let area =
+        if client then
+            "ChiaClient"
+        else
+            "Chia"
+    Html.div [
+        Html.a [
+            prop.href (sprintf "https://github.com/DanpowerGruppe/Chia/tree/master/src/docs/views/%s/%s.fs" area fileName)
+            prop.text ("Fix docs file " + fileName + " here")
+        ]
+    ]
 let installationView packageName =
     Html.div [
         Bulma.title.h1 (sprintf "%s - Installation" packageName)

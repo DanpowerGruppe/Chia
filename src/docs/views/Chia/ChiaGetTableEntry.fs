@@ -51,5 +51,5 @@ let overview =
                 let partKey, rowKey = "AddYourPartKey","AddYourRowKey"
                 let! value = oneValue (partKey,rowKey) mapTestData testTable
                 """ ]
-
+          fixDocsView "ChiaGetTableEntry" false
            ]

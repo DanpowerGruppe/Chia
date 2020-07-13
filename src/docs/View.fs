@@ -5,15 +5,12 @@ open Feliz
 open Feliz.Bulma
 open Router
 open Chia.Client.PageFlexer
+open Shared
 
 let menuPart model dispatch =
     let item (t: string) p =
         let isActive =
-            if model.CurrentPage = p then
-                [ helpers.isActive
-                   ]
-            else
-                []
+            if model.CurrentPage = p then [ helpers.isActive ] else []
 
         Bulma.menuItem.a
             [ yield! isActive
@@ -23,8 +20,7 @@ let menuPart model dispatch =
 
     Bulma.menu
         [ Bulma.menuLabel "Chia"
-          Bulma.menuList [
-              item "Overview" Chia ]
+          Bulma.menuList [ item "Overview" Chia ]
           Bulma.menuList
               [ item "Installation" ChiaInstallation
                 item "FileWriter" ChiaFileWriter
@@ -82,19 +78,30 @@ let contentPart model dispatch =
 // | PopoverInstallation -> Views.Popover.installation
 // | PageLoaderOverview -> Views.PageLoader.overview model dispatch
 // | PageLoaderInstallation -> Views.PageLoader.installation
+open Zanaptak.TypedCssClasses
+
+type Icon =
+    CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
+
+type tailwind = CssClasses<"public/css/tailwind-generated.css", Naming.Verbatim>
 
 let view (model: Model) (dispatch: Msg -> unit) =
 
     let render =
-        Bulma.container
-            [ Bulma.section
-                [ Bulma.tile
-                    [ tile.isAncestor
-                      prop.children
-                          [ Bulma.tile
-                              [ tile.is2
-                                prop.children (menuPart model dispatch) ]
-                            Bulma.tile (contentPart model dispatch) ] ] ] ]
+        Html.div
+            [ prop.classes
+                [ tailwind.container
+                  tailwind.``md:flex``
+                  tailwind.``justify-center`` ]
+              prop.children
+                  [ Bulma.section
+                      [ Bulma.tile
+                          [ tile.isAncestor
+                            prop.children
+                                [ Bulma.tile
+                                    [ tile.is2
+                                      prop.children (menuPart model dispatch) ]
+                                  Bulma.tile (contentPart model dispatch) ] ] ] ] ]
 
     Router.router
         [ Router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)

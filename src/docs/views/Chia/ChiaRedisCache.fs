@@ -20,5 +20,5 @@ let overview =
                 Html.p "To deserialze your Redis values to your pass in a System.Text.Json mapper."
                 Html.p "You also should pass in a task to receive your data. The function tries to find the cache in Redis."
                 Html.p "If there is no Redis cache it will create a new cache by executing your task."
-                Html.p "The following example showes how to reveice a a Plant array directly out of Redis or creates a new cache if theres no existing cache and returns the Plant array."
-      ] ]
+                Html.p "The following example showes how to reveice a a Plant array directly out of Redis or creates a new cache if theres no existing cache and returns the Plant array." ]
+          fixDocsView "ChiaRedisCache" false]

@@ -18,4 +18,6 @@ let overview =
                 let myContainer = getContainer containerInfo"""
                 Html.p "Now you can get a list of all you blobs in the container like this:"
                 code """
-                let blobItems = getBlobs myContainer""" ] ]
+                let blobItems = getBlobs myContainer""" ]
+          fixDocsView "ChiaCreateBlob" false
+                 ]

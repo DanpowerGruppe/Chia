@@ -23,4 +23,5 @@ let overview =
                 let data = 100
 
                 do! pushEvent (eventHubClient,data,fileWriterInfoAzure)
-                do! pushSingleEvent (eventHubClient,data,fileWriterInfoAzure)""" ] ]
+                do! pushSingleEvent (eventHubClient,data,fileWriterInfoAzure)""" ]
+          fixDocsView "ChiaEventHub" false      ]

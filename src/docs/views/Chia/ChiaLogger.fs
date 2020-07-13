@@ -7,15 +7,15 @@ open Shared
 let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.Logger" ]
-          Bulma.subtitle.h2
-              [ Html.text "Helper for local logging or tracing for Azure Application Insights" ]
+          Bulma.subtitle.h2 [ Html.text "Helper for local logging or tracing for Azure Application Insights" ]
           Html.hr []
           Bulma.content
               [ Html.p "There are three log functions. `logStarting`, `logFinished` and `logCritical`."
 
                 Html.p "The log function is using categories for clustering events in ApplicationInsights."
                 Html.p "This will help you to get the most out of the ApplicationInsight dashboard and LogAnalytics."
-                Html.p "If you want to log a information that a process is starting you can use `logStarting` like this:"
+                Html.p
+                    "If you want to log a information that a process is starting you can use `logStarting` like this:"
                 code """
                 Log.logStarting("Starting to get Data",LocalServer,Get,AzureTable,fileWriterInfo)""" ]
           Html.hr []
@@ -67,4 +67,5 @@ let overview =
                         | SqlTable
                         | LocalStorage
                         | EventHub
-                    """ ]       ]
+                    """ ]
+          fixDocsView "ChiaLogger" false ]

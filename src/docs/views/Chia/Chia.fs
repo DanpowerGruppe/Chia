@@ -33,6 +33,7 @@ let overview =
                 Html.li "Application Insights tracing and event helper"
             ]
         ]
+        Shared.fixDocsView "Chia" false
     ]
 
 let installation = Shared.installationView "Chia"
