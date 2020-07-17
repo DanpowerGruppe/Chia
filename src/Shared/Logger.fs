@@ -1,5 +1,6 @@
 namespace Chia
 
+[<RequireQualifiedAccess>]
 module Log =
     open Chia.FileWriter
     open Microsoft.ApplicationInsights.DataContracts

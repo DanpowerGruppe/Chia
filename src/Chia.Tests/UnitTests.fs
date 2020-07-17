@@ -16,72 +16,95 @@ open System
 open Chia.PostToQueue
 open Chia.GetTableEntry
 open Chia.InitBuilder
+open Chia
 
-let fileWriterConfig = initWriter {
-    devStatus Development
-    companyInitials "dp"
-    projectName "TestChia"
-    devOption (Azure "aiKey")
-}
-let azAccount = azConnection fileWriterConfig Location.WestEurope
+let fileWriterConfig =
+    initWriter {
+        devStatus Development
+        companyInitials "dp"
+        projectName "TestChia"
+        devOption (Azure "aiKey")
+    }
+
+let azAccount =
+    azConnection fileWriterConfig Location.WestEurope
+
 [<Literal>]
 let TestTable = "TestTable"
 
-type TestData = {
-  PartKey : string
-  RowKey :  SortableRowKey
-  Date : DateTimeOffset
-  Value : float
-  Text : string
-}
+type TestData =
+    { PartKey: string
+      RowKey: SortableRowKey
+      Date: DateTimeOffset
+      Value: float
+      Text: string }
 
 [<Tests>]
 let simpleTest =
-  testList "Chia" [
-    testCase "FileWriterConfig" <| fun () ->
-        Expect.isNotEmpty fileWriterConfig.ProjectName.Value "FileWriter"
-    testCase "Create Table" <| fun () ->
-        let testTable = getTable TestTable azAccount
-        Expect.isNotEmpty testTable.Name "TableName"
-    testTask "Delete Table" {
-        let! _ = deleteTable TestTable azAccount
-        Expect.isNotEmpty "Deleted" "Deleted Table" //Needs to be fixed
-    }
-    testTask "Insert test data to table and read data from the table" {
-        let testTable = getTable TestTable azAccount
-        let testData =  {
-          PartKey = "PartKey"
-          RowKey = DateTime.Now |> SortableRowKey.toRowKey
-          Date = DateTimeOffset.Now
-          Value = 0.2
-          Text = "isWorking"
-        }
+    testList "Chia"
+        [ testCase "FileWriterConfig"
+          <| fun () -> Expect.isNotEmpty fileWriterConfig.ProjectName.Value "FileWriter"
+          testCase "Create Table"
+          <| fun () ->
+              let testTable = getTable TestTable azAccount
+              Expect.isNotEmpty testTable.Name "TableName"
+          testTask "Delete Table"
+              { let! _ = deleteTable TestTable azAccount
+              Expect.isNotEmpty "Deleted" "Deleted Table" //Needs to be fixed
+          }
+          testTask "Insert test data to table and read data from the table"
+              { let testTable = getTable TestTable azAccount
 
-        let tableMapper (testData: TestData) =
-          DynamicTableEntity(testData.PartKey, testData.RowKey.GetValue)
-          |> setDateTimeOffsetProperty "Date" testData.Date
-          |> setDoubleProperty "Value" testData.Value
-          |> setStringProperty "Text" testData.Text
+                let testData =
+                    { PartKey = "PartKey"
+                      RowKey = DateTime.Now |> SortableRowKey.toRowKey
+                      Date = DateTimeOffset.Now
+                      Value = 0.2
+                      Text = "isWorking" }
 
-        let! _ = saveData tableMapper testTable fileWriterConfig testData
-        let mapTestData entity : TestData =
-              { Date = getDateTimeOffsetProperty "Date" entity
-                PartKey = entity.PartitionKey
-                RowKey = SortableRowKey entity.RowKey
-                Text = getStringProperty "Text" entity
-                Value = getDoubleProperty "Value" entity }
-        let! values = getValues mapTestData testTable
-        let data =
-            values
-            |> Array.head
-        Expect.equal data testData "Insert test data is the same the readed testdata"
-    }
-    testTask "PostToQueue" {
-      let testQueue = getQueue azAccount "test-queue-msg"
-      let content = ["Data1";"Data2"]
-      do! postToQueue testQueue content
-    }
-    testCase "ReportIntervall should be equal" <| fun () ->
-      let expected = "monatlich"
-      Expect.equal expected (matchReportIntervall Monthly) "monatlich = monatlich"
-  ]
+                let tableMapper (testData: TestData) =
+                    DynamicTableEntity(testData.PartKey, testData.RowKey.GetValue)
+                    |> setDateTimeOffsetProperty "Date" testData.Date
+                    |> setDoubleProperty "Value" testData.Value
+                    |> setStringProperty "Text" testData.Text
+
+                let! _ = saveData tableMapper testTable fileWriterConfig testData
+
+                let mapTestData entity: TestData =
+                    { Date = getDateTimeOffsetProperty "Date" entity
+                      PartKey = entity.PartitionKey
+                      RowKey = SortableRowKey entity.RowKey
+                      Text = getStringProperty "Text" entity
+                      Value = getDoubleProperty "Value" entity }
+
+                let! values = getValues mapTestData testTable
+                let data = values |> Array.head
+                Expect.equal data testData "Insert test data is the same the readed testdata"
+          }
+          testTask "PostToQueue"
+              { let testQueue = getQueue azAccount "test-queue-msg"
+                let content = [ "Data1"; "Data2" ]
+                do! postToQueue testQueue content
+          }
+          testCase "ReportIntervall should be equal"
+          <| fun () ->
+              let expected = "monatlich"
+              Expect.equal expected (matchReportIntervall Monthly) "monatlich = monatlich"
+          testCase "Write a starting log"
+          <| fun () ->
+              Log.logStarting ("Starting to get Data", LocalServer, Get, AzureTable, fileWriterConfig)
+              Expect.isNotEmpty "Deleted" "Deleted Table"
+          testCase "Write a error log"
+          <| fun () ->
+              let error =
+                  try
+                    1/0 |> ignore
+                    Ok "Ok"
+                  with
+                  | exn ->
+                    let msg = sprintf  "Your error message: %s" exn.Message
+                    Log.logCritical (msg, LocalService,Get,AzureTable,exn,fileWriterConfig)
+                    Error "Error"
+              Expect.isError error "Show write error log"
+
+              ]
