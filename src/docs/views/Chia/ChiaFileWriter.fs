@@ -4,8 +4,6 @@ open Feliz
 open Feliz.Bulma
 open Shared
 
-
-
 let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.FileWriter" ]
@@ -22,6 +20,7 @@ let overview =
                 open Chia.Domain.Logging
                 open Chia.Domain.Config
                 open Chia.FileWriter
+                open Chia.InitBuilder
                 let devStatus = getDevStatusFromEnv  /// Get your devStatus from you enviroment variable. For example pass in an enviroment variable in Fake --> '-e devStatus=Productive
                 let fileWriterConfig =
                     initWriter {
