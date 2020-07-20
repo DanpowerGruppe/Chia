@@ -43,8 +43,13 @@ open Chia.Domain.Config
 open Chia.Domain.Logging
 open Farmer
 let devStatus = Development
-let fileWriterInfo = initFileWriter devStatus "dp" "TestChia" Local ""
-let azAccount = azConnection fileWriterInfo Location.WestEurope
+let fileWriterConfig =
+    initWriter {
+        devStatus Development
+        companyInitials "dp"
+        projectName "TestChia"
+        devOption (Azure "aiKey")
+let azAccount = azConnection fileWriterConfig Location.WestEurope
 ```
 
 ## Know issues
@@ -62,13 +67,13 @@ The log function is using categories for clustering events in ApplicationInsight
 If you want to log a information that a process is starting you can use `logStarting` like this:
 
 ```fs
-Log.logStarting("Starting to get Data",LocalServer,Get,AzureTable,fileWriterInfo)
+Log.logStarting("Starting to get Data",LocalServer,Get,AzureTable,fileWriterConfig)
 ```
 
 If a process finished as expected use `logFinished`:
 
 ```fs
-Log.logFinished("Finisehd receiving Data",LocalServer,Get,AzureTable,fileWriterInfo)
+Log.logFinished("Finisehd receiving Data",LocalServer,Get,AzureTable,fileWriterConfig)
 ```
 
 If a process crashed unexpected use can track the error message with `logCritical`:
@@ -79,7 +84,7 @@ try
 with
 | exn ->
     let msg = sprintf  "Your error message: %s" exn.Message
-    Log.logCritical (msg,LocalService,LocalServer,Get,AzureTable,exn,fileWriterInfo)
+    Log.logCritical (msg,LocalService,LocalServer,Get,AzureTable,exn,fileWriterConfig)
     failwith msg
 ```
 
@@ -137,7 +142,7 @@ let connected =
 Now you can create your Azure table like this:
 
 ```fs
-let azureTable = getTable "TableName" fileWriterInfoAzure connected
+let azureTable = getTable "TableName" fileWriterConfigAzure connected
 ```
 
 ## CreateBlob
@@ -217,7 +222,7 @@ let connected =
 [<Literal>]
 let SendMail = "sendmail-queue"
 
-let sendQueue = getQueue connected SendMail fileWriterInfo
+let sendQueue = getQueue connected SendMail fileWriterConfig
 ```
 
 ## RedisCache
@@ -230,7 +235,7 @@ To create or read a Redis values with a Redis Key you first have to create a Red
 let cacheInfo : RedisCache = {
     Cache = Redis.cache
     Key = key
-    FileWriterInfo = fileWriterInfo }
+    FileWriterInfo = fileWriterConfig }
 ```
 
 To deserialze your Redis values to your pass in a System.Text.Json mapper.
@@ -253,8 +258,8 @@ type Data = int
 
 let data = 100
 
-do! pushEvent (eventHubClient,data,fileWriterInfoAzure)
-do! pushSingleEvent (eventHubClient,data,fileWriterInfoAzure)
+do! pushEvent (eventHubClient,data,fileWriterConfigAzure)
+do! pushSingleEvent (eventHubClient,data,fileWriterConfigAzure)
 
 ```
 
