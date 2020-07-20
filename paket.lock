@@ -48,7 +48,7 @@ NUGET
     Expecto.TestResults (8.13.2)
       Expecto (>= 8.13.2) - restriction: || (>= net461) (>= netstandard2.0)
       FSharp.Core (>= 4.6) - restriction: || (>= net461) (>= netstandard2.0)
-    Farmer (0.21)
+    Farmer (0.22)
       FSharp.Core (>= 4.7.1) - restriction: >= netstandard2.0
       Newtonsoft.Json (>= 12.0.2) - restriction: >= netstandard2.0
     FsCheck (2.14.3) - restriction: || (>= net461) (>= netstandard2.0)
@@ -57,7 +57,7 @@ NUGET
     FSharp.Data (3.3.3)
       FSharp.Core (>= 4.0.0.1) - restriction: >= net45
       FSharp.Core (>= 4.3.4) - restriction: && (< net45) (>= netstandard2.0)
-    Iced (1.7) - restriction: >= netstandard2.0
+    Iced (1.8) - restriction: >= netstandard2.0
     Microsoft.ApplicationInsights (2.14)
       NETStandard.Library (>= 1.6.1) - restriction: && (< net45) (>= netstandard1.3) (< netstandard2.0)
       System.Diagnostics.DiagnosticSource (>= 4.6) - restriction: || (&& (>= net45) (< netstandard1.3)) (&& (< net45) (>= netstandard1.3) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0)) (>= net46)
@@ -88,7 +88,7 @@ NUGET
       System.Runtime.Serialization.Json (>= 4.3) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
       System.Runtime.Serialization.Primitives (>= 4.3) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
       System.Threading.Thread (>= 4.3) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
-    Microsoft.Azure.Amqp (2.4.4) - restriction: >= netstandard1.4
+    Microsoft.Azure.Amqp (2.4.5) - restriction: >= netstandard1.4
       System.Net.WebSockets.Client (>= 4.0.2) - restriction: >= netstandard1.3
       System.Runtime.Serialization.Primitives (>= 4.1.1) - restriction: >= netstandard1.3
     Microsoft.Azure.EventHubs (4.2)
@@ -151,48 +151,48 @@ NUGET
       System.Runtime.CompilerServices.Unsafe (>= 4.7.1) - restriction: >= netstandard2.0
     Microsoft.Diagnostics.Tracing.TraceEvent (2.0.57) - restriction: >= netstandard2.0
       System.Runtime.CompilerServices.Unsafe (>= 4.5.2)
-    Microsoft.DotNet.PlatformAbstractions (3.1.5) - restriction: >= netstandard2.0
+    Microsoft.DotNet.PlatformAbstractions (3.1.6) - restriction: >= netstandard2.0
       System.Runtime.InteropServices.RuntimeInformation (>= 4.0) - restriction: || (>= net45) (&& (>= netstandard1.3) (< netstandard2.0))
-    Microsoft.Extensions.Caching.Abstractions (3.1.5) - restriction: && (< net45) (>= netstandard2.0)
-      Microsoft.Extensions.Primitives (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.Caching.Memory (3.1.5) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
-      Microsoft.Extensions.Caching.Abstractions (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.Logging.Abstractions (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.Options (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.Configuration (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-      Microsoft.Extensions.Configuration.Abstractions (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.Configuration.Abstractions (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-      Microsoft.Extensions.Primitives (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.Configuration.FileExtensions (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-      Microsoft.Extensions.Configuration (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.FileProviders.Physical (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.Configuration.Json (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-      Microsoft.Extensions.Configuration (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.Configuration.FileExtensions (>= 3.1.5) - restriction: >= netstandard2.0
+    Microsoft.Extensions.Caching.Abstractions (3.1.6) - restriction: && (< net45) (>= netstandard2.0)
+      Microsoft.Extensions.Primitives (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.Caching.Memory (3.1.6) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
+      Microsoft.Extensions.Caching.Abstractions (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.Logging.Abstractions (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.Options (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.Configuration (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+      Microsoft.Extensions.Configuration.Abstractions (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.Configuration.Abstractions (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+      Microsoft.Extensions.Primitives (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.Configuration.FileExtensions (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+      Microsoft.Extensions.Configuration (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.FileProviders.Physical (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.Configuration.Json (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+      Microsoft.Extensions.Configuration (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.Configuration.FileExtensions (>= 3.1.6) - restriction: >= netstandard2.0
       System.Text.Json (>= 4.7.2) - restriction: && (< netcoreapp3.1) (>= netstandard2.0)
       System.Threading.Tasks.Extensions (>= 4.5.4) - restriction: && (< netcoreapp3.1) (>= netstandard2.0)
-    Microsoft.Extensions.DependencyInjection.Abstractions (3.1.5) - restriction: && (< net45) (>= netstandard2.0)
-    Microsoft.Extensions.DiagnosticAdapter (3.1.5) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
+    Microsoft.Extensions.DependencyInjection.Abstractions (3.1.6) - restriction: && (< net45) (>= netstandard2.0)
+    Microsoft.Extensions.DiagnosticAdapter (3.1.6) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
       System.Diagnostics.DiagnosticSource (>= 4.7.1) - restriction: || (>= net461) (>= netstandard2.0)
-    Microsoft.Extensions.FileProviders.Abstractions (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-      Microsoft.Extensions.Primitives (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.FileProviders.Physical (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-      Microsoft.Extensions.FileProviders.Abstractions (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.FileSystemGlobbing (>= 3.1.5) - restriction: >= netstandard2.0
-    Microsoft.Extensions.FileSystemGlobbing (3.1.5) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
-    Microsoft.Extensions.Logging.Abstractions (3.1.5) - restriction: && (< net45) (>= netstandard2.0)
-    Microsoft.Extensions.Options (3.1.5) - restriction: && (< net45) (>= netstandard2.0)
-      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.5) - restriction: >= netstandard2.0
-      Microsoft.Extensions.Primitives (>= 3.1.5) - restriction: >= netstandard2.0
+    Microsoft.Extensions.FileProviders.Abstractions (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+      Microsoft.Extensions.Primitives (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.FileProviders.Physical (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+      Microsoft.Extensions.FileProviders.Abstractions (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.FileSystemGlobbing (>= 3.1.6) - restriction: >= netstandard2.0
+    Microsoft.Extensions.FileSystemGlobbing (3.1.6) - restriction: || (&& (< net35) (>= netstandard2.0)) (>= netstandard2.1)
+    Microsoft.Extensions.Logging.Abstractions (3.1.6) - restriction: && (< net45) (>= netstandard2.0)
+    Microsoft.Extensions.Options (3.1.6) - restriction: && (< net45) (>= netstandard2.0)
+      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.6) - restriction: >= netstandard2.0
+      Microsoft.Extensions.Primitives (>= 3.1.6) - restriction: >= netstandard2.0
       System.ComponentModel.Annotations (>= 4.7) - restriction: && (< netcoreapp3.1) (>= netstandard2.0)
     Microsoft.Extensions.PlatformAbstractions (1.1) - restriction: || (&& (< net45) (>= netstandard1.6) (< netstandard2.0)) (&& (< net45) (>= netstandard2.0))
       NETStandard.Library (>= 1.6.1) - restriction: || (>= net451) (>= netstandard1.3)
       System.Reflection.TypeExtensions (>= 4.3) - restriction: && (< net451) (>= netstandard1.3)
-    Microsoft.Extensions.Primitives (3.1.5) - restriction: && (< net45) (>= netstandard2.0)
+    Microsoft.Extensions.Primitives (3.1.6) - restriction: && (< net45) (>= netstandard2.0)
       System.Memory (>= 4.5.2) - restriction: && (< netcoreapp3.1) (>= netstandard2.0)
       System.Runtime.CompilerServices.Unsafe (>= 4.7.1) - restriction: && (< netcoreapp3.1) (>= netstandard2.0)
-    Microsoft.Identity.Client (4.15) - restriction: || (>= net46) (>= netstandard2.0)
+    Microsoft.Identity.Client (4.16.1) - restriction: || (>= net46) (>= netstandard2.0)
       Microsoft.CSharp (>= 4.5) - restriction: || (&& (< monoandroid9.0) (< net45) (>= netstandard1.3) (< xamarinmac)) (>= netcoreapp2.1) (>= uap10.0) (>= xamarinios)
       NETStandard.Library (>= 1.6.1) - restriction: && (< monoandroid9.0) (< net45) (< netcoreapp2.1) (>= netstandard1.3) (< uap10.0) (< xamarinios) (< xamarinmac)
       System.ComponentModel.TypeConverter (>= 4.3) - restriction: || (&& (< monoandroid9.0) (< net45) (>= netstandard1.3) (< uap10.0) (< xamarinmac)) (>= netcoreapp2.1) (>= xamarinios)
@@ -1349,7 +1349,7 @@ NUGET
     Fable.Date (1.0)
       Fable.Core (>= 2.0.2)
       FSharp.Core (>= 4.5.2)
-    Fable.Elmish (3.0.6)
+    Fable.Elmish (3.1)
       Fable.Core (>= 3.0)
       FSharp.Core (>= 4.6.2)
     Fable.Elmish.Browser (3.0.4)
@@ -1433,7 +1433,7 @@ NUGET
       FSharp.Core (>= 4.6.2)
     Fable.Core (3.1.5)
       FSharp.Core (>= 4.7)
-    Fable.Elmish (3.0.6)
+    Fable.Elmish (3.1)
       Fable.Core (>= 3.0)
       FSharp.Core (>= 4.6.2)
     Fable.Elmish.Browser (3.0.4)
@@ -1468,7 +1468,7 @@ NUGET
       Fable.Browser.XMLHttpRequest (>= 1.1)
       Fable.Core (>= 3.0)
       FSharp.Core (>= 4.6.2)
-    Feliz (1.6)
+    Feliz (1.7)
       Fable.Core (>= 3.1.5)
       Fable.React (>= 6.2)
       FSharp.Core (>= 4.7.2)
@@ -1484,11 +1484,12 @@ NUGET
     Feliz.Popover (2.0)
       Feliz (>= 1.0)
       FSharp.Core (>= 4.7)
-    Feliz.Router (2.1)
+    Feliz.Router (3.0.1)
       Fable.Core (>= 3.1.5)
-      Fable.Elmish (>= 3.0.5)
-      Feliz (>= 1.0)
-      FSharp.Core (>= 4.7)
+      Fable.Elmish (>= 3.0.6)
+      Feliz (>= 1.6)
+      Feliz.UseListener (>= 0.3)
+      FSharp.Core (>= 4.7.2)
     Feliz.UseDeferred (1.1.1)
       Feliz (>= 1.5)
       FSharp.Core (>= 4.7)
@@ -1497,11 +1498,15 @@ NUGET
       Fable.Promise (>= 2.0)
       Feliz (>= 1.5)
       FSharp.Core (>= 4.7)
+    Feliz.UseListener (0.5)
+      Fable.Core (>= 3.1.5 < 4.0)
+      Feliz (>= 1.5 < 2.0)
+      FSharp.Core (>= 4.7 < 5.0)
     FSharp.Core (4.7.2)
     Thoth.Json (4.1)
       Fable.Core (>= 3.1.4)
       FSharp.Core (>= 4.7)
-    Zanaptak.TypedCssClasses (0.2)
+    Zanaptak.TypedCssClasses (0.3.1)
       FSharp.Core (>= 4.3.4)
 
 GROUP Chia.NetStandard
@@ -1550,7 +1555,7 @@ NUGET
     Expecto.TestResults (8.13.2)
       Expecto (>= 8.13.2)
       FSharp.Core (>= 4.6)
-    Farmer (0.21)
+    Farmer (0.22)
       FSharp.Core (>= 4.7.1)
       Newtonsoft.Json (>= 12.0.2)
     FsCheck (2.14.3)
@@ -1558,7 +1563,7 @@ NUGET
     FSharp.Core (4.7.2)
     FSharp.Data (3.3.3)
       FSharp.Core (>= 4.3.4)
-    Iced (1.7)
+    Iced (1.8)
     Microsoft.ApplicationInsights (2.14)
       System.Diagnostics.DiagnosticSource (>= 4.6)
       System.Memory (>= 4.5.4)
@@ -1600,44 +1605,44 @@ NUGET
       System.Runtime.CompilerServices.Unsafe (>= 4.7.1)
     Microsoft.Diagnostics.Tracing.TraceEvent (2.0.57)
       System.Runtime.CompilerServices.Unsafe (>= 4.5.2)
-    Microsoft.DotNet.PlatformAbstractions (3.1.5)
-    Microsoft.Extensions.Caching.Abstractions (3.1.5)
-      Microsoft.Extensions.Primitives (>= 3.1.5)
-    Microsoft.Extensions.Caching.Memory (3.1.5)
-      Microsoft.Extensions.Caching.Abstractions (>= 3.1.5)
-      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.5)
-      Microsoft.Extensions.Logging.Abstractions (>= 3.1.5)
-      Microsoft.Extensions.Options (>= 3.1.5)
-    Microsoft.Extensions.Configuration (3.1.5)
-      Microsoft.Extensions.Configuration.Abstractions (>= 3.1.5)
-    Microsoft.Extensions.Configuration.Abstractions (3.1.5)
-      Microsoft.Extensions.Primitives (>= 3.1.5)
-    Microsoft.Extensions.Configuration.FileExtensions (3.1.5)
-      Microsoft.Extensions.Configuration (>= 3.1.5)
-      Microsoft.Extensions.FileProviders.Physical (>= 3.1.5)
-    Microsoft.Extensions.Configuration.Json (3.1.5)
-      Microsoft.Extensions.Configuration (>= 3.1.5)
-      Microsoft.Extensions.Configuration.FileExtensions (>= 3.1.5)
+    Microsoft.DotNet.PlatformAbstractions (3.1.6)
+    Microsoft.Extensions.Caching.Abstractions (3.1.6)
+      Microsoft.Extensions.Primitives (>= 3.1.6)
+    Microsoft.Extensions.Caching.Memory (3.1.6)
+      Microsoft.Extensions.Caching.Abstractions (>= 3.1.6)
+      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.6)
+      Microsoft.Extensions.Logging.Abstractions (>= 3.1.6)
+      Microsoft.Extensions.Options (>= 3.1.6)
+    Microsoft.Extensions.Configuration (3.1.6)
+      Microsoft.Extensions.Configuration.Abstractions (>= 3.1.6)
+    Microsoft.Extensions.Configuration.Abstractions (3.1.6)
+      Microsoft.Extensions.Primitives (>= 3.1.6)
+    Microsoft.Extensions.Configuration.FileExtensions (3.1.6)
+      Microsoft.Extensions.Configuration (>= 3.1.6)
+      Microsoft.Extensions.FileProviders.Physical (>= 3.1.6)
+    Microsoft.Extensions.Configuration.Json (3.1.6)
+      Microsoft.Extensions.Configuration (>= 3.1.6)
+      Microsoft.Extensions.Configuration.FileExtensions (>= 3.1.6)
       System.Text.Json (>= 4.7.2)
       System.Threading.Tasks.Extensions (>= 4.5.4)
-    Microsoft.Extensions.DependencyInjection.Abstractions (3.1.5)
-    Microsoft.Extensions.DiagnosticAdapter (3.1.5)
+    Microsoft.Extensions.DependencyInjection.Abstractions (3.1.6)
+    Microsoft.Extensions.DiagnosticAdapter (3.1.6)
       System.Diagnostics.DiagnosticSource (>= 4.7.1)
-    Microsoft.Extensions.FileProviders.Abstractions (3.1.5)
-      Microsoft.Extensions.Primitives (>= 3.1.5)
-    Microsoft.Extensions.FileProviders.Physical (3.1.5)
-      Microsoft.Extensions.FileProviders.Abstractions (>= 3.1.5)
-      Microsoft.Extensions.FileSystemGlobbing (>= 3.1.5)
-    Microsoft.Extensions.FileSystemGlobbing (3.1.5)
-    Microsoft.Extensions.Logging.Abstractions (3.1.5)
-    Microsoft.Extensions.Options (3.1.5)
-      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.5)
-      Microsoft.Extensions.Primitives (>= 3.1.5)
+    Microsoft.Extensions.FileProviders.Abstractions (3.1.6)
+      Microsoft.Extensions.Primitives (>= 3.1.6)
+    Microsoft.Extensions.FileProviders.Physical (3.1.6)
+      Microsoft.Extensions.FileProviders.Abstractions (>= 3.1.6)
+      Microsoft.Extensions.FileSystemGlobbing (>= 3.1.6)
+    Microsoft.Extensions.FileSystemGlobbing (3.1.6)
+    Microsoft.Extensions.Logging.Abstractions (3.1.6)
+    Microsoft.Extensions.Options (3.1.6)
+      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.6)
+      Microsoft.Extensions.Primitives (>= 3.1.6)
       System.ComponentModel.Annotations (>= 4.7)
     Microsoft.Extensions.PlatformAbstractions (1.1)
       NETStandard.Library (>= 1.6.1)
       System.Reflection.TypeExtensions (>= 4.3)
-    Microsoft.Extensions.Primitives (3.1.5)
+    Microsoft.Extensions.Primitives (3.1.6)
       System.Memory (>= 4.5.2)
       System.Runtime.CompilerServices.Unsafe (>= 4.7.1)
     Microsoft.NETCore.Platforms (3.1.1)
