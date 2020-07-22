@@ -23,7 +23,7 @@ let menuPart model dispatch =
           Bulma.menuList [ item "Overview" Chia ]
           Bulma.menuList
               [ item "Installation" ChiaInstallation
-                item "FileWriter" ChiaFileWriter
+                item "InitBuilder" ChiaInitBuilder
                 item "Infrastructure" ChiaInfrastructure
                 item "Logger" ChiaLogger
                 item "CreateTable" ChiaCreateTable
@@ -46,7 +46,7 @@ let contentPart model dispatch =
     match model.CurrentPage with
     | Chia -> Chia.overview
     | ChiaInstallation -> Chia.installation
-    | ChiaFileWriter -> ChiaFileWriter.overview
+    | ChiaInitBuilder -> ChiaInitBuilder.overview
     | ChiaAIUtils -> ChiaAIUtils.overview
     | ChiaRedisCache -> ChiaRedisCache.overview
     | ChiaEventHub -> ChiaEventHub.overview
@@ -103,6 +103,6 @@ let view (model: Model) (dispatch: Msg -> unit) =
                                       prop.children (menuPart model dispatch) ]
                                   Bulma.tile (contentPart model dispatch) ] ] ] ] ]
 
-    Router.router
-        [ Router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)
-          Router.application render ]
+    React.router
+        [ router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)
+          router.children [render] ]

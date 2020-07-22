@@ -5,7 +5,7 @@ open Feliz.Router
 type Page =
     | Chia
     | ChiaInstallation
-    | ChiaFileWriter
+    | ChiaInitBuilder
     | ChiaAIUtils
     | ChiaRedisCache
     | ChiaEventHub
@@ -27,7 +27,7 @@ let defaultPage = Chia
 let parseUrl = function
     | [ "" ] -> Chia
     | [ "installation" ] -> ChiaInstallation
-    | [ "filewriter" ] -> ChiaFileWriter
+    | [ "initbuilder" ] -> ChiaInitBuilder
     | [ "aiutils" ] -> ChiaAIUtils
     | [ "rediscache" ] -> ChiaRedisCache
     | [ "eventhub" ] -> ChiaEventHub
@@ -48,7 +48,7 @@ let parseUrl = function
 let getHref = function
     | Chia -> Router.format("")
     | ChiaInstallation -> Router.format("installation")
-    | ChiaFileWriter -> Router.format("filewriter")
+    | ChiaInitBuilder -> Router.format("initbuilder")
     | ChiaAIUtils -> Router.format("aiutils")
     | ChiaRedisCache -> Router.format("rediscache")
     | ChiaEventHub -> Router.format("eventhub")
