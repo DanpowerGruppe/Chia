@@ -8,7 +8,7 @@ module TimeModelHelper =
 
     let initTimeSpanSelection: Selection<ReportIntervall> list =
         [ { Value = Monthly; Text = "Monatlich" }
-          { Value = Dayly; Text = "Täglich" } ]
+          { Value = Daily; Text = "Täglich" } ]
 
     let initDateTo, initDateFrom =
         let today =
@@ -19,7 +19,7 @@ module TimeModelHelper =
 
     let initTimeModel =
         printfn "DateTimeOffset %A" (initDateFrom.Value |> DateTimeOffset)
-        { ReportIntervall = Dayly
+        { ReportIntervall = Daily
           DateStart = initDateFrom.Value |> DateTimeOffset
           DateEnd = initDateTo.Value |> DateTimeOffset }
 

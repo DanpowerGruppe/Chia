@@ -215,7 +215,7 @@ module TimeCalculation =
     module Utils =
         let matchReportIntervall (intervall: ReportIntervall) =
             match intervall with
-            | Dayly -> "täglich"
+            | Daily -> "täglich"
             | Weekly -> "wöchentlich"
             | Monthly -> "monatlich"
             | Quarterly -> "quartalsweise"

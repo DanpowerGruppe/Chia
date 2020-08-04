@@ -248,7 +248,7 @@ Target.create "InstallDocs" (fun _ ->
 Target.create "PublishDocs" (fun _ ->
     let docsDeployLocalPath = (docsSrcPath </> "deploy")
     [ docsDeployPath; docsDeployLocalPath] |> Shell.cleanDirs
-    runTool yarnTool"webpack-cli -p" docsSrcPath
+    runTool yarnTool "webpack-cli -p" docsSrcPath
     Shell.copyDir docsDeployPath docsDeployLocalPath FileFilter.allFiles
 )
 
