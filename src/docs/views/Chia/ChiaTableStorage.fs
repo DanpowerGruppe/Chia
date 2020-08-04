@@ -17,7 +17,8 @@ let overview =
                         DynamicTableEntity(testData.PartKey, testData.RowKey.GetValue)
                         |> setDateTimeOffsetProperty "Date" testData.Date
                         |> setDoubleProperty "Value" testData.Value
-                        |> setStringProperty "Text" testData.Text """
+                        |> setStringProperty "Text" testData.Text
+                    """
                 Html.p "Next make a reference to yout azure table:"
                 code """
                     let testTable = getTable TestTable azAccount
@@ -34,7 +35,7 @@ let overview =
                               Value = 0.2
                               Text = "isWorking" }
                         let! _ = saveData tableMapper testTable fileWriterConfig testData
-                }""" ]
+                }"""
                 Html.p "You can also upload a data array as a batch:"
                 code
                     """
@@ -48,6 +49,6 @@ let overview =
                                     Value = 0.2
                                     Text = "isWorking" }|]
                             let! _ = saveDataArrayBatch tableMapper testTable fileWriterConfig testData
-                    """
+                    """ ]
           Html.hr []
           fixDocsView "ChiaTableStorage" false ]
