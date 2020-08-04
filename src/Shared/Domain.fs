@@ -45,7 +45,7 @@ module Domain =
     module Time =
 
         type ReportIntervall =
-            | Dayly
+            | Daily
             | Weekly
             | Monthly
             | Quarterly
