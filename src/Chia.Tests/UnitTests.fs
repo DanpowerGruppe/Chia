@@ -81,6 +81,35 @@ let simpleTest =
                 let data = values |> Array.head
                 Expect.equal data testData "Insert test data is the same the readed testdata"
           }
+          testTask "Insert test data as batch to table and read data from the table"
+              { let testTable = getTable TestTable azAccount
+
+                let testData =
+                    [|  { PartKey = "PartKey"
+                          RowKey = DateTime.Now |> SortableRowKey.toRowKey
+                          Date = DateTimeOffset.Now
+                          Value = 0.2
+                          Text = "isWorking" }|]
+
+                let tableMapper (testData: TestData) =
+                    DynamicTableEntity(testData.PartKey, testData.RowKey.GetValue)
+                    |> setDateTimeOffsetProperty "Date" testData.Date
+                    |> setDoubleProperty "Value" testData.Value
+                    |> setStringProperty "Text" testData.Text
+
+                let! _ = saveDataArrayBatch tableMapper testTable fileWriterConfig testData
+
+                let mapTestData entity: TestData =
+                    { Date = getDateTimeOffsetProperty "Date" entity
+                      PartKey = entity.PartitionKey
+                      RowKey = SortableRowKey entity.RowKey
+                      Text = getStringProperty "Text" entity
+                      Value = getDoubleProperty "Value" entity }
+
+                let! values = getValues mapTestData testTable
+                let data = values
+                Expect.equal data testData "Insert test data is the same the readed testdata"
+          }
           testTask "PostToQueue"
               { let testQueue = getQueue azAccount "test-queue-msg"
                 let content = [ "Data1"; "Data2" ]
