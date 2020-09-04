@@ -41,7 +41,7 @@ module CreateJsonBlob =
                             Log.logCritical("JsonConvert",LocalService,Calculation,LocalStorage,exn,jsonInfo.FileWriterConfig)
                             failwith msg
                     Log.logFinished("GotJson",LocalService,Calculation,LocalStorage,jsonInfo.FileWriterConfig)
-                    do! File.WriteAllTextAsync(path, json)
+                    File.WriteAllText(path,json) |> ignore
                     Log.logFinished("JsonCache",LocalService,Create,BlobTable,jsonInfo.FileWriterConfig)
                 with exn ->
                     let msg =
@@ -57,7 +57,7 @@ module CreateJsonBlob =
 
                 let sourceDirectoryRoot = Path.GetFullPath(cachePath jsonInfo.FileWriterConfig)
                 let path = sourceDirectoryRoot + (sprintf "%s.json" blobId)
-                let! txt = File.ReadAllTextAsync(path)
+                let txt = File.ReadAllText(path)
                 Log.logFinished("GotText",LocalService,Download,LocalStorage,jsonInfo.FileWriterConfig)
                 // logOk jsonInfo.FileWriterConfig "Got txt"
                 let data =

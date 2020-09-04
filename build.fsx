@@ -31,7 +31,6 @@ open Fake.Core.TargetOperators
 open Fake.IO.Globbing.Operators
 open Fake.Tools
 open Fake.IO.FileSystemOperators
-open Fake.Core.TargetOperators
 //-----------------------------------------------
 // Information about the project to be used at NuGet and in AssemblyInfo files
 // --------------------------------------------------------------------------------------
@@ -58,7 +57,7 @@ let projectUrl = sprintf "%s/%s" gitHome gitName
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
 let summary = "Danpower Reporting Utils"
 
-let copyright = "Copyright \169 2019"
+let copyright = "Copyright \169 2020"
 let iconUrl = "https://raw.githubusercontent.com/fsprojects/Chia/master/Chia_logo.png"
 let licenceUrl = "https://github.com/fsprojects/Chia/blob/master/LICENSE.md"
 let configuration = DotNet.BuildConfiguration.Release
@@ -207,7 +206,6 @@ Target.create "Pack" (fun _ ->
 
     pack "Chia"
     pack "Chia.Client"
-    pack "Chia.NetStandard"
 )
 
 let getBuildParam = Environment.environVar
