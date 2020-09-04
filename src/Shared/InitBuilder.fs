@@ -37,9 +37,9 @@ module InitBuilder =
 
         /// Sets the projectanme of the FileWriter instance.
         [<CustomOperation "projectName">]
-        member _.ProjectName(state: FileWriterConfig, projectName) =
+        member _.ProjectName(state: FileWriterConfig, projectName:string) =
             { state with
-                  ProjectName = Some projectName }
+                  ProjectName = Some (projectName.ToLower()) }
 
         /// Sets the name of the SKU/Tier of the FileWriter instance.
         [<CustomOperation "devOption">]

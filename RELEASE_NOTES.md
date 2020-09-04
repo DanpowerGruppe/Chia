@@ -1,3 +1,5 @@
+### 0.6.7 - 04.09.2020
+Migrate NetStandard
 ### 0.6.6 - 20.07.2020
 Try update again
 ### 0.6.5 - 20.07.2020

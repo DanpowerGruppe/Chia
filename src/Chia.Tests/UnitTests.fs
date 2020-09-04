@@ -57,8 +57,8 @@ let simpleTest =
 
                 let testData =
                     { PartKey = "PartKey"
-                      RowKey = DateTime.Now |> SortableRowKey.toRowKey
-                      Date = DateTimeOffset.Now
+                      RowKey = DateTime.UtcNow |> SortableRowKey.toRowKey
+                      Date = DateTime.UtcNow |> DateTimeOffset
                       Value = 0.2
                       Text = "isWorking" }
 
@@ -86,8 +86,8 @@ let simpleTest =
 
                 let testData =
                     [|  { PartKey = "PartKey"
-                          RowKey = DateTime.Now |> SortableRowKey.toRowKey
-                          Date = DateTimeOffset.Now
+                          RowKey =DateTime.UtcNow |> SortableRowKey.toRowKey
+                          Date = DateTime.UtcNow |> DateTimeOffset
                           Value = 0.2
                           Text = "isWorking" }|]
 
@@ -107,8 +107,8 @@ let simpleTest =
                       Value = getDoubleProperty "Value" entity }
 
                 let! values = getValues mapTestData testTable
-                let data = values
-                Expect.equal data testData "Insert test data is the same the readed testdata"
+                let data = values |> Array.head
+                Expect.equal data testData.[0] "Insert test data is the same the readed testdata"
           }
           testTask "PostToQueue"
               { let testQueue = getQueue azAccount "test-queue-msg"
