@@ -14,9 +14,13 @@
       "kind": "StorageV2",
       "location": "westeurope",
       "name": "dptestchiadev",
+      "properties": {
+        "isHnsEnabled": false
+      },
       "sku": {
         "name": "Standard_LRS"
       },
+      "tags": {},
       "type": "Microsoft.Storage/storageAccounts"
     }
   ]

@@ -2,6 +2,7 @@
 group Chia
     storage: none
     source https://api.nuget.org/v3/index.json
+    framework: netcoreapp3.1, netstandard2.0, net5.0
     nuget FSharp.Core
     nuget EPPlus
     nuget FSharp.Data
@@ -18,7 +19,7 @@ group Chia
     nuget System.Drawing.Common
     nuget StackExchange.Redis
     nuget Microsoft.Azure.EventHubs
-    nuget Farmer 0.22
+    nuget Farmer
     nuget Dapper
     nuget Microsoft.Data.SqlClient
 

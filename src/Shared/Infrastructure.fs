@@ -9,11 +9,12 @@ module Infrastructure =
     open Microsoft.WindowsAzure.Storage
 
     let buildEnvironment (info: FileWriterConfig) area =
-        let storageAccountName =
-            info.CompanyInitials.Value + "-" + info.ProjectName.Value + "-" + info.DevStatus.GetValue
-        let storageAccount = storageAccount { name storageAccountName }
-        let resourceGroupName =
-            info.CompanyInitials.Value + "-" + info.ProjectName.Value + "-" + info.DevStatus.GetValue
+        let storageName =
+            info.CompanyInitials.Value
+            + info.ProjectName.Value
+            + info.DevStatus.GetValue
+
+        let storageAccount = storageAccount { name storageName }
 
         let deployment =
             arm {
@@ -22,7 +23,7 @@ module Infrastructure =
                 output "storage_key" storageAccount.Key
             }
 
-        deployment, resourceGroupName
+        deployment, storageName
 
     let createNewOrTakeExistingInfrastruture info area =
         let deployment, resourceGroupName: Deployment * string = buildEnvironment info area

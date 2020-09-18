@@ -147,11 +147,12 @@ module Util =
 Target.create "Build" (fun _ ->
     !! "src/**/*.fsproj"
     |> Seq.filter (fun s ->
+        printfn "project %s " s
         let name = Path.GetDirectoryName s
         not (name.Contains "docs"))
     |> Seq.iter (fun s ->
         let dir = Path.GetDirectoryName s
-        DotNet.build id dir)
+        runDotNet "build" dir)
 )
 
 Target.create "UnitTests" (fun _ ->
