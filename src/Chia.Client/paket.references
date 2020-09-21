@@ -1,10 +1,6 @@
-group Chia.Client
-    Fable.Core
-    FSharp.Core
-    Fable.Elmish.Debugger
-    Fable.Elmish.React
-    Fable.Elmish.HMR
-    Fulma.Elmish
-    Fulma
-    Fable.Recharts
-    Elmish.Toastr
+group ChiaStack
+Fable.Elmish.Debugger
+Fable.Elmish.HMR
+Fulma.Elmish
+Fable.Recharts
+Elmish.Toastr

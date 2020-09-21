@@ -10,11 +10,11 @@
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain.fs" />
+    <Compile Include="../Shared/Domain.fs" />
     <Compile Include="Elements.fs" />
     <Compile Include="Tables.fs" />
     <Compile Include="Utils.fs" />

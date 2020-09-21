@@ -1,55 +1,36 @@
-
-group Chia
+group ChiaStack
     storage: none
     source https://api.nuget.org/v3/index.json
-    framework: netcoreapp3.1, netstandard2.0, net5.0
-    nuget FSharp.Core
+    framework: net5.0
     nuget EPPlus
     nuget FSharp.Data
-    nuget Expecto
     nuget Expecto.BenchmarkDotNet
     nuget Expecto.FsCheck
     nuget Expecto.TestResults
     nuget WindowsAzure.Storage
     nuget Taskbuilder.fs
-    nuget Microsoft.ApplicationInsights
     nuget Microsoft.ApplicationInsights.DependencyCollector
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
-    nuget System.Configuration.ConfigurationManager
-    nuget System.Drawing.Common
     nuget StackExchange.Redis
     nuget Microsoft.Azure.EventHubs
     nuget Farmer
     nuget Dapper
     nuget Microsoft.Data.SqlClient
-
-group Chia.Client
-    source https://api.nuget.org/v3/index.json
-    framework: netstandard2.0
-    nuget FSharp.Core
-    nuget Fable.Core
     nuget Fable.Elmish.Debugger
-    nuget Fable.Elmish.React
     nuget Fable.Elmish.HMR
     nuget Fulma.Elmish
-    nuget Fulma
     nuget Fable.Recharts
     nuget Elmish.Toastr
 
 group Chia.Docs
     source https://api.nuget.org/v3/index.json
     framework: netstandard2.0
-    nuget FSharp.Core
-    nuget Fable.Core
-    nuget Fable.Elmish.React
-    nuget Fable.React
     nuget Feliz.Router
     nuget Zanaptak.TypedCssClasses
     nuget Fable.SimpleHttp
     nuget Feliz.ElmishComponents
     nuget Feliz.UseDeferred
     nuget Feliz.Popover
-    nuget Feliz
     nuget Feliz.Markdown
     nuget Fable.Elmish.Debugger
     nuget Fable.Elmish.HMR

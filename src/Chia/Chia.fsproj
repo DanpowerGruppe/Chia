@@ -1,31 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0;net5</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../Shared/Domain.fs" />
-    <Compile Include="../Shared/Common.fs" />
-    <Compile Include="../Shared/ApplicationInsights.fs" />
-    <Compile Include="../Shared/InitBuilder.fs" />
-    <Compile Include="../Shared/LogBuilder.fs" />
-    <Compile Include="../Shared/FileWriter.fs" />
-    <Compile Include="../Shared/AIUtils.fs" />
-    <Compile Include="../Shared/Logger.fs" />
-    <Compile Include="../Shared/ExcelUtils.fs" />
-    <Compile Include="../Shared/Infrastructure.fs" />
-    <Compile Include="../Shared/CreateTable.fs" />
-    <Compile Include="../Shared/CreateXml.fs" />
-    <Compile Include="../Shared/CreateBlob.fs" />
+    <Compile Include="Common.fs" />
+    <Compile Include="ApplicationInsights.fs" />
+    <Compile Include="InitBuilder.fs" />
+    <Compile Include="LogBuilder.fs" />
+    <Compile Include="FileWriter.fs" />
+    <Compile Include="AIUtils.fs" />
+    <Compile Include="Logger.fs" />
+    <Compile Include="ExcelUtils.fs" />
+    <Compile Include="Infrastructure.fs" />
+    <Compile Include="CreateTable.fs" />
+    <Compile Include="CreateXml.fs" />
+    <Compile Include="CreateBlob.fs" />
     <Compile Include="CreateJsonBlob.fs" />
-    <Compile Include="../Shared/RedisCache.fs" />
-    <Compile Include="../Shared/GetTableEntry.fs" />
-    <Compile Include="../Shared/PostToQueue.fs" />
-    <Compile Include="../Shared/Utils.fs" />
-    <Compile Include="../Shared/TableStorage.fs" />
-    <Compile Include="../Shared/TimeCalculation.fs" />
-    <Compile Include="../Shared/EventHub.fs" />
+    <Compile Include="RedisCache.fs" />
+    <Compile Include="GetTableEntry.fs" />
+    <Compile Include="PostToQueue.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="TableStorage.fs" />
+    <Compile Include="TimeCalculation.fs" />
+    <Compile Include="EventHub.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

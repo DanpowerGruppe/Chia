@@ -1,7 +1,8 @@
 namespace Chia.Client
     module SharedUtils =
-        open Domain
-        open Domain.Time
+        open Chia.Domain
+        open Chia.Domain.Time
+        open Chia.Domain.Ids
         let joinString (s : string []) = String.concat (";") (s)
 
         let createPartKey (latitude, longitude) =

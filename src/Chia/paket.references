@@ -1,16 +1,12 @@
-group Chia
-    EPPlus
-    Expecto
-    Expecto.BenchmarkDotNet
-    Expecto.FsCheck
-    Expecto.TestResults
-    WindowsAzure.Storage
-    Taskbuilder.fs
-    FSharp.Core
-    Microsoft.ApplicationInsights
-    Microsoft.ApplicationInsights.DependencyCollector
-    Microsoft.ApplicationInsights.PerfCounterCollector
-    System.Configuration.ConfigurationManager
-    StackExchange.Redis
-    Microsoft.Azure.EventHubs
-    Farmer
+group ChiaStack
+EPPlus
+Expecto.BenchmarkDotNet
+Expecto.FsCheck
+Expecto.TestResults
+WindowsAzure.Storage
+Taskbuilder.fs
+Microsoft.ApplicationInsights.DependencyCollector
+Microsoft.ApplicationInsights.PerfCounterCollector
+StackExchange.Redis
+Microsoft.Azure.EventHubs
+Farmer

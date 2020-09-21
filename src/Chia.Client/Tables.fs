@@ -3,7 +3,7 @@ namespace Chia.Client
 module Tables =
     open Fable.React
     open Fable.React.Props
-    open Domain.Tables
+    open Chia.Domain.Tables
     open Fulma
 
     let showTable (tableData: TableRecord) siteMsg setMsg limit dispatch =

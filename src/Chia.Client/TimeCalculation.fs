@@ -2,7 +2,7 @@ namespace Chia.Client
 
 
 module TimeCalculation =
-    open Domain.Time
+    open Chia.Domain.Time
     open System
 
     module Month =
