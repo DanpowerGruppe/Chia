@@ -13,6 +13,8 @@ group ChiaStack
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
     nuget StackExchange.Redis
     nuget Microsoft.Azure.EventHubs
+    nuget Microsoft.Azure.Devices
+    nuget Microsoft.Azure.Devices.Client
     nuget Farmer
     nuget Dapper
     nuget Microsoft.Data.SqlClient

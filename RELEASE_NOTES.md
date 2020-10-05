@@ -1,4 +1,6 @@
-### 0.7.0- - 21.09.2020
+### 0.7.1 - 05.10.2020
+Add IoTHub Helper
+### 0.7.0 - 21.09.2020
 Merge packages and net5 only
 ### 0.6.8 - 18.09.2020
 Add net5
