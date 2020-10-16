@@ -1,3 +1,5 @@
+### 0.8.6 - 16.10.2020
+Retry by removing buid lock file
 ### 0.8.5 - 16.10.2020
 Retry
 ### 0.8.4 - 16.10.2020
