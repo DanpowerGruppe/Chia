@@ -7,7 +7,7 @@ steps:
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core sdk 3.1.100'
   inputs:
-    version: 5.0.100
+    version: 5.0.100-rc.1.20452.10
     includePreviewVersions: true
 - checkout: self
   persistCredentials: true
