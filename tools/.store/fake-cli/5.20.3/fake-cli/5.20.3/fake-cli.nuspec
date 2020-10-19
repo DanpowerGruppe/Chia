@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>fake-cli</id>
+    <version>5.20.3</version>
+    <authors>Steffen Forkmann,Mauricio Scheffer,Colin Bull,Matthias Dittrich</authors>
+    <owners>Steffen Forkmann,Mauricio Scheffer,Colin Bull,Matthias Dittrich</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0 OR MS-PL</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0%20OR%20MS-PL</licenseUrl>
+    <projectUrl>https://fake.build/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/fsharp/FAKE/7305422ea912e23c1c5300b23b3d0d7d8ec7d27f/help/content/pics/logo.png</iconUrl>
+    <description>FAKE - F# Make - is a build automation tool for .NET. Tasks and dependencies are specified in a DSL which is integrated in F#.</description>
+    <releaseNotes>BUGFIX: Fix unintentional unit return, thanks @objectx - https://github.com/fsharp/FAKE/pull/2534
+BUGFIX: Add null check for values with null as default value, thanks @aklefdal - https://github.com/fsharp/FAKE/pull/2531
+BUGFIX: Small Copy&amp;Paste issue, thanks @vilinski - https://github.com/fsharp/FAKE/pull/2537
+BUGFIX: Ignore TraceSecret.register call if secret is `null` or empty and throw if replacement is `null`</releaseNotes>
+    <tags>build fake f#</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+  </metadata>
+</package>

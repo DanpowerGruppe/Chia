@@ -25,6 +25,7 @@ group ChiaStack
     nuget Elmish.Toastr
 
 group Chia.Docs
+    storage: none
     source https://api.nuget.org/v3/index.json
     framework: net5.0
     nuget Feliz.Router

@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <DefineConstants>FABLE_COMPILER</DefineConstants>
-    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Router.fs" />

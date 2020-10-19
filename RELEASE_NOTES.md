@@ -1,3 +1,21 @@
+### 0.8.8 - 16.10.2020
+Finally Migrated to net5
+### 0.8.7 - 16.10.2020
+And again
+### 0.8.6 - 16.10.2020
+Retry by removing buid lock file
+### 0.8.5 - 16.10.2020
+Retry
+### 0.8.4 - 16.10.2020
+Retry
+### 0.8.3 - 16.10.2020
+Add rollforward
+### 0.8.2 - 16.10.2020
+Migrate to net5.0
+### 0.8.1 - 16.10.2020
+Migrate to net5.0
+### 0.8.0 - 16.10.2020
+Migrate to net5.0
 ### 0.7.4 - 05.10.2020
 try again
 ### 0.7.3 - 05.10.2020

@@ -4,7 +4,7 @@
   "outputs": {
     "storage_key": {
       "type": "string",
-      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=dptestchiadev;AccountKey=', listKeys('dptestchiadev', '2017-10-01').keys[0].value)]"
+      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=dptestchiadev;AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', 'dptestchiadev'), '2017-10-01').keys[0].value)]"
     }
   },
   "parameters": {},
@@ -14,9 +14,7 @@
       "kind": "StorageV2",
       "location": "westeurope",
       "name": "dptestchiadev",
-      "properties": {
-        "isHnsEnabled": false
-      },
+      "properties": {},
       "sku": {
         "name": "Standard_LRS"
       },

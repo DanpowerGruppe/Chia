@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.DependencyManager.Paket</name></assembly>
+<members>
+<member name="F:Fake.Core.DependencyManager.Paket.Internals.PaketDependencyManager.Key@">
+<summary>
+ Key that identifies the types of dependencies that this DependencyManager operates on
+</summary>
+</member>
+<member name="F:Fake.Core.DependencyManager.Paket.Internals.PaketDependencyManager.Name@">
+<summary>
+ Name of the dependency manager
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.PaketDependencyManager.Name">
+<summary>
+ Name of the dependency manager
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.PaketDependencyManager.Key">
+<summary>
+ Key that identifies the types of dependencies that this DependencyManager operates on
+</summary>
+</member>
+<member name="M:Fake.Core.DependencyManager.Paket.Internals.PaketDependencyManager.ResolveDependencies(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Resolve the dependencies, for the given set of arguments, go find the .dll references, scripts and additional include values.
+</summary>
+</member>
+<member name="T:Fake.Core.DependencyManager.Paket.Internals.PaketDependencyManager">
+<summary>
+ the type _must_ take an optional output directory
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult.Success">
+<summary>
+ Succeded?
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult.StdOut">
+<summary>
+ The resolution output log
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult.StdError">
+<summary>
+ The resolution error log (* process stderror *)
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult.SourceFiles">
+<summary>
+ The source code file paths (will be treated as #load options)
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult.Roots">
+<summary>
+ The roots to package directories (will be treated like #I options)
+</summary>
+</member>
+<member name="P:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult.Resolutions">
+<summary>
+ The resolution paths (will be treated as #r options)
+</summary>
+</member>
+<member name="T:Fake.Core.DependencyManager.Paket.Internals.ResolveDependenciesResult">
+<summary>
+ returned structure from the ResolveDependencies method call. 
+</summary>
+</member>
+<member name="T:Fake.Core.DependencyManager.Paket.Internals.DependencyManagerAttribute">
+<summary>
+ A marker attribute to tell FCS that this assembly contains a Dependency Manager, or
+ that a class with the attribute is a DependencyManager
+</summary>
+</member>
+</members>
+</doc>
