@@ -4,8 +4,6 @@ open Domain
 open Feliz
 open Feliz.Bulma
 open Router
-open Chia.Client.PageFlexer
-open Shared
 
 let menuPart model dispatch =
     let item (t: string) p =
