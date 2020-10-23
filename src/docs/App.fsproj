@@ -7,7 +7,7 @@
   <ItemGroup>
     <Compile Include="Router.fs" />
     <Compile Include="Domain.fs" />
-    <Compile Include="Shared.fs" />
+    <Compile Include="Utils.fs" />
     <Compile Include="views\Chia\Chia.fs" />
     <Compile Include="views\Chia\ChiaInitBuilder.fs" />
     <Compile Include="views\Chia\ChiaAIUtils.fs" />

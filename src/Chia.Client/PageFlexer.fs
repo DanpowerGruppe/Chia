@@ -1,4 +1,4 @@
-namespace Chia.Client
+namespace Chia
 
     module PageFlexer =
         open Fable.React

@@ -1,11 +1,11 @@
-namespace Chia.Client
+namespace Chia
 
 
 module TimeModelHelper =
 
     open System
-    open Chia.Domain.Time
-    open Chia.Domain
+    open Shared.Time
+    open Shared
     let initTimeSpanSelection: Selection<ReportIntervall> list =
         [ { Value = Monthly; Text = "Monatlich" }
           { Value = Daily; Text = "Täglich" } ]

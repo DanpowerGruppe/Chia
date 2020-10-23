@@ -2,8 +2,13 @@ module ChiaClient
 
 open Feliz
 open Feliz.Bulma
-open Shared
+open Utils
+open Chia.Shared
+open Time
 
+type TestModel =
+    { SelectionTimeSpan: Selection<ReportIntervall> list option
+      SelectedTimeSpan: ReportIntervall }
 let overview =
     Html.div [
         Bulma.title.h1 [
@@ -70,4 +75,4 @@ let fileWriter =
         ]
     ]
 
-let installation = Shared.installationView "Chia.Client"
+let installation = installationView "Chia.Client"

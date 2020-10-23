@@ -1,11 +1,8 @@
 namespace Chia
 
-open Microsoft.ApplicationInsights
-open Domain
 
 module LogBuilder =
-    open Chia
-    open Chia.InitBuilder
+    open InitBuilder
     open System
     open Microsoft.ApplicationInsights.DataContracts
 

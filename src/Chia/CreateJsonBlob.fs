@@ -3,12 +3,12 @@ namespace Chia
 module CreateJsonBlob =
     open FSharp.Control.Tasks.ContextInsensitive
     open System.IO
-    open Chia.InitBuilder
+    open InitBuilder
     open Microsoft.WindowsAzure.Storage.Blob
     open System.Threading.Tasks
     open System
     open System.Text.Json
-    open Chia.FileWriter
+    open FileWriter
     type JsonBlobInfo = {
                 Date : DateTime
                 DataName : string

@@ -3,14 +3,15 @@ namespace Chia
 open System
 
 [<AutoOpen>]
-module Domain =
+module Shared =
 
+    #if FABLE_COMPILER
+    #else
     module Logging =
         type DevOption =
             | Local
             | Azure of string
             | LocalAndAzure of string
-
     module Config =
 
         type DevStatus =
@@ -41,7 +42,7 @@ module Domain =
                 failwithf "unmatched EnvironVar %A, please choose between Test and Productive " environVar
 
         let getDevStatusFromEnv = tryGetEnv "status" |> matchEnvironVarToDeployStatus
-
+    #endif
     module Time =
 
         type ReportIntervall =

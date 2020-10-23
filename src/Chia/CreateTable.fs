@@ -4,7 +4,7 @@ open Microsoft.WindowsAzure.Storage.Table
 open System.Threading.Tasks
 open System
 open FSharp.Control.Tasks.ContextInsensitive
-open Chia.Infrastructure
+open Infrastructure
 module CreateTable =
     let deleteTable tableName (azConnection:AzAccount) =
         printfn "Try to delete %s" tableName
