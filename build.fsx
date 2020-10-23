@@ -251,7 +251,8 @@ Target.create "PublishDocs" (fun _ ->
 )
 
 
-Target.create "RunDocs" (fun _ -> runTool yarnTool "webpack-dev-server" docsSrcPath)
+Target.create "RunDocs" (fun _ ->
+    DotNet.exec id "fable" "watch src/docs --outDir src/docs/output --run webpack-dev-server" |> ignore)
 
 "InstallDocs"
 ==> "RunDocs"
