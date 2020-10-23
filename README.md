@@ -8,8 +8,6 @@
 | ------------- | ------------- |
 | Chia  | [![nuget - Chia](https://img.shields.io/nuget/v/Chia.svg?colorB=green)](https://www.nuget.org/packages/Chia/) |
 | Chia.Client  | [![nuget - ChiaClient](https://img.shields.io/nuget/v/Chia.Client.svg?colorB=green)](https://www.nuget.org/packages/Chia.Client/)  |
-| Chia.NetStandard  | [![nuget - ChiaNetStandard](https://img.shields.io/nuget/v/Chia.NetStandard.svg?colorB=green)](https://www.nuget.org/packages/Chia.NetStandard)  |
-
 
 Chia contains HelperFunctions for reporting. Chia contains some Azure Storage functions, logging features and some excel utils.
 
@@ -19,9 +17,10 @@ Initialize your FileWriter instant with `initFileWriter`.
 If you want to log to ApplicationInsight you have to create a new Application Insight resource in Azure and set your ApplicationInsights key.
 
 ```fs
-open Chia.Domain.Logging
-open Chia.Domain.Config
-open Chia.InitBuilder
+open Chia
+open Shared.Logging
+open Shared.Config
+open InitBuilder
 let devStatus = getDevStatusFromEnv  /// Get your devStatus from you enviroment variable. For example pass in an enviroment variable in Fake --> '-e devStatus=Productive
 let fileWriterConfig =
     initWriter {
@@ -38,9 +37,9 @@ Here is an example:
 
 ```fs
 open Chia.Infrastructure
-open Chia.FileWriter
-open Chia.Domain.Config
-open Chia.Domain.Logging
+open Chia.InitWriter
+open Chia.Shared.Config
+open Chia.Shared.Logging
 open Farmer
 let devStatus = Development
 let fileWriterConfig =
@@ -58,7 +57,7 @@ Currently Chia doesn't support F# projects which are using TypeProviders. There 
 
 ## Log
 
-Once you set configured your filewriter you can now log to Application Insight or just to a local file
+Once you set configured your initbuilder you can now log to Application Insight or just to a local file
 
 There are three many log functions. `logStarting`, `logFinished` and `logCritical`.
 
@@ -73,7 +72,7 @@ Log.logStarting("Starting to get Data",LocalServer,Get,AzureTable,fileWriterConf
 If a process finished as expected use `logFinished`:
 
 ```fs
-Log.logFinished("Finisehd receiving Data",LocalServer,Get,AzureTable,fileWriterConfig)
+Log.logFinished("Finished receiving Data",LocalServer,Get,AzureTable,fileWriterConfig)
 ```
 
 If a process crashed unexpected use can track the error message with `logCritical`:
@@ -239,7 +238,7 @@ let cacheInfo : RedisCache = {
 ```
 
 To deserialze your Redis values to your pass in a System.Text.Json mapper.
-You also should pass in a task to receive your data. The function tries to find the cache in Redis. If there is no Redis cache it will create a new cache by executing you task. The following example showes how to reveice a a Plant array directly out of Redis or creates a new cache if theres no existing cache and returns the Plant array.
+You also should pass in a task to receive your data. The function tries to find the cache in Redis. If there is no Redis cache it will create a new cache by executing you task. The following example shows how to receive a Plant array directly out of Redis or creates a new cache if theres no existing cache and returns the Plant array.
 
 ```fs
 let! plants = tryGetCachedData JsonSerializer.Parse<Plant[]> cacheInfo getPlants
