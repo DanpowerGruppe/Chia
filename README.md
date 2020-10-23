@@ -21,7 +21,7 @@ open Chia
 open Shared.Logging
 open Shared.Config
 open InitBuilder
-let devStatus = getDevStatusFromEnv  /// Get your devStatus from you enviroment variable. For example pass in an enviroment variable in Fake --> '-e devStatus=Productive
+let devStatus = getDevStatusFromEnv  /// Get your devStatus from you environment variable. For example pass in an environment variable in Fake --> '-e devStatus=Productive
 let fileWriterConfig =
     initWriter {
         devStatus Development
@@ -32,14 +32,15 @@ let fileWriterConfig =
 
 ## Infrastructure
 
-Chia now can help you to set up your Azure infractruture by using Chia on top of Farmer. You simply create a new FileWriter and then Chia will create a fresh Azure storageaccount in your prefered location. Chia will connect to your storage account and you don't need to add you storage account at all.
+Chia now can help you to set up your Azure infrastructure by using Chia on top of Farmer. You simply create a new FileWriter and then Chia will create a fresh Azure storageaccount in your preferred location. Chia will connect to your storage account and you don't need to add you storage account at all.
 Here is an example:
 
 ```fs
-open Chia.Infrastructure
-open Chia.InitWriter
-open Chia.Shared.Config
-open Chia.Shared.Logging
+open Chia
+open Infrastructure
+open InitWriter
+open Shared.Config
+open Shared.Logging
 open Farmer
 let devStatus = Development
 let fileWriterConfig =
@@ -100,7 +101,7 @@ type Source =
 | LocalService
 | LocalServer
 | AzureFunction
-| AzureInfrastucture
+| AzureInfrastructure
 | PiServer
 | Client
 | SPSCommunication
