@@ -222,11 +222,11 @@ module TimeCalculation =
             | _ -> failwith "Unmatched ReportIntervall"
 
         let thisYear = DateTime.Now.Year
-        let parseAzureDateTimeFromVuPeriode (vuPeriode : string) =
-            DateTime.ParseExact(vuPeriode, "yyyy" + vuPeriode.[4..6],
-                                System.Globalization.CultureInfo.CurrentCulture)
-                    .ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")
-            |> DateTimeOffset.Parse
+        // let parseAzureDateTimeFromVuPeriode (vuPeriode : string) =
+        //     DateTime.ParseExact(vuPeriode, "yyyy" + vuPeriode.[4..6],
+        //                         System.Globalization.CultureInfo.CurrentCulture)
+        //             .ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")
+        //     |> DateTimeOffset.Parse
 
     module Utils =
         let matchReportIntervall (intervall : ReportIntervall) =
