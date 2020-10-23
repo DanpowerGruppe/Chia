@@ -5,7 +5,7 @@ module Infrastructure =
     open Farmer
     open Farmer.Builders
     open Farmer.CoreTypes
-    open Chia.InitBuilder
+    open InitBuilder
     open Microsoft.WindowsAzure.Storage
 
     let buildEnvironment (info: FileWriterConfig) area =

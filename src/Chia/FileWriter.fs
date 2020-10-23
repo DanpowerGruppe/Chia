@@ -3,20 +3,16 @@ namespace Chia
 open System
 open System.IO
 open Microsoft.ApplicationInsights
-open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
-open Microsoft.ApplicationInsights.Extensibility
 open FSharp.Control.Tasks.ContextInsensitive
 open System.Threading.Tasks
-open Domain
+open Shared
 open Logging
 open Config
 open System.Collections.Generic
-open Chia.InitBuilder
+open InitBuilder
 
 module FileWriter =
     open Microsoft.ApplicationInsights.DataContracts
-
-    open Chia
     open LogBuilder
 
     type Trace =
@@ -81,8 +77,17 @@ module FileWriter =
         let min = dt.Minute
         let logPath = logPath (matchInfo logMsg)
         logPath
-        + (sprintf "log_%s_%s_%s_%s_%i%i%i%i%i.txt" logMsg.Source.Value logMsg.Process.Value logMsg.Operation.Value
-               logMsg.Destination.Value year day month hour min)
+        + (sprintf
+            "log_%s_%s_%s_%s_%i%i%i%i%i.txt"
+               logMsg.Source.Value
+               logMsg.Process.Value
+               logMsg.Operation.Value
+               logMsg.Destination.Value
+               year
+               day
+               month
+               hour
+               min)
 
     let activateTSL () =
         Net.ServicePointManager.SecurityProtocol <-
@@ -91,7 +96,9 @@ module FileWriter =
             ||| Net.SecurityProtocolType.Tls12
 
     let logContent status (logTxt: string) =
-        sprintf "%O: %s - %s" DateTime.Now
+        sprintf
+            "%O: %s - %s"
+            DateTime.Now
             (match status with
              | Ok _ -> "Ok"
              | Error _ -> "Error")
@@ -107,8 +114,14 @@ module FileWriter =
             failwithf "No Client - please add an AiKey to your initWriter"
 
     let printMsg logMsg =
-        printfn "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.Value
-            logMsg.Process.Value logMsg.Operation.Value logMsg.Destination.Value
+        printfn
+            "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s"
+            logMsg.Message
+            logMsg.SeverityLevel
+            logMsg.Source.Value
+            logMsg.Process.Value
+            logMsg.Operation.Value
+            logMsg.Destination.Value
 
     let trackTrace logMsg =
         let client = getClient (matchInfo logMsg)
@@ -157,16 +170,25 @@ module FileWriter =
     let getLogTxt status logMsg =
 
         let msg =
-            sprintf "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s" logMsg.Message logMsg.SeverityLevel logMsg.Source.Value
-                logMsg.Process.Value logMsg.Operation.Value logMsg.Destination.Value
+            sprintf
+                "Msg: %s; SeverityLevel: %A; %s; %s; %s; %s"
+                logMsg.Message
+                logMsg.SeverityLevel
+                logMsg.Source.Value
+                logMsg.Process.Value
+                logMsg.Operation.Value
+                logMsg.Destination.Value
 
-        sprintf "%O: %s - %s - %O" DateTime.Now
+        sprintf
+            "%O: %s - %s - %O"
+            DateTime.Now
             (match status with
              | Ok _ -> "Ok"
              | Error _ -> "Error")
             (match status with
              | Ok _ -> msg
-             | Error er -> er.ToString()) logMsg.TimeSpan
+             | Error er -> er.ToString())
+            logMsg.TimeSpan
 
     let writeLog (status: Result<_, exn>) logMsg =
         try

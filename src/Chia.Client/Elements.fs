@@ -1,4 +1,4 @@
-namespace Chia.Client
+namespace Chia
 
 open Fable.React
 open Fable.React.Props

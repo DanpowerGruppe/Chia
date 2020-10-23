@@ -1,4 +1,4 @@
-module Shared
+module Utils
 
 open Fable.Core.JsInterop
 open Feliz

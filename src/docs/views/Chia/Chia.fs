@@ -2,6 +2,7 @@ module Chia
 
 open Feliz
 open Feliz.Bulma
+open Utils
 
 let overview =
     Html.div [
@@ -33,7 +34,7 @@ let overview =
                 Html.li "Application Insights tracing and event helper"
             ]
         ]
-        Shared.fixDocsView "Chia" false
+        fixDocsView "Chia" false
     ]
 
-let installation = Shared.installationView "Chia"
+let installation = installationView "Chia"

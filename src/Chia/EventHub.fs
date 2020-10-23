@@ -1,8 +1,6 @@
 namespace Chia
 
 open FSharp.Control.Tasks.ContextInsensitive
-open Chia
-open FileWriter
 open Microsoft.Azure.EventHubs
 module EventHub =
     let getEventHubClient eventHubConnectionString = EventHubClient.CreateFromConnectionString(eventHubConnectionString)

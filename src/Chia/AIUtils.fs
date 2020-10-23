@@ -3,7 +3,7 @@ namespace Chia
 module AIUtils =
 
     open Microsoft.ApplicationInsights.DataContracts
-    open Chia.InitBuilder
+    open InitBuilder
 
     let eventMsg name props (fileWriterConfig: FileWriterConfig) =
         match fileWriterConfig.Client with

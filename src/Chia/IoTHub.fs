@@ -1,10 +1,11 @@
 namespace Chia
 
-open FSharp.Control.Tasks.ContextInsensitive
-open Microsoft.Azure.Devices.Client
-open Newtonsoft.Json
 
 module IoTHub =
+
+    open FSharp.Control.Tasks.ContextInsensitive
+    open Microsoft.Azure.Devices.Client
+    open Newtonsoft.Json
 
     type IoTHubDeviceClient =
         | IoTHubDeviceClient of string * string * string * TransportType

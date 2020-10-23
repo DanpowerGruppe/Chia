@@ -2,10 +2,8 @@ namespace Chia
 
 [<RequireQualifiedAccess>]
 module Log =
-    open Chia.FileWriter
+    open FileWriter
     open Microsoft.ApplicationInsights.DataContracts
-    open System
-    open Chia
     open LogBuilder
 
     let logFinished (msg, sources, operations, destinations, info) =

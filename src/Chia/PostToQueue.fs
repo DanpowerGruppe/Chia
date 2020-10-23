@@ -1,19 +1,17 @@
 namespace Chia
 
-open Microsoft.WindowsAzure.Storage
-open FSharp.Control.Tasks.ContextInsensitive
-open Microsoft.WindowsAzure.Storage.Queue
-open FileWriter
-open LogBuilder
-open Microsoft.ApplicationInsights.DataContracts
-open Chia.Infrastructure
     module PostToQueue =
+        open FSharp.Control.Tasks.ContextInsensitive
+        open Microsoft.WindowsAzure.Storage.Queue
+        open LogBuilder
+        open Microsoft.ApplicationInsights.DataContracts
+        open Infrastructure
 
         let logger = log {
             severityLevel SeverityLevel.Critical
-            source Source.AzureInfrastucture
-            operation Operation.Create
-            destination Destination.QueueTable
+            source AzureInfrastucture
+            operation Create
+            destination QueueTable
         }
         let getQueue (azConnection:AzAccount) queueName =
             try

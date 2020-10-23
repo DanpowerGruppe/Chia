@@ -1,7 +1,7 @@
 namespace Chia
 
 module ApplicationInsights =
-    open Chia.Domain.Logging
+    open Shared.Logging
     open Microsoft.ApplicationInsights
     open Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse
     open Microsoft.ApplicationInsights.Extensibility

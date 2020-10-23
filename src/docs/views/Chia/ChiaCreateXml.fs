@@ -2,7 +2,7 @@ module ChiaCreateXml
 
 open Feliz
 open Feliz.Bulma
-open Shared
+open Utils
 let overview =
     Html.div
         [ Bulma.title.h1 [ Html.text "Chia.CreateXml" ]

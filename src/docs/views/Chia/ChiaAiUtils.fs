@@ -2,7 +2,7 @@ module ChiaAIUtils
 
 open Feliz
 open Feliz.Bulma
-open Shared
+open Utils
 
 let overview =
     Html.div

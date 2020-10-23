@@ -1,4 +1,4 @@
-namespace Chia.Client
+namespace Chia
 
 module Style =
 

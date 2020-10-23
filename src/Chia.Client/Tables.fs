@@ -1,9 +1,9 @@
-namespace Chia.Client
+namespace Chia
 
 module Tables =
     open Fable.React
     open Fable.React.Props
-    open Chia.Domain.Tables
+    open Shared.Tables
     open Fulma
 
     let showTable (tableData: TableRecord) siteMsg setMsg limit dispatch =

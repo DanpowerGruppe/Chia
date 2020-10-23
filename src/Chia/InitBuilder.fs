@@ -1,12 +1,11 @@
 namespace Chia
 
-open Microsoft.ApplicationInsights
-open Domain
-
 module InitBuilder =
-    open Chia.ApplicationInsights
-    open Chia.Domain.Logging
-    open Domain.Config
+    open Shared
+    open ApplicationInsights
+    open Logging
+    open Config
+    open Microsoft.ApplicationInsights
 
     type FileWriterConfig =
         { DevStatus: Config.DevStatus
@@ -37,9 +36,9 @@ module InitBuilder =
 
         /// Sets the projectanme of the FileWriter instance.
         [<CustomOperation "projectName">]
-        member _.ProjectName(state: FileWriterConfig, projectName:string) =
+        member _.ProjectName(state: FileWriterConfig, projectName: string) =
             { state with
-                  ProjectName = Some (projectName.ToLower()) }
+                  ProjectName = Some(projectName.ToLower()) }
 
         /// Sets the name of the SKU/Tier of the FileWriter instance.
         [<CustomOperation "devOption">]
