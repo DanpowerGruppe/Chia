@@ -1,8 +1,8 @@
-import { parseExact as Date_parseExact, addYears as Date_addYears, date as Date_date, addDays as Date_addDays, daysInMonth as Date_daysInMonth, month as Date_month, year as Date_year, create as Date_create, utcNow as Date_utcNow, toString as Date_toString, addMonths as Date_addMonths, now as Date_now } from "../.fable/fable-library.3.0.0-nagareyama-beta-002/Date.js";
+import { addYears as Date_addYears, date as Date_date, addDays as Date_addDays, daysInMonth as Date_daysInMonth, month as Date_month, year as Date_year, create as Date_create, utcNow as Date_utcNow, toString as Date_toString, addMonths as Date_addMonths, now as Date_now } from "../.fable/fable-library.3.0.0-nagareyama-beta-002/Date.js";
 import { parse as Int32_parse } from "../.fable/fable-library.3.0.0-nagareyama-beta-002/Int32.js";
 import { toString as Types_toString } from "../.fable/fable-library.3.0.0-nagareyama-beta-002/Types.js";
 import { printf as String_printf, toText as String_toText } from "../.fable/fable-library.3.0.0-nagareyama-beta-002/String.js";
-import { parse as DateOffset_parse } from "../.fable/fable-library.3.0.0-nagareyama-beta-002/DateOffset.js";
+import { Time_TimeFilters as Domain_Time_TimeFilters } from "../Shared/Domain.js";
 
 export const Month_startmonthCustom = (() => {
     let arg00;
@@ -580,8 +580,22 @@ export function Year_endyear(year) {
 }
 
 export function TimeFilter_getTimeFilter(reportIntervall, aggregation, year) {
-    const Quarterly = reportIntervall;
-    throw 1;
+    switch (reportIntervall.tag) {
+        case 3: {
+            return new Domain_Time_TimeFilters((aggregation.tag === 1) ? Quarter_startquarterStrExp(year) : Quarter_startquarterStr(year), Quarter_startquarterStrLeavingPlants(year), Quarter_endquarterStr(year), Quarter_endquarterStrLeavingPlants(year), Year_endyearStr(year), (aggregation.tag === 1) ? Quarter_startquarterExp(year) : Quarter_startquarter(year), Quarter_endquarter(year), Year_endyear(year), Quarter_endquarterQuotes);
+        }
+        case 4: {
+            return new Domain_Time_TimeFilters(Halfyear_starthalfyearStr, "None", Halfyear_endhalfyearStr, "None", void 0, Halfyear_starthalfyear, Halfyear_endhalfyear, Year_endyear(year), Halfyear_endhalfyearQuotes);
+        }
+        case 5: {
+            const StartDate = Year_startyearstring(year);
+            const EndDate = Year_endyearstring(year);
+            return new Domain_Time_TimeFilters(StartDate, "None", EndDate, "None", void 0, Year_startyear(year), Year_endyear(year), void 0, Year_endyearQuotes(year));
+        }
+        default: {
+            throw (new Error("Unmatched ReportIntervall"));
+        }
+    }
 }
 
 export const TimeFilter_thisYear = (() => {
@@ -589,15 +603,26 @@ export const TimeFilter_thisYear = (() => {
     return Date_year(copyOfStruct) | 0;
 })();
 
-export function TimeFilter_parseAzureDateTimeFromVuPeriode(vuPeriode) {
-    let arg00;
-    let copyOfStruct = Date_parseExact(vuPeriode, "yyyy" + vuPeriode.slice(4, 6 + 1), null);
-    arg00 = Date_toString(copyOfStruct, "yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss\u0027.\u0027fff\u0027Z\u0027");
-    return DateOffset_parse(arg00);
-}
-
 export function Utils_matchReportIntervall(intervall) {
-    const Daily = intervall;
-    return "täglich";
+    switch (intervall.tag) {
+        case 1: {
+            return "wöchentlich";
+        }
+        case 2: {
+            return "monatlich";
+        }
+        case 3: {
+            return "quartalsweise";
+        }
+        case 4: {
+            return "halbjährlich";
+        }
+        case 5: {
+            return "jährlich";
+        }
+        default: {
+            return "täglich";
+        }
+    }
 }
 

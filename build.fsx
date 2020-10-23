@@ -239,9 +239,7 @@ let docsSrcPath = Path.getFullName "./src/docs"
 let docsDeployPath = "docs"
 
 Target.create "InstallDocs" (fun _ ->
-
-    runTool yarnTool "install --frozen-lockfile" docsSrcPath
-    runDotNet "restore" docsSrcPath )
+runTool npmTool "install" __SOURCE_DIRECTORY__ )
 
 Target.create "PublishDocs" (fun _ ->
     let docsDeployLocalPath = (docsSrcPath </> "deploy")
