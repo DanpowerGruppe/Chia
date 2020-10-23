@@ -239,9 +239,7 @@ let docsSrcPath = Path.getFullName "./src/docs"
 let docsDeployPath = "docs"
 
 Target.create "InstallDocs" (fun _ ->
-
-    runTool yarnTool "install --frozen-lockfile" docsSrcPath
-    runDotNet "restore" docsSrcPath )
+runTool npmTool "install" __SOURCE_DIRECTORY__ )
 
 Target.create "PublishDocs" (fun _ ->
     let docsDeployLocalPath = (docsSrcPath </> "deploy")
@@ -251,7 +249,8 @@ Target.create "PublishDocs" (fun _ ->
 )
 
 
-Target.create "RunDocs" (fun _ -> runTool yarnTool "webpack-dev-server" docsSrcPath)
+Target.create "RunDocs" (fun _ ->
+    DotNet.exec id "fable" "watch src/docs --outDir src/docs/output --run webpack-dev-server" |> ignore)
 
 "InstallDocs"
 ==> "RunDocs"
