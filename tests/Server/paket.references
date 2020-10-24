@@ -1,0 +1,6 @@
+group Tests
+EPPlus
+Expecto.BenchmarkDotNet
+Expecto.FsCheck
+Expecto.TestResults
+Taskbuilder.fs

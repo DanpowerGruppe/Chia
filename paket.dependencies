@@ -38,3 +38,18 @@ group Chia.Docs
     nuget Fable.Elmish.Debugger
     nuget Fable.Elmish.HMR
     nuget Feliz.Bulma
+
+group Tests
+    source https://api.nuget.org/v3/index.json
+    framework: net5.0
+    storage:none
+    nuget Canopy
+    nuget phantomjs
+    nuget Selenium.WebDriver.ChromeDriver
+    nuget Fable.Mocha
+    nuget Expecto
+    nuget Expecto.BenchmarkDotNet
+    nuget Expecto.FsCheck
+    nuget Expecto.TestResults
+    nuget Taskbuilder.fs
+    nuget EPPlus

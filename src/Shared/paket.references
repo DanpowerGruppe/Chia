@@ -7,3 +7,8 @@ WindowsAzure.Storage
 Taskbuilder.fs
 Microsoft.ApplicationInsights.DependencyCollector
 Microsoft.ApplicationInsights.PerfCounterCollector
+StackExchange.Redis
+Microsoft.Azure.EventHubs
+Microsoft.Azure.Devices
+Microsoft.Azure.Devices.Client
+Farmer

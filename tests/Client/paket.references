@@ -1,0 +1,5 @@
+group Tests
+Canopy
+Expecto
+Selenium.WebDriver.ChromeDriver
+Fable.Mocha

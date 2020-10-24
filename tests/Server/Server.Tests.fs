@@ -1,4 +1,4 @@
-module UnitTests
+module Server.Tests
 
 open Expecto
 open Chia

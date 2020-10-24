@@ -14,14 +14,15 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../Shared/Domain.fs" />
     <Compile Include="Elements.fs" />
     <Compile Include="Tables.fs" />
-    <Compile Include="Utils.fs" />
     <Compile Include="Style.fs" />
     <Compile Include="TimeModelHelper.fs" />
     <Compile Include="PageFlexer.fs" />
     <Compile Include="TimeCalculation.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.fsproj" />
   </ItemGroup>
   <ItemGroup>
       <Content Include="*.fsproj; **\*.fs" PackagePath="fable\" />
