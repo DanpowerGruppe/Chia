@@ -81,7 +81,7 @@ open Zanaptak.TypedCssClasses
 type Icon =
     CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
 
-type tailwind = CssClasses<"public/css/tailwind-generated.css", Naming.Verbatim>
+type tailwind = CssClasses<"../../src/Chia.Docs/public/css/tailwind-generated.css", Naming.Verbatim>
 
 let view (model: Model) (dispatch: Msg -> unit) =
 
