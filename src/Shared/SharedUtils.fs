@@ -1,7 +1,6 @@
 namespace Chia
     module SharedUtils =
         open Shared
-        open Shared.Time
         open Shared.Ids
         let joinString (s : string []) = String.concat (";") (s)
 
@@ -12,7 +11,3 @@ namespace Chia
             let date = sortableRowKey |> SortableRowKey.toDate
             date.ToString("dd.MM.yyyy HH:mm")
 
-        let matchTimeFrameToCRON (intervall:ReportIntervall) =
-            match intervall with
-            | Daily -> "0 0 0 * * *"
-            | _ -> failwith "not match"

@@ -43,43 +43,6 @@ module Shared =
 
         let getDevStatusFromEnv = tryGetEnv "status" |> matchEnvironVarToDeployStatus
     #endif
-    module Time =
-
-        type ReportIntervall =
-            | Daily
-            | Weekly
-            | Monthly
-            | Quarterly
-            | Halfyearly
-            | Yearly
-
-        type TimeFilters =
-            { StartDate: string
-              StartDateLeavingPlants: string
-              EndDate: string
-              EndDateLeavingPlants: string
-              EndDateMinusOneDay: string option
-              StartVuPeriode: int
-              EndVuPeriode: int
-              EndVuPeriodeLast: int option
-              EndVuPeriodeQuotes: int }
-
-        type TimeSpans =
-            | Year
-            | Halfyear
-            | Quarter
-            | Month
-            | Week
-            | Day
-
-        type Aggregation =
-            | Accumulated
-            | Explicit
-
-        type TimeModel =
-            { ReportIntervall: ReportIntervall
-              DateStart: DateTimeOffset
-              DateEnd: DateTimeOffset }
 
     module Ids =
         type ReportId =

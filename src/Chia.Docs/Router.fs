@@ -21,7 +21,6 @@ type Page =
     | ChiaClient
     | ChiaClientInstallation
     | ChiaClientPageFlexer
-    | ChiaClientTimeModel
 
 let defaultPage = Chia
 
@@ -44,7 +43,6 @@ let parseUrl = function
     | [ "client" ] -> ChiaClient
     | [ "clientinstallation" ] -> ChiaClientInstallation
     | [ "clientpageflexer" ] -> ChiaClientPageFlexer
-    | [ "clienttimemodel" ] -> ChiaClientTimeModel
     | _ -> defaultPage
 
 let getHref = function
@@ -66,4 +64,3 @@ let getHref = function
     | ChiaClient -> Router.format("client")
     | ChiaClientInstallation -> Router.format("clientinstallation")
     | ChiaClientPageFlexer -> Router.format("clientpageflexer")
-    | ChiaClientTimeModel -> Router.format("clienttimemodel")

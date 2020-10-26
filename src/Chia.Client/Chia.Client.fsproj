@@ -14,9 +14,7 @@
     <Compile Include="Elements.fs" />
     <Compile Include="Tables.fs" />
     <Compile Include="Style.fs" />
-    <Compile Include="TimeModelHelper.fs" />
     <Compile Include="PageFlexer.fs" />
-    <Compile Include="TimeCalculation.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.fsproj" />

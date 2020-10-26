@@ -60,23 +60,7 @@ let contentPart model dispatch =
     | ChiaClient -> Client.overview
     | ChiaClientInstallation -> Client.installation
     | ChiaClientPageFlexer -> PageFlexer.overview
-    | ChiaClientTimeModel -> TimeModel.overview model dispatch
-// | BulmaInstallation -> Views.Bulma.installation
-// | BulmaAPIDescription -> Views.Bulma.apiDescription
-// | QuickViewOverview -> Views.QuickView.overview model dispatch
-// | QuickViewInstallation -> Views.QuickView.installation
-// | CalendarOverview -> Views.Calendar.overview
-// | CalendarInstallation -> Views.Calendar.installation
-// | TooltipOverview -> Views.Tooltip.overview
-// | TooltipInstallation -> Views.Tooltip.installation
-// | CheckradioOverview -> Views.Checkradio.overview
-// | CheckradioInstallation -> Views.Checkradio.installation
-// | SwitchOverview -> Views.Switch.overview
-// | SwitchInstallation -> Views.Switch.installation
-// | PopoverOverview -> Views.Popover.overview
-// | PopoverInstallation -> Views.Popover.installation
-// | PageLoaderOverview -> Views.PageLoader.overview model dispatch
-// | PageLoaderInstallation -> Views.PageLoader.installation
+
 open Zanaptak.TypedCssClasses
 
 type Icon =

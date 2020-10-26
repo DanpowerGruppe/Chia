@@ -23,7 +23,6 @@
     <Compile Include="views\Chia\ChiaTableStorage.fs" />
     <Compile Include="views\Chia.Client\Client.fs" />
     <Compile Include="views\Chia.Client\PageFlexer.fs" />
-    <Compile Include="views\Chia.Client\TimeModel.fs" />
     <Compile Include="View.fs" />
     <Compile Include="State.fs" />
     <Compile Include="App.fs" />
