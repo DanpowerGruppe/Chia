@@ -237,7 +237,8 @@ Target.create "Pack" (fun _ ->
                   MSBuildParams = args }) projectPath
 
     pack "Chia"
-    pack "Chia.Client")
+    pack "Chia.Client"
+    pack "Chia.Shared")
 
 let getBuildParam = Environment.environVar
 let isNullOrWhiteSpace = String.IsNullOrWhiteSpace
@@ -265,9 +266,7 @@ Target.create "Push" (fun _ -> pushPackage [])
 
 open Fake.Core.TargetOperators
 
-"Clean"
-==> "Build"
-==> "RunTests"
+"Clean" ==> "Build" ==> "RunTests"
 
 "Clean"
 ==> "Build"
