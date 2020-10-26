@@ -1,27 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
       <Description>HelperFunctions for reporting</Description>
       <PackageProjectUrl>https://github.com/DanpowerGruppe/Chia</PackageProjectUrl>
       <RepositoryUrl>https://github.com/DanpowerGruppe/Chia</RepositoryUrl>
       <PackageTags>fable;reporting tool;fsharp</PackageTags>
       <Authors>Tim Forkmann</Authors>
-      <Version>0.1.32</Version>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../Shared/Domain.fs" />
     <Compile Include="Elements.fs" />
     <Compile Include="Tables.fs" />
-    <Compile Include="Utils.fs" />
     <Compile Include="Style.fs" />
-    <Compile Include="TimeModelHelper.fs" />
     <Compile Include="PageFlexer.fs" />
-    <Compile Include="TimeCalculation.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.fsproj" />
   </ItemGroup>
   <ItemGroup>
       <Content Include="*.fsproj; **\*.fs" PackagePath="fable\" />

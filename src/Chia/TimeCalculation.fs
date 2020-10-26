@@ -8,11 +8,11 @@ module TimeCalculation =
     module Month =
         let startmonthCustom =
             DateTime.Now.AddMonths(-8).ToString("yyyy0MM")
-            |> Convert.ToInt32 //eigentlich -1
+            |> Convert.ToInt32
 
         let endmonthCustom =
             DateTime.Now.AddMonths(-7).ToString("yyyy0MM")
-            |> Convert.ToInt32 //eigentlich DateTime.Now
+            |> Convert.ToInt32
 
         let currentMonth =
             DateTime.UtcNow.ToString("yyyy0MM")

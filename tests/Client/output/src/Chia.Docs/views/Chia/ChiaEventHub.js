@@ -1,0 +1,11 @@
+import { reactElement as Interop_reactElement, reactApi as Interop_reactApi, mkAttr as Interop_mkAttr } from "../../../../output/.fable/Feliz.1.14.1/Interop.js";
+import { empty as List_empty, singleton as List_singleton, ofArray as List_ofArray } from "../../../../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
+import { createObjDebug as Util_createObjDebug } from "../../../../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
+import { fixDocsView as Utils_fixDocsView, code as Utils_code } from "../../Utils.js";
+
+export const overview = (() => {
+    let xs, elms_1, xs_1, xs_2, elms_2, xs_4;
+    const children_3 = List_ofArray([(xs = List_ofArray([Interop_mkAttr("className", "title is-1"), Interop_mkAttr("children", Interop_reactApi.Children.toArray(["Chia.EventHub"]))]), Interop_reactElement("h1", Util_createObjDebug(xs))), (elms_1 = List_ofArray([(xs_1 = List_singleton(Interop_mkAttr("children", "Helper for Azure Event Hub")), Interop_reactElement("a", Util_createObjDebug(xs_1))), " extension for Feliz.Bulma"]), (xs_2 = List_ofArray([Interop_mkAttr("className", "subtitle is-2"), Interop_mkAttr("children", Interop_reactApi.Children.toArray(Array.from(elms_1)))]), Interop_reactElement("h2", Util_createObjDebug(xs_2)))), Interop_reactElement("hr", Util_createObjDebug(List_empty())), (elms_2 = List_ofArray([Interop_reactElement("p", Util_createObjDebug(List_singleton(["children", ["You can use Chia to sent out a event to Azure Event Hubs like this:"]]))), Utils_code("\r\n                open Chia.EventHubs\r\n\r\n                let eventHubClient = getEventHubClient \"EventHubSASConnectionString\"\r\n\r\n                type Data = int\r\n\r\n                let data = 100\r\n\r\n                do! pushEvent (eventHubClient,data,fileWriterInfoAzure)\r\n                do! pushSingleEvent (eventHubClient,data,fileWriterInfoAzure)")]), (xs_4 = List_ofArray([Interop_mkAttr("className", "content"), Interop_mkAttr("children", Interop_reactApi.Children.toArray(Array.from(elms_2)))]), Interop_reactElement("div", Util_createObjDebug(xs_4)))), Utils_fixDocsView("ChiaEventHub", false)]);
+    return Interop_reactElement("div", Util_createObjDebug(List_singleton(["children", Interop_reactApi.Children.toArray(Array.from(children_3))])));
+})();
+

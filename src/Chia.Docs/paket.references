@@ -1,0 +1,12 @@
+group Chia.Docs
+Feliz.Router
+Zanaptak.TypedCssClasses
+Fable.SimpleHttp
+Feliz.ElmishComponents
+Feliz.UseDeferred
+Feliz.Popover
+Feliz.Markdown
+Fable.Elmish.Debugger
+Fable.Elmish.HMR
+Feliz.Bulma
+Thoth.Elmish
