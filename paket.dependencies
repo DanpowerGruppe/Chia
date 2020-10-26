@@ -7,7 +7,6 @@ group ChiaStack
     nuget Expecto.BenchmarkDotNet
     nuget Expecto.FsCheck
     nuget Expecto.TestResults
-    nuget WindowsAzure.Storage
     nuget Taskbuilder.fs
     nuget Microsoft.ApplicationInsights.DependencyCollector
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
@@ -38,7 +37,6 @@ group Chia.Docs
     nuget Fable.Elmish.Debugger
     nuget Fable.Elmish.HMR
     nuget Feliz.Bulma
-    nuget Thoth.Elmish
 
 group Tests
     source https://api.nuget.org/v3/index.json
@@ -48,7 +46,6 @@ group Tests
     nuget phantomjs
     nuget Selenium.WebDriver.ChromeDriver
     nuget Fable.Mocha
-    nuget Expecto
     nuget Expecto.BenchmarkDotNet
     nuget Expecto.FsCheck
     nuget Expecto.TestResults

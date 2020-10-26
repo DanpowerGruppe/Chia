@@ -6,7 +6,7 @@
     <Compile Include="Shared.Tests.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Shared\Shared.fsproj" />
+    <ProjectReference Include="..\..\src\Chia.Shared\Chia.Shared.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

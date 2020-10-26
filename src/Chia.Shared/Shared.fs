@@ -42,6 +42,7 @@ module Shared =
                 failwithf "unmatched EnvironVar %A, please choose between Test and Productive " environVar
 
         let getDevStatusFromEnv = tryGetEnv "status" |> matchEnvironVarToDeployStatus
+    #endif
     module Time =
 
         type ReportIntervall =
@@ -79,7 +80,6 @@ module Shared =
             { ReportIntervall: ReportIntervall
               DateStart: DateTimeOffset
               DateEnd: DateTimeOffset }
-    #endif
 
     module Ids =
         type ReportId =

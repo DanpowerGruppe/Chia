@@ -1,5 +1,5 @@
 import { class_type as Reflection_class_type } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
-import { reactElement as Interop_reactElement, reactApi as Interop_reactApi, mkAttr as Interop_mkAttr } from "../../output/.fable/Feliz.1.14.1/Interop.js";
+import { reactElement as Interop_reactElement, reactApi as Interop_reactApi, mkAttr as Interop_mkAttr } from "../../output/.fable/Feliz.1.16.0/Interop.js";
 import { empty as List_empty, singleton as List_singleton, ofArray as List_ofArray } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
 import react$002Dhighlight from "react-highlight";
 import { createObjDebug as Util_createObjDebug } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";

@@ -1,4 +1,4 @@
-import { reactElement as Interop_reactElement, reactApi as Interop_reactApi, mkAttr as Interop_mkAttr } from "../../../../output/.fable/Feliz.1.14.1/Interop.js";
+import { reactElement as Interop_reactElement, reactApi as Interop_reactApi, mkAttr as Interop_mkAttr } from "../../../../output/.fable/Feliz.1.16.0/Interop.js";
 import { singleton as List_singleton, ofArray as List_ofArray } from "../../../../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
 import { createObjDebug as Util_createObjDebug } from "../../../../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
 import { fixDocsView as Utils_fixDocsView } from "../../Utils.js";

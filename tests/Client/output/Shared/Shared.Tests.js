@@ -1,5 +1,5 @@
 import { Test_testCase as Mocha_Test_testCase, Test_testList as Mocha_Test_testList } from "../output/.fable/Fable.Mocha.2.9.1/Mocha.js";
-import { joinString as SharedUtils_joinString } from "../src/Shared/SharedUtils.js";
+import { joinString as SharedUtils_joinString } from "../src/Chia.Shared/SharedUtils.js";
 import { assertEqual as Util_assertEqual } from "../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
 import { getHashCode as Reflection_getHashCode, equals as Reflection_equals, class_type as Reflection_class_type, float64_type as Reflection_float64_type, bool_type as Reflection_bool_type, int32_type as Reflection_int32_type, string_type as Reflection_string_type } from "../.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
 import { singleton as List_singleton, contains as List_contains, ofArray as List_ofArray } from "../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";

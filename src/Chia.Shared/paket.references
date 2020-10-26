@@ -3,7 +3,6 @@ EPPlus
 Expecto.BenchmarkDotNet
 Expecto.FsCheck
 Expecto.TestResults
-WindowsAzure.Storage
 Taskbuilder.fs
 Microsoft.ApplicationInsights.DependencyCollector
 Microsoft.ApplicationInsights.PerfCounterCollector
