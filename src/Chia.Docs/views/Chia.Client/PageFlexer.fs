@@ -1,4 +1,4 @@
-module ChiaPageFlexer
+module PageFlexer
 
 open Feliz
 open Feliz.Bulma

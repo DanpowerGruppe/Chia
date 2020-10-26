@@ -1,4 +1,4 @@
-module ChiaClient
+module Client
 
 open Feliz
 open Feliz.Bulma

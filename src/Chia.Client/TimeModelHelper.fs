@@ -39,7 +39,7 @@ module TimeModelHelper =
             let msg =
                 sprintf "Datum ist in einem falschen Format (%s)" time
 
-            raise (System.FormatException(msg))
+            raise (FormatException(msg))
     let inputToTimeModel (target: string) (text: DateTimeOffset) (timeModel: TimeModel) =
         match target with
         | "from" -> { timeModel with DateStart = text }

@@ -57,9 +57,10 @@ let contentPart model dispatch =
     | ChiaInfrastructure -> ChiaInfrastructure.overview
     | ChiaExcelUtils -> ChiaExcelUtils.overview
     | ChiaTableStorage -> ChiaTableStorage.overview
-    | ChiaClient -> ChiaClient.overview
-    | ChiaClientInstallation -> ChiaClient.installation
-    | ChiaClientPageFlexer -> ChiaPageFlexer.overview
+    | ChiaClient -> Client.overview
+    | ChiaClientInstallation -> Client.installation
+    | ChiaClientPageFlexer -> PageFlexer.overview
+    | ChiaClientTimeModel -> TimeModel.overview model dispatch
 // | BulmaInstallation -> Views.Bulma.installation
 // | BulmaAPIDescription -> Views.Bulma.apiDescription
 // | QuickViewOverview -> Views.QuickView.overview model dispatch

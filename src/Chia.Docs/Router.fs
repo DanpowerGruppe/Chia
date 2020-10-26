@@ -21,6 +21,7 @@ type Page =
     | ChiaClient
     | ChiaClientInstallation
     | ChiaClientPageFlexer
+    | ChiaClientTimeModel
 
 let defaultPage = Chia
 
@@ -43,6 +44,7 @@ let parseUrl = function
     | [ "client" ] -> ChiaClient
     | [ "clientinstallation" ] -> ChiaClientInstallation
     | [ "clientpageflexer" ] -> ChiaClientPageFlexer
+    | [ "clienttimemodel" ] -> ChiaClientTimeModel
     | _ -> defaultPage
 
 let getHref = function
@@ -64,19 +66,4 @@ let getHref = function
     | ChiaClient -> Router.format("client")
     | ChiaClientInstallation -> Router.format("clientinstallation")
     | ChiaClientPageFlexer -> Router.format("clientpageflexer")
-    // | BulmaInstallation -> Router.format("installation")
-    // | BulmaAPIDescription -> Router.format("api-description")
-    // | QuickViewOverview -> Router.format("quickview")
-    // | QuickViewInstallation -> Router.format("quickview","installation")
-    // | CalendarOverview -> Router.format("calendar")
-    // | CalendarInstallation -> Router.format("calendar","installation")
-    // | TooltipOverview -> Router.format("tooltip")
-    // | TooltipInstallation -> Router.format("tooltip","installation")
-    // | CheckradioOverview -> Router.format("checkradio")
-    // | CheckradioInstallation -> Router.format("checkradio","installation")
-    // | SwitchOverview -> Router.format("switch")
-    // | SwitchInstallation -> Router.format("switch","installation")
-    // | PopoverOverview -> Router.format("popover")
-    // | PopoverInstallation -> Router.format("popover","installation")
-    // | PageLoaderOverview -> Router.format("pageloader")
-    // | PageLoaderInstallation -> Router.format("pageloader","installation")
+    | ChiaClientTimeModel -> Router.format("clienttimemodel")
