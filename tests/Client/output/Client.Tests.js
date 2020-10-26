@@ -1,15 +1,15 @@
-import { Mocha_runTests as Mocha_Mocha_runTests, Test_testCase as Mocha_Test_testCase, Test_testList as Mocha_Test_testList } from "./.fable/Fable.Mocha.2.9.1/Mocha.js";
+import { Mocha_runTests as Mocha_Mocha_runTests, Test_testCase as Mocha_Test_testCase, Test_testList as Mocha_Test_testList } from "./output/.fable/Fable.Mocha.2.9.1/Mocha.js";
 import { update as State_update, init as State_init } from "./src/Chia.Docs/State.js";
 import { Model$reflection as Domain_Model$reflection, Model as Domain_Model, Msg as Domain_Msg } from "./src/Chia.Docs/Domain.js";
-import { Page as Router_Page } from "./src/Chia.Docs/Router.js";
+import { Page$reflection as Router_Page$reflection, Page as Router_Page } from "./src/Chia.Docs/Router.js";
 import { assertEqual as Util_assertEqual, equalsSafe as Util_equalsSafe } from "./.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
 import { getHashCode as Reflection_getHashCode, equals as Reflection_equals, class_type as Reflection_class_type, string_type as Reflection_string_type, float64_type as Reflection_float64_type, bool_type as Reflection_bool_type, int32_type as Reflection_int32_type } from "./.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
-import { singleton as List_singleton, contains as List_contains, ofArray as List_ofArray } from "./.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
+import { contains as List_contains, ofArray as List_ofArray } from "./.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
 import { toString as Types_toString } from "./.fable/fable-library.3.0.0-nagareyama-beta-003/Types.js";
 import { printf as String_printf, toText as String_toText } from "./.fable/fable-library.3.0.0-nagareyama-beta-003/String.js";
 import { shared as Shared$002ETests_shared } from "./Shared/Shared.Tests.js";
 
-export const client = Mocha_Test_testList("Client", List_singleton((() => {
+export const client = Mocha_Test_testList("Client", List_ofArray([(() => {
     const body = () => {
         const patternInput = State_init();
         const model = patternInput[0];
@@ -19,7 +19,7 @@ export const client = Mocha_Test_testList("Client", List_singleton((() => {
         const currentModel = patternInput_1[0];
         const actual = currentModel;
         const expected = testModel;
-        const msg = "BiogasberichtModel should get called";
+        const msg = "New Page should be ChiaClientInstallation";
         if (Util_equalsSafe(actual, expected) ? true : (!(new Function("try {return this===window;}catch(e){ return false;}"))())) {
             Util_assertEqual(actual, expected, msg);
         }
@@ -53,8 +53,53 @@ export const client = Mocha_Test_testList("Client", List_singleton((() => {
             throw (new Error(errorMsg));
         }
     };
-    return Mocha_Test_testCase("UrlUpdate to EGTechnicalReport works", body);
-})()));
+    return Mocha_Test_testCase("UrlUpdate to ChiaClientInstallation works", body);
+})(), (() => {
+    const body_1 = () => {
+        let page;
+        throw 1;
+        const patternInput_2 = State_init();
+        const model_1 = patternInput_2[0];
+        const patternInput_3 = State_update(new Domain_Msg(0, page), model_1);
+        const currentModel_1 = patternInput_3[0];
+        const actual_1 = currentModel_1.CurrentPage;
+        const expected_1 = page;
+        const msg_1 = "New Page should be EGTechnicalReport";
+        if (Util_equalsSafe(actual_1, expected_1) ? true : (!(new Function("try {return this===window;}catch(e){ return false;}"))())) {
+            Util_assertEqual(actual_1, expected_1, msg_1);
+        }
+        else {
+            let valueType_1;
+            let copyOfStruct_1 = actual_1;
+            valueType_1 = Router_Page$reflection();
+            const primitiveTypes_1 = List_ofArray([Reflection_int32_type, Reflection_bool_type, Reflection_float64_type, Reflection_string_type, Reflection_class_type("System.Decimal"), Reflection_class_type("System.Guid")]);
+            let errorMsg_1;
+            if (List_contains(valueType_1, primitiveTypes_1, {
+                Equals: Reflection_equals,
+                GetHashCode: Reflection_getHashCode,
+            })) {
+                const arg10_2 = Types_toString(expected_1);
+                const arg20_2 = Types_toString(actual_1);
+                const arg30_2 = msg_1;
+                const clo1_2 = String_toText(String_printf("\u003cspan style=\u0027color:black\u0027\u003eExpected:\u003c/span\u003e \u003cbr /\u003e\u003cdiv style=\u0027margin-left:20px; color:crimson\u0027\u003e%s\u003c/div\u003e\u003cbr /\u003e\u003cspan style=\u0027color:black\u0027\u003eActual:\u003c/span\u003e \u003c/br \u003e\u003cdiv style=\u0027margin-left:20px;color:crimson\u0027\u003e%s\u003c/div\u003e\u003cbr /\u003e\u003cspan style=\u0027color:black\u0027\u003eMessage:\u003c/span\u003e \u003c/br \u003e\u003cdiv style=\u0027margin-left:20px; color:crimson\u0027\u003e%s\u003c/div\u003e"));
+                const clo2_2 = clo1_2(arg10_2);
+                const clo3_2 = clo2_2(arg20_2);
+                errorMsg_1 = clo3_2(arg30_2);
+            }
+            else {
+                const arg10_3 = expected_1;
+                const arg20_3 = actual_1;
+                const arg30_3 = msg_1;
+                const clo1_3 = String_toText(String_printf("\u003cspan style=\u0027color:black\u0027\u003eExpected:\u003c/span\u003e \u003cbr /\u003e\u003cdiv style=\u0027margin-left:20px; color:crimson\u0027\u003e%A\u003c/div\u003e\u003cbr /\u003e\u003cspan style=\u0027color:black\u0027\u003eActual:\u003c/span\u003e \u003c/br \u003e\u003cdiv style=\u0027margin-left:20px;color:crimson\u0027\u003e%A\u003c/div\u003e\u003cbr /\u003e\u003cspan style=\u0027color:black\u0027\u003eMessage:\u003c/span\u003e \u003c/br \u003e\u003cdiv style=\u0027margin-left:20px; color:crimson\u0027\u003e%s\u003c/div\u003e"));
+                const clo2_3 = clo1_3(arg10_3);
+                const clo3_3 = clo2_3(arg20_3);
+                errorMsg_1 = clo3_3(arg30_3);
+            }
+            throw (new Error(errorMsg_1));
+        }
+    };
+    return Mocha_Test_testCase("Test timemodel", body_1);
+})()]));
 
 export const all = Mocha_Test_testList("All", List_ofArray([Shared$002ETests_shared, client]));
 

@@ -28,3 +28,19 @@ module TimeModelHelper =
         { timeModel with
               DateStart = timeModel.DateStart.ToUniversalTime()
               DateEnd = timeModel.DateEnd.ToUniversalTime() }
+    let getDateTimeOffsetFromGermanTimeStyle (time: string) =
+        try
+            let splits =
+                time.Split([| '.'; '/' |]) |> Array.map int
+
+            DateTime(splits.[2], splits.[1], splits.[0])
+            |> DateTimeOffset
+        with _ ->
+            let msg =
+                sprintf "Datum ist in einem falschen Format (%s)" time
+
+            raise (System.FormatException(msg))
+    let inputToTimeModel (target: string) (text: DateTimeOffset) (timeModel: TimeModel) =
+        match target with
+        | "from" -> { timeModel with DateStart = text }
+        | _ -> timeModel

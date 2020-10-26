@@ -6,17 +6,17 @@ open Domain
 open Chia
 open State
 let client = testList "Client" [
-    testCase "UrlUpdate to EGTechnicalReport works" <| fun _ ->
+    testCase "UrlUpdate to ChiaClientInstallation works" <| fun _ ->
             let model, _ =  init ()
             let urlChangeMsg = UrlChanged ChiaClientInstallation
             let testModel =  { model with CurrentPage = ChiaClientInstallation }
             let currentModel, _ = update urlChangeMsg model
-            Expect.equal currentModel testModel  "BiogasberichtModel should get called"
-//     testCase "UrlUpdate to EGTechnicalReport works" <| fun _ ->
-//             let page = EGTechnicalReport
-//             let model, _ = init ()
-//             let currentModel, _ = update (UrlChanged page) model
-//             Expect.equal currentModel.CurrentPage page "New Page should be EGTechnicalReport"
+            Expect.equal currentModel testModel  "New Page should be ChiaClientInstallation"
+    testCase "Test timemodel" <| fun _ ->
+            let page = EGTechnicalReport
+            let model, _ = init ()
+            let currentModel, _ = update (UrlChanged page) model
+            Expect.equal currentModel.CurrentPage page "New Page should be EGTechnicalReport"
 //     testCase "UrlUpdate to CCTechnicalReport works" <| fun _ ->
 //             let page = CCTechnicalReport
 //             let model, _ = init ()

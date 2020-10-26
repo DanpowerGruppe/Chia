@@ -24,6 +24,7 @@
     <Compile Include="views\Chia\ChiaTableStorage.fs" />
     <Compile Include="views\ChiaClient\ChiaClient.fs" />
     <Compile Include="views\ChiaClient\ChiaPageFlexer.fs" />
+    <Compile Include="views\ChiaClient\ChiaTimeModel.fs" />
     <Compile Include="View.fs" />
     <Compile Include="State.fs" />
     <Compile Include="App.fs" />

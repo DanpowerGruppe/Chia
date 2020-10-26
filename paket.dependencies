@@ -38,6 +38,7 @@ group Chia.Docs
     nuget Fable.Elmish.Debugger
     nuget Fable.Elmish.HMR
     nuget Feliz.Bulma
+    nuget Thoth.Elmish
 
 group Tests
     source https://api.nuget.org/v3/index.json

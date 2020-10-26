@@ -180,7 +180,7 @@ Target.create "RunTests" (fun _ ->
           DotNet.exec
               id
               "fable"
-              "watch tests/Client --outDir tests/Client --run webpack-dev-server --config webpack.tests.config.js "
+              "watch tests/Client --outDir tests/Client/output --run webpack-dev-server --config webpack.tests.config.js "
           |> ignore
       } ]
     |> Async.Parallel
