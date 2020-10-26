@@ -19,8 +19,8 @@ import { overview as ChiaLogger_overview } from "./views/Chia/ChiaLogger.js";
 import { overview as ChiaInfrastructure_overview } from "./views/Chia/ChiaInfrastructure.js";
 import { overview as ChiaExcelUtils_overview } from "./views/Chia/ChiaExcelUtils.js";
 import { overview as ChiaTableStorage_overview } from "./views/Chia/ChiaTableStorage.js";
-import { installation as ChiaClient_installation, overview as ChiaClient_overview } from "./views/ChiaClient/ChiaClient.js";
-import { overview as ChiaPageFlexer_overview } from "./views/ChiaClient/ChiaPageFlexer.js";
+import { installation as Client_installation, overview as Client_overview } from "./views/Chia.Client/Client.js";
+import { overview as PageFlexer_overview } from "./views/Chia.Client/PageFlexer.js";
 import { join as String_join } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/String.js";
 import * as react from "react";
 import { RouterModule_router as Router_RouterModule_router } from "../../output/.fable/Feliz.Router.3.2.0/Router.js";
@@ -90,13 +90,13 @@ export function contentPart(model, dispatch) {
             return ChiaTableStorage_overview;
         }
         case 15: {
-            return ChiaClient_overview;
+            return Client_overview;
         }
         case 16: {
-            return ChiaClient_installation;
+            return Client_installation;
         }
         case 17: {
-            return ChiaPageFlexer_overview;
+            return PageFlexer_overview;
         }
         default: {
             return Chia_overview;

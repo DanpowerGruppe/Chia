@@ -42,6 +42,43 @@ module Shared =
                 failwithf "unmatched EnvironVar %A, please choose between Test and Productive " environVar
 
         let getDevStatusFromEnv = tryGetEnv "status" |> matchEnvironVarToDeployStatus
+    module Time =
+
+        type ReportIntervall =
+            | Daily
+            | Weekly
+            | Monthly
+            | Quarterly
+            | Halfyearly
+            | Yearly
+
+        type TimeFilters =
+            { StartDate: string
+              StartDateLeavingPlants: string
+              EndDate: string
+              EndDateLeavingPlants: string
+              EndDateMinusOneDay: string option
+              StartVuPeriode: int
+              EndVuPeriode: int
+              EndVuPeriodeLast: int option
+              EndVuPeriodeQuotes: int }
+
+        type TimeSpans =
+            | Year
+            | Halfyear
+            | Quarter
+            | Month
+            | Week
+            | Day
+
+        type Aggregation =
+            | Accumulated
+            | Explicit
+
+        type TimeModel =
+            { ReportIntervall: ReportIntervall
+              DateStart: DateTimeOffset
+              DateEnd: DateTimeOffset }
     #endif
 
     module Ids =

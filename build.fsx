@@ -268,6 +268,9 @@ open Fake.Core.TargetOperators
 "Clean"
 ==> "Build"
 ==> "RunTests"
+
+"Clean"
+==> "Build"
 ==> "PrepareRelease"
 ==> "Pack"
 ==> "Push"

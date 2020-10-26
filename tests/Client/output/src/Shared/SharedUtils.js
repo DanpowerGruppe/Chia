@@ -19,12 +19,3 @@ export function getNiceDateString(sortableRowKey) {
     return Date_toString(date, "dd.MM.yyyy HH:mm");
 }
 
-export function matchTimeFrameToCRON(intervall) {
-    if (intervall.tag === 0) {
-        return "0 0 0 * * *";
-    }
-    else {
-        throw (new Error("not match"));
-    }
-}
-
