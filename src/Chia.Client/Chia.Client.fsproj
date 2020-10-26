@@ -1,10 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-      <Description>HelperFunctions for reporting</Description>
-      <PackageProjectUrl>https://github.com/DanpowerGruppe/Chia</PackageProjectUrl>
-      <RepositoryUrl>https://github.com/DanpowerGruppe/Chia</RepositoryUrl>
-      <PackageTags>fable;reporting tool;fsharp</PackageTags>
-      <Authors>Tim Forkmann</Authors>
+    <Description>HelperFunctions for reporting</Description>
+    <PackageProjectUrl>https://github.com/DanpowerGruppe/Chia</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DanpowerGruppe/Chia</RepositoryUrl>
+    <PackageTags>fable;reporting tool;fsharp</PackageTags>
+    <Authors>Tim Forkmann</Authors>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -17,10 +19,10 @@
     <Compile Include="PageFlexer.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Shared.fsproj" />
+    <ProjectReference Include="..\Chia.Shared\Chia.Shared.fsproj" />
   </ItemGroup>
   <ItemGroup>
-      <Content Include="*.fsproj; **\*.fs" PackagePath="fable\" />
+    <Content Include="*.fsproj; **\*.fs" PackagePath="fable\" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -3,7 +3,7 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain.fs" />
+    <Compile Include="Shared.fs" />
     <Compile Include="SharedUtils.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

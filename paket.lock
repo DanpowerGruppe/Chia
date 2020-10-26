@@ -5,6 +5,7 @@ STORAGE: NONE
 RESTRICTION: == net5.0
 NUGET
   remote: https://api.nuget.org/v3/index.json
+    Fable.AST (3.0.0-nagareyama-beta-001)
     Fable.Browser.Blob (1.1)
       Fable.Core (>= 3.0)
       FSharp.Core (>= 4.6.2)
@@ -70,13 +71,17 @@ NUGET
       Fable.Browser.XMLHttpRequest (>= 1.1)
       Fable.Core (>= 3.0)
       FSharp.Core (>= 4.6.2)
-    Feliz (1.14.1)
+    Feliz (1.16)
       Fable.Core (>= 3.1.5)
       Fable.React (>= 7.0.1)
+      Feliz.CompilerPlugins (>= 0.1)
       FSharp.Core (>= 4.7.2)
-    Feliz.Bulma (2.3)
+    Feliz.Bulma (2.4)
       Feliz (>= 0.68.2)
       FSharp.Core (>= 4.7)
+    Feliz.CompilerPlugins (0.1)
+      Fable.AST (>= 3.0.0-nagareyama-beta-001)
+      FSharp.Core (>= 4.7.1)
     Feliz.ElmishComponents (1.2)
       Feliz.UseElmish (>= 1.2.1)
       FSharp.Core (>= 4.7)
