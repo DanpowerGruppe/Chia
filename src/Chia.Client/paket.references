@@ -1,6 +1,4 @@
 group ChiaStack
-Fable.Elmish.Debugger
-Fable.Elmish.HMR
-Fulma.Elmish
-Fable.Recharts
+Fulma
 Elmish.Toastr
+Fable.FontAwesome

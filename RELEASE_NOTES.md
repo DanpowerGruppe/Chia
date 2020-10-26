@@ -1,3 +1,5 @@
+### 0.9.5 - 26.10.2020
+Bring back Time Model for client
 ### 0.9.4 - 26.10.2020
 Push Shared as well
 ### 0.9.3 - 26.10.2020

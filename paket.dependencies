@@ -17,11 +17,9 @@ group ChiaStack
     nuget Farmer
     nuget Dapper
     nuget Microsoft.Data.SqlClient
-    nuget Fable.Elmish.Debugger
-    nuget Fable.Elmish.HMR
-    nuget Fulma.Elmish
-    nuget Fable.Recharts
+    nuget Fulma
     nuget Elmish.Toastr
+    nuget Fable.FontAwesome
 
 group Chia.Docs
     storage: none
