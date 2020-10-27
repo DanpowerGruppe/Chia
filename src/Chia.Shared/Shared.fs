@@ -25,9 +25,9 @@ module Shared =
                 | PreProductive -> "preprod"
                 | Productive -> "prod"
 
-        module EnviromentHelper =
 #if FABLE_COMPILER
 #else
+        module EnviromentHelper =
             let tryGetEnv key =
                 match Environment.GetEnvironmentVariable key with
                 | x when String.IsNullOrWhiteSpace x -> None
