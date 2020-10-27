@@ -1,3 +1,5 @@
+### 0.9.7 - 27.10.2020
+Bring back Config module
 ### 0.9.6 - 27.10.2020
 Let Shared be compiled by Fable
 ### 0.9.5 - 26.10.2020
