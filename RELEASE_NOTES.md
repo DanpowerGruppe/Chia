@@ -1,3 +1,5 @@
+### 0.9.6 - 27.10.2020
+Let Shared be compiled by Fable
 ### 0.9.5 - 26.10.2020
 Bring back Time Model for client
 ### 0.9.4 - 26.10.2020
