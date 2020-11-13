@@ -3,7 +3,6 @@ module Client
 open Feliz
 open Feliz.Bulma
 open Utils
-open Chia.Shared
 
 let overview =
     Html.div [ Bulma.title.h1 [ Html.text "Chia.Client"

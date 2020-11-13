@@ -54,7 +54,7 @@ export function Config_DevStatus__get_GetValue(this$) {
     }
 }
 
-export class Config_EnviromentHelper_Time_ReportIntervall extends Types_Union {
+export class Time_ReportIntervall extends Types_Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -65,11 +65,11 @@ export class Config_EnviromentHelper_Time_ReportIntervall extends Types_Union {
     }
 }
 
-export function Config_EnviromentHelper_Time_ReportIntervall$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.EnviromentHelper.Time.ReportIntervall", [], Config_EnviromentHelper_Time_ReportIntervall, () => [[], [], [], [], [], []]);
+export function Time_ReportIntervall$reflection() {
+    return Reflection_union_type("Chia.Shared.Time.ReportIntervall", [], Time_ReportIntervall, () => [[], [], [], [], [], []]);
 }
 
-export class Config_EnviromentHelper_Time_TimeFilters extends Types_Record {
+export class Time_TimeFilters extends Types_Record {
     constructor(StartDate, StartDateLeavingPlants, EndDate, EndDateLeavingPlants, EndDateMinusOneDay, StartVuPeriode, EndVuPeriode, EndVuPeriodeLast, EndVuPeriodeQuotes) {
         super();
         this.StartDate = StartDate;
@@ -84,11 +84,11 @@ export class Config_EnviromentHelper_Time_TimeFilters extends Types_Record {
     }
 }
 
-export function Config_EnviromentHelper_Time_TimeFilters$reflection() {
-    return Reflection_record_type("Chia.Shared.Config.EnviromentHelper.Time.TimeFilters", [], Config_EnviromentHelper_Time_TimeFilters, () => [["StartDate", Reflection_string_type], ["StartDateLeavingPlants", Reflection_string_type], ["EndDate", Reflection_string_type], ["EndDateLeavingPlants", Reflection_string_type], ["EndDateMinusOneDay", Reflection_option_type(Reflection_string_type)], ["StartVuPeriode", Reflection_int32_type], ["EndVuPeriode", Reflection_int32_type], ["EndVuPeriodeLast", Reflection_option_type(Reflection_int32_type)], ["EndVuPeriodeQuotes", Reflection_int32_type]]);
+export function Time_TimeFilters$reflection() {
+    return Reflection_record_type("Chia.Shared.Time.TimeFilters", [], Time_TimeFilters, () => [["StartDate", Reflection_string_type], ["StartDateLeavingPlants", Reflection_string_type], ["EndDate", Reflection_string_type], ["EndDateLeavingPlants", Reflection_string_type], ["EndDateMinusOneDay", Reflection_option_type(Reflection_string_type)], ["StartVuPeriode", Reflection_int32_type], ["EndVuPeriode", Reflection_int32_type], ["EndVuPeriodeLast", Reflection_option_type(Reflection_int32_type)], ["EndVuPeriodeQuotes", Reflection_int32_type]]);
 }
 
-export class Config_EnviromentHelper_Time_TimeSpans extends Types_Union {
+export class Time_TimeSpans extends Types_Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -99,11 +99,11 @@ export class Config_EnviromentHelper_Time_TimeSpans extends Types_Union {
     }
 }
 
-export function Config_EnviromentHelper_Time_TimeSpans$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.EnviromentHelper.Time.TimeSpans", [], Config_EnviromentHelper_Time_TimeSpans, () => [[], [], [], [], [], []]);
+export function Time_TimeSpans$reflection() {
+    return Reflection_union_type("Chia.Shared.Time.TimeSpans", [], Time_TimeSpans, () => [[], [], [], [], [], []]);
 }
 
-export class Config_EnviromentHelper_Time_Aggregation extends Types_Union {
+export class Time_Aggregation extends Types_Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -114,11 +114,11 @@ export class Config_EnviromentHelper_Time_Aggregation extends Types_Union {
     }
 }
 
-export function Config_EnviromentHelper_Time_Aggregation$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.EnviromentHelper.Time.Aggregation", [], Config_EnviromentHelper_Time_Aggregation, () => [[], []]);
+export function Time_Aggregation$reflection() {
+    return Reflection_union_type("Chia.Shared.Time.Aggregation", [], Time_Aggregation, () => [[], []]);
 }
 
-export class Config_EnviromentHelper_Time_TimeModel extends Types_Record {
+export class Time_TimeModel extends Types_Record {
     constructor(ReportIntervall, DateStart, DateEnd) {
         super();
         this.ReportIntervall = ReportIntervall;
@@ -127,11 +127,11 @@ export class Config_EnviromentHelper_Time_TimeModel extends Types_Record {
     }
 }
 
-export function Config_EnviromentHelper_Time_TimeModel$reflection() {
-    return Reflection_record_type("Chia.Shared.Config.EnviromentHelper.Time.TimeModel", [], Config_EnviromentHelper_Time_TimeModel, () => [["ReportIntervall", Config_EnviromentHelper_Time_ReportIntervall$reflection()], ["DateStart", Reflection_class_type("System.DateTimeOffset")], ["DateEnd", Reflection_class_type("System.DateTimeOffset")]]);
+export function Time_TimeModel$reflection() {
+    return Reflection_record_type("Chia.Shared.Time.TimeModel", [], Time_TimeModel, () => [["ReportIntervall", Time_ReportIntervall$reflection()], ["DateStart", Reflection_class_type("System.DateTimeOffset")], ["DateEnd", Reflection_class_type("System.DateTimeOffset")]]);
 }
 
-export class Config_EnviromentHelper_Ids_ReportId extends Types_Union {
+export class Ids_ReportId extends Types_Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -142,23 +142,23 @@ export class Config_EnviromentHelper_Ids_ReportId extends Types_Union {
     }
 }
 
-export function Config_EnviromentHelper_Ids_ReportId$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.EnviromentHelper.Ids.ReportId", [], Config_EnviromentHelper_Ids_ReportId, () => [[["reportId", Reflection_int32_type]]]);
+export function Ids_ReportId$reflection() {
+    return Reflection_union_type("Chia.Shared.Ids.ReportId", [], Ids_ReportId, () => [[["reportId", Reflection_int32_type]]]);
 }
 
-export function Config_EnviromentHelper_Ids_ReportId__get_GetValue(this$) {
+export function Ids_ReportId__get_GetValue(this$) {
     const _arg1 = this$;
     const id = _arg1.fields[0] | 0;
     return id | 0;
 }
 
-export function Config_EnviromentHelper_Ids_ReportId__get_GetValueAsString(this$) {
+export function Ids_ReportId__get_GetValueAsString(this$) {
     const _arg2 = this$;
     const id = _arg2.fields[0] | 0;
     return Util_int32ToString(id);
 }
 
-export class Config_EnviromentHelper_Ids_SortableRowKey extends Types_Union {
+export class Ids_SortableRowKey extends Types_Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -169,29 +169,29 @@ export class Config_EnviromentHelper_Ids_SortableRowKey extends Types_Union {
     }
 }
 
-export function Config_EnviromentHelper_Ids_SortableRowKey$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.EnviromentHelper.Ids.SortableRowKey", [], Config_EnviromentHelper_Ids_SortableRowKey, () => [[["Item", Reflection_string_type]]]);
+export function Ids_SortableRowKey$reflection() {
+    return Reflection_union_type("Chia.Shared.Ids.SortableRowKey", [], Ids_SortableRowKey, () => [[["Item", Reflection_string_type]]]);
 }
 
-export function Config_EnviromentHelper_Ids_SortableRowKey__get_GetValue(this$) {
+export function Ids_SortableRowKey__get_GetValue(this$) {
     const _arg3 = this$;
     const id = _arg3.fields[0];
     return id;
 }
 
-export function Config_EnviromentHelper_Ids_SortableRowKeyModule_toRowKey(dateTime) {
+export function Ids_SortableRowKeyModule_toRowKey(dateTime) {
     let copyOfStruct;
     const arg0 = String_format("{0:D19}", Long_op_Subtraction((copyOfStruct = Date_maxValue(), Date_getTicks(copyOfStruct)), Date_getTicks(dateTime)));
-    return new Config_EnviromentHelper_Ids_SortableRowKey(0, arg0);
+    return new Ids_SortableRowKey(0, arg0);
 }
 
-export function Config_EnviromentHelper_Ids_SortableRowKeyModule_toDate(_arg1) {
+export function Ids_SortableRowKeyModule_toDate(_arg1) {
     let copyOfStruct;
     const ticks = _arg1.fields[0];
     return Date_fromTicks(Long_op_Subtraction((copyOfStruct = Date_maxValue(), Date_getTicks(copyOfStruct)), Long_parse(ticks, 511, false, 64)));
 }
 
-export class Config_EnviromentHelper_Tables_TableEntity extends Types_Union {
+export class Tables_TableEntity extends Types_Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -225,11 +225,11 @@ export class Config_EnviromentHelper_Tables_TableEntity extends Types_Union {
     }
 }
 
-export function Config_EnviromentHelper_Tables_TableEntity$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.EnviromentHelper.Tables.TableEntity", [], Config_EnviromentHelper_Tables_TableEntity, () => [[["Item", Reflection_string_type]], [["Item", Reflection_float64_type]], [["Item", Reflection_int32_type]]]);
+export function Tables_TableEntity$reflection() {
+    return Reflection_union_type("Chia.Shared.Tables.TableEntity", [], Tables_TableEntity, () => [[["Item", Reflection_string_type]], [["Item", Reflection_float64_type]], [["Item", Reflection_int32_type]]]);
 }
 
-export class Config_EnviromentHelper_Tables_TableRecord extends Types_Record {
+export class Tables_TableRecord extends Types_Record {
     constructor(Header, Content) {
         super();
         this.Header = Header;
@@ -237,22 +237,22 @@ export class Config_EnviromentHelper_Tables_TableRecord extends Types_Record {
     }
 }
 
-export function Config_EnviromentHelper_Tables_TableRecord$reflection() {
-    return Reflection_record_type("Chia.Shared.Config.EnviromentHelper.Tables.TableRecord", [], Config_EnviromentHelper_Tables_TableRecord, () => [["Header", Reflection_array_type(Config_EnviromentHelper_Tables_TableEntity$reflection())], ["Content", Reflection_array_type(Reflection_array_type(Config_EnviromentHelper_Tables_TableEntity$reflection()))]]);
+export function Tables_TableRecord$reflection() {
+    return Reflection_record_type("Chia.Shared.Tables.TableRecord", [], Tables_TableRecord, () => [["Header", Reflection_array_type(Tables_TableEntity$reflection())], ["Content", Reflection_array_type(Reflection_array_type(Tables_TableEntity$reflection()))]]);
 }
 
-export function Config_EnviromentHelper_Tables_TableRecord__TransposeContent(this$) {
+export function Tables_TableRecord__TransposeContent(this$) {
     const matchValue = this$.Content.length | 0;
     if (matchValue === 0) {
-        return new Config_EnviromentHelper_Tables_TableRecord([], []);
+        return new Tables_TableRecord([], []);
     }
     else {
         const content = Array.from(Seq_delay(() => Seq_map((y) => Array.from(Seq_delay(() => Seq_map((x) => ((x === 0) ? this$.Header[y] : this$.Content[x - 1][y]), Seq_rangeNumber(0, 1, this$.Content.length)))), Seq_rangeNumber(0, 1, this$.Content[0].length - 1))));
-        return new Config_EnviromentHelper_Tables_TableRecord(content[0], content.slice(1, content.length));
+        return new Tables_TableRecord(content[0], content.slice(1, content.length));
     }
 }
 
-export function Config_EnviromentHelper_Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
+export function Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
     const sort = () => {
         let col_1;
         const getArrays = (numbers_mut, strings_mut, content_mut) => {
@@ -360,7 +360,7 @@ export function Config_EnviromentHelper_Tables_TableRecord__SortBy_Z7ACEBCCA(thi
                 }, array_7);
             }
             const newContent = Array_concat([sortedNumbers, sortedStrings]);
-            return new Config_EnviromentHelper_Tables_TableRecord(this$.Header, newContent);
+            return new Tables_TableRecord(this$.Header, newContent);
         }
         else {
             return this$;
@@ -378,7 +378,7 @@ export function Config_EnviromentHelper_Tables_TableRecord__SortBy_Z7ACEBCCA(thi
     }
 }
 
-export class Config_EnviromentHelper_Selection$1 extends Types_Record {
+export class Selection$1 extends Types_Record {
     constructor(Value, Text$) {
         super();
         this.Value = Value;
@@ -386,7 +386,7 @@ export class Config_EnviromentHelper_Selection$1 extends Types_Record {
     }
 }
 
-export function Config_EnviromentHelper_Selection$1$reflection(gen0) {
-    return Reflection_record_type("Chia.Shared.Config.EnviromentHelper.Selection`1", [gen0], Config_EnviromentHelper_Selection$1, () => [["Value", gen0], ["Text", Reflection_string_type]]);
+export function Selection$1$reflection(gen0) {
+    return Reflection_record_type("Chia.Shared.Selection`1", [gen0], Selection$1, () => [["Value", gen0], ["Text", Reflection_string_type]]);
 }
 
