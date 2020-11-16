@@ -18,7 +18,6 @@ let overview =
                                          Html.li "ExcelExport Helper"
                                          Html.li "Toast Messages"
                                          Html.li "TimeCalculation"
-                                         Html.li "TimeModelHelper"
                                          Html.li "TableHelper" ] ]
                fixDocsView "ChiaClient" true ]
 
