@@ -20,8 +20,8 @@ let overview =
                 code """
                 open Chia.Infrastructure
                 open Chia.FileWriter
-                open Chia.Domain.Config
-                open Chia.Domain.Logging
+                open Chia.Shared.Config
+                open Chia.Shared.Logging
                 open Farmer
                 let devStatus = Development
                 let fileWriterInfo = initFileWriter Development (CompanyInitials "dp") (ProjectName "TestChia") Local ""
