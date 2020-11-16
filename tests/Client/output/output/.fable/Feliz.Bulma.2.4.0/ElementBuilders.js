@@ -1,7 +1,7 @@
 import { empty as List_empty, cons as List_cons, fold as List_fold, reverse as List_reverse } from "../../../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
 import { uncurry as Util_uncurry } from "../../../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
 import { toString as Types_toString } from "../../../.fable/fable-library.3.0.0-nagareyama-beta-003/Types.js";
-import { mkAttr as Interop_mkAttr } from "../Feliz.1.16.0/Interop.js";
+import { mkAttr as Interop_mkAttr } from "../Feliz.1.16.2/Interop.js";
 import { join as String_join } from "../../../.fable/fable-library.3.0.0-nagareyama-beta-003/String.js";
 
 export function Helpers_extractClasses(xs) {

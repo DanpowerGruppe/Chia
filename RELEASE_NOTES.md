@@ -1,3 +1,5 @@
+### 1.0.1 - 13.11.2020
+test EnviromentHelper
 ### 1.0.0 - 13.11.2020
 Just make it 1.0.0
 ### 0.9.9 - 28.10.2020
@@ -21,7 +23,7 @@ Add Fable 3
 ### 0.9.0 - 23.10.2020
 Clean up modules
 ### 0.8.8 - 16.10.2020
-Finally Migrated to net5
+Finally migrated to net5
 ### 0.8.7 - 16.10.2020
 And again
 ### 0.8.6 - 16.10.2020

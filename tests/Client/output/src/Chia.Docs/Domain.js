@@ -1,8 +1,8 @@
-import { Union as Types_Union, Record as Types_Record } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Types.js";
-import { defaultPage as Router_defaultPage, Page$reflection as Router_Page$reflection } from "./Router.js";
-import { union_type as Reflection_union_type, string_type as Reflection_string_type, record_type as Reflection_record_type, bool_type as Reflection_bool_type } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
+import { Union, Record } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Types.js";
+import { defaultPage, Page$reflection } from "./Router.js";
+import { union_type, string_type, record_type, bool_type } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Reflection.js";
 
-export class Model extends Types_Record {
+export class Model extends Record {
     constructor(CurrentPage, ShowQuickView, ShowLoader) {
         super();
         this.CurrentPage = CurrentPage;
@@ -12,12 +12,12 @@ export class Model extends Types_Record {
 }
 
 export function Model$reflection() {
-    return Reflection_record_type("Domain.Model", [], Model, () => [["CurrentPage", Router_Page$reflection()], ["ShowQuickView", Reflection_bool_type], ["ShowLoader", Reflection_bool_type]]);
+    return record_type("Domain.Model", [], Model, () => [["CurrentPage", Page$reflection()], ["ShowQuickView", bool_type], ["ShowLoader", bool_type]]);
 }
 
-export const ModelModule_init = new Model(Router_defaultPage, false, false);
+export const ModelModule_init = new Model(defaultPage, false, false);
 
-export class Msg extends Types_Union {
+export class Msg extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -29,6 +29,6 @@ export class Msg extends Types_Union {
 }
 
 export function Msg$reflection() {
-    return Reflection_union_type("Domain.Msg", [], Msg, () => [[["Item", Router_Page$reflection()]], [], [["Item", Reflection_string_type]]]);
+    return union_type("Domain.Msg", [], Msg, () => [[["Item", Page$reflection()]], [], [["Item", string_type]]]);
 }
 

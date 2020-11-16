@@ -174,6 +174,7 @@ Target.create "Build" (fun _ ->
         runDotNet "build" dir))
 
 Target.create "RunTests" (fun _ ->
+    Environment.setEnvironVar "status" "Development"
     runDotNet "build" sharedTestsPath
     [ async { runDotNet "watch run" serverTestsPath }
       async {

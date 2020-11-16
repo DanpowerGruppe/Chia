@@ -10,7 +10,8 @@
   "parameters": {},
   "resources": [
     {
-      "apiVersion": "2018-07-01",
+      "apiVersion": "2019-04-01",
+      "dependsOn": [],
       "kind": "StorageV2",
       "location": "westeurope",
       "name": "dptestchiadev",

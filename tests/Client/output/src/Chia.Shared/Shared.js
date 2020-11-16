@@ -1,13 +1,13 @@
-import { Record as Types_Record, Union as Types_Union } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Types.js";
-import { array_type as Reflection_array_type, float64_type as Reflection_float64_type, class_type as Reflection_class_type, record_type as Reflection_record_type, int32_type as Reflection_int32_type, option_type as Reflection_option_type, union_type as Reflection_union_type, string_type as Reflection_string_type } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
-import { comparePrimitives as Util_comparePrimitives, round as Util_round, int32ToString as Util_int32ToString } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
-import { replace as String_replace, format as String_format } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/String.js";
-import { parse as Long_parse, op_Subtraction as Long_op_Subtraction } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Long.js";
-import { fromTicks as Date_fromTicks, getTicks as Date_getTicks, maxValue as Date_maxValue } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Date.js";
-import { rangeNumber as Seq_rangeNumber, map as Seq_map, delay as Seq_delay } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Seq.js";
-import { sortByDescending as Array_sortByDescending, map as Array_map, sortBy as Array_sortBy, concat as Array_concat } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Array.js";
+import { Record, Union } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Types.js";
+import { array_type, float64_type, class_type, record_type, int32_type, option_type, union_type, string_type } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Reflection.js";
+import { comparePrimitives, round, int32ToString } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Util.js";
+import { replace, format } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/String.js";
+import { parse, op_Subtraction } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Long.js";
+import { fromTicks, getTicks, maxValue } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Date.js";
+import { rangeNumber, map, delay } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Seq.js";
+import { sortByDescending, map as map_1, sortBy, concat } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Array.js";
 
-export class Logging_DevOption extends Types_Union {
+export class Logging_DevOption extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -19,10 +19,10 @@ export class Logging_DevOption extends Types_Union {
 }
 
 export function Logging_DevOption$reflection() {
-    return Reflection_union_type("Chia.Shared.Logging.DevOption", [], Logging_DevOption, () => [[], [["Item", Reflection_string_type]], [["Item", Reflection_string_type]]]);
+    return union_type("Chia.Shared.Logging.DevOption", [], Logging_DevOption, () => [[], [["Item", string_type]], [["Item", string_type]]]);
 }
 
-export class Config_DevStatus extends Types_Union {
+export class Config_DevStatus extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -34,7 +34,7 @@ export class Config_DevStatus extends Types_Union {
 }
 
 export function Config_DevStatus$reflection() {
-    return Reflection_union_type("Chia.Shared.Config.DevStatus", [], Config_DevStatus, () => [[], [], [], []]);
+    return union_type("Chia.Shared.Config.DevStatus", [], Config_DevStatus, () => [[], [], [], []]);
 }
 
 export function Config_DevStatus__get_GetValue(this$) {
@@ -54,7 +54,7 @@ export function Config_DevStatus__get_GetValue(this$) {
     }
 }
 
-export class Time_ReportIntervall extends Types_Union {
+export class Time_ReportIntervall extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -66,10 +66,10 @@ export class Time_ReportIntervall extends Types_Union {
 }
 
 export function Time_ReportIntervall$reflection() {
-    return Reflection_union_type("Chia.Shared.Time.ReportIntervall", [], Time_ReportIntervall, () => [[], [], [], [], [], []]);
+    return union_type("Chia.Shared.Time.ReportIntervall", [], Time_ReportIntervall, () => [[], [], [], [], [], []]);
 }
 
-export class Time_TimeFilters extends Types_Record {
+export class Time_TimeFilters extends Record {
     constructor(StartDate, StartDateLeavingPlants, EndDate, EndDateLeavingPlants, EndDateMinusOneDay, StartVuPeriode, EndVuPeriode, EndVuPeriodeLast, EndVuPeriodeQuotes) {
         super();
         this.StartDate = StartDate;
@@ -85,10 +85,10 @@ export class Time_TimeFilters extends Types_Record {
 }
 
 export function Time_TimeFilters$reflection() {
-    return Reflection_record_type("Chia.Shared.Time.TimeFilters", [], Time_TimeFilters, () => [["StartDate", Reflection_string_type], ["StartDateLeavingPlants", Reflection_string_type], ["EndDate", Reflection_string_type], ["EndDateLeavingPlants", Reflection_string_type], ["EndDateMinusOneDay", Reflection_option_type(Reflection_string_type)], ["StartVuPeriode", Reflection_int32_type], ["EndVuPeriode", Reflection_int32_type], ["EndVuPeriodeLast", Reflection_option_type(Reflection_int32_type)], ["EndVuPeriodeQuotes", Reflection_int32_type]]);
+    return record_type("Chia.Shared.Time.TimeFilters", [], Time_TimeFilters, () => [["StartDate", string_type], ["StartDateLeavingPlants", string_type], ["EndDate", string_type], ["EndDateLeavingPlants", string_type], ["EndDateMinusOneDay", option_type(string_type)], ["StartVuPeriode", int32_type], ["EndVuPeriode", int32_type], ["EndVuPeriodeLast", option_type(int32_type)], ["EndVuPeriodeQuotes", int32_type]]);
 }
 
-export class Time_TimeSpans extends Types_Union {
+export class Time_TimeSpans extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -100,10 +100,10 @@ export class Time_TimeSpans extends Types_Union {
 }
 
 export function Time_TimeSpans$reflection() {
-    return Reflection_union_type("Chia.Shared.Time.TimeSpans", [], Time_TimeSpans, () => [[], [], [], [], [], []]);
+    return union_type("Chia.Shared.Time.TimeSpans", [], Time_TimeSpans, () => [[], [], [], [], [], []]);
 }
 
-export class Time_Aggregation extends Types_Union {
+export class Time_Aggregation extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -115,10 +115,10 @@ export class Time_Aggregation extends Types_Union {
 }
 
 export function Time_Aggregation$reflection() {
-    return Reflection_union_type("Chia.Shared.Time.Aggregation", [], Time_Aggregation, () => [[], []]);
+    return union_type("Chia.Shared.Time.Aggregation", [], Time_Aggregation, () => [[], []]);
 }
 
-export class Time_TimeModel extends Types_Record {
+export class Time_TimeModel extends Record {
     constructor(ReportIntervall, DateStart, DateEnd) {
         super();
         this.ReportIntervall = ReportIntervall;
@@ -128,10 +128,10 @@ export class Time_TimeModel extends Types_Record {
 }
 
 export function Time_TimeModel$reflection() {
-    return Reflection_record_type("Chia.Shared.Time.TimeModel", [], Time_TimeModel, () => [["ReportIntervall", Time_ReportIntervall$reflection()], ["DateStart", Reflection_class_type("System.DateTimeOffset")], ["DateEnd", Reflection_class_type("System.DateTimeOffset")]]);
+    return record_type("Chia.Shared.Time.TimeModel", [], Time_TimeModel, () => [["ReportIntervall", Time_ReportIntervall$reflection()], ["DateStart", class_type("System.DateTimeOffset")], ["DateEnd", class_type("System.DateTimeOffset")]]);
 }
 
-export class Ids_ReportId extends Types_Union {
+export class Ids_ReportId extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -143,22 +143,20 @@ export class Ids_ReportId extends Types_Union {
 }
 
 export function Ids_ReportId$reflection() {
-    return Reflection_union_type("Chia.Shared.Ids.ReportId", [], Ids_ReportId, () => [[["reportId", Reflection_int32_type]]]);
+    return union_type("Chia.Shared.Ids.ReportId", [], Ids_ReportId, () => [[["reportId", int32_type]]]);
 }
 
 export function Ids_ReportId__get_GetValue(this$) {
-    const _arg1 = this$;
-    const id = _arg1.fields[0] | 0;
+    const id = this$.fields[0] | 0;
     return id | 0;
 }
 
 export function Ids_ReportId__get_GetValueAsString(this$) {
-    const _arg2 = this$;
-    const id = _arg2.fields[0] | 0;
-    return Util_int32ToString(id);
+    const id = this$.fields[0] | 0;
+    return int32ToString(id);
 }
 
-export class Ids_SortableRowKey extends Types_Union {
+export class Ids_SortableRowKey extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -170,28 +168,27 @@ export class Ids_SortableRowKey extends Types_Union {
 }
 
 export function Ids_SortableRowKey$reflection() {
-    return Reflection_union_type("Chia.Shared.Ids.SortableRowKey", [], Ids_SortableRowKey, () => [[["Item", Reflection_string_type]]]);
+    return union_type("Chia.Shared.Ids.SortableRowKey", [], Ids_SortableRowKey, () => [[["Item", string_type]]]);
 }
 
 export function Ids_SortableRowKey__get_GetValue(this$) {
-    const _arg3 = this$;
-    const id = _arg3.fields[0];
+    const id = this$.fields[0];
     return id;
 }
 
 export function Ids_SortableRowKeyModule_toRowKey(dateTime) {
     let copyOfStruct;
-    const arg0 = String_format("{0:D19}", Long_op_Subtraction((copyOfStruct = Date_maxValue(), Date_getTicks(copyOfStruct)), Date_getTicks(dateTime)));
+    const arg0 = format("{0:D19}", op_Subtraction((copyOfStruct = maxValue(), getTicks(copyOfStruct)), getTicks(dateTime)));
     return new Ids_SortableRowKey(0, arg0);
 }
 
 export function Ids_SortableRowKeyModule_toDate(_arg1) {
     let copyOfStruct;
     const ticks = _arg1.fields[0];
-    return Date_fromTicks(Long_op_Subtraction((copyOfStruct = Date_maxValue(), Date_getTicks(copyOfStruct)), Long_parse(ticks, 511, false, 64)));
+    return fromTicks(op_Subtraction((copyOfStruct = maxValue(), getTicks(copyOfStruct)), parse(ticks, 511, false, 64)));
 }
 
-export class Tables_TableEntity extends Types_Union {
+export class Tables_TableEntity extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -200,19 +197,19 @@ export class Tables_TableEntity extends Types_Union {
     cases() {
         return ["Text", "Float", "Integer"];
     }
-    ToString() {
+    toString() {
         const this$ = this;
         switch (this$.tag) {
             case 1: {
                 const f = this$.fields[0];
                 let text;
-                const value = Util_round(f, 3);
+                const value = round(f, 3);
                 text = value.toString();
-                return String_replace(text, ".", ",");
+                return replace(text, ".", ",");
             }
             case 2: {
                 const i = this$.fields[0] | 0;
-                return Util_int32ToString(i);
+                return int32ToString(i);
             }
             default: {
                 const t = this$.fields[0];
@@ -220,16 +217,13 @@ export class Tables_TableEntity extends Types_Union {
             }
         }
     }
-    toString() {
-        return this.ToString();
-    }
 }
 
 export function Tables_TableEntity$reflection() {
-    return Reflection_union_type("Chia.Shared.Tables.TableEntity", [], Tables_TableEntity, () => [[["Item", Reflection_string_type]], [["Item", Reflection_float64_type]], [["Item", Reflection_int32_type]]]);
+    return union_type("Chia.Shared.Tables.TableEntity", [], Tables_TableEntity, () => [[["Item", string_type]], [["Item", float64_type]], [["Item", int32_type]]]);
 }
 
-export class Tables_TableRecord extends Types_Record {
+export class Tables_TableRecord extends Record {
     constructor(Header, Content) {
         super();
         this.Header = Header;
@@ -238,7 +232,7 @@ export class Tables_TableRecord extends Types_Record {
 }
 
 export function Tables_TableRecord$reflection() {
-    return Reflection_record_type("Chia.Shared.Tables.TableRecord", [], Tables_TableRecord, () => [["Header", Reflection_array_type(Tables_TableEntity$reflection())], ["Content", Reflection_array_type(Reflection_array_type(Tables_TableEntity$reflection()))]]);
+    return record_type("Chia.Shared.Tables.TableRecord", [], Tables_TableRecord, () => [["Header", array_type(Tables_TableEntity$reflection())], ["Content", array_type(array_type(Tables_TableEntity$reflection()))]]);
 }
 
 export function Tables_TableRecord__TransposeContent(this$) {
@@ -247,7 +241,7 @@ export function Tables_TableRecord__TransposeContent(this$) {
         return new Tables_TableRecord([], []);
     }
     else {
-        const content = Array.from(Seq_delay(() => Seq_map((y) => Array.from(Seq_delay(() => Seq_map((x) => ((x === 0) ? this$.Header[y] : this$.Content[x - 1][y]), Seq_rangeNumber(0, 1, this$.Content.length)))), Seq_rangeNumber(0, 1, this$.Content[0].length - 1))));
+        const content = Array.from(delay(() => map((y) => Array.from(delay(() => map((x) => ((x === 0) ? this$.Header[y] : this$.Content[x - 1][y]), rangeNumber(0, 1, this$.Content.length)))), rangeNumber(0, 1, this$.Content[0].length - 1))));
         return new Tables_TableRecord(content[0], content.slice(1, content.length));
     }
 }
@@ -269,7 +263,7 @@ export function Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
                         case 1: {
                             const f = matchValue.fields[0];
                             const crit_1 = f;
-                            numbers_mut = Array_concat([numbers, [[crit_1, line]]]);
+                            numbers_mut = concat([numbers, [[crit_1, line]]]);
                             strings_mut = strings;
                             content_mut = content.slice(1, content.length);
                             continue getArrays;
@@ -277,16 +271,15 @@ export function Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
                         case 0: {
                             const t = matchValue.fields[0];
                             numbers_mut = numbers;
-                            strings_mut = Array_concat([strings, [[t, line]]]);
+                            strings_mut = concat([strings, [[t, line]]]);
                             content_mut = content.slice(1, content.length);
                             continue getArrays;
                         }
                         default: {
                             const i = matchValue.fields[0] | 0;
                             let crit;
-                            const value = i | 0;
-                            crit = value;
-                            numbers_mut = Array_concat([numbers, [[crit, line]]]);
+                            crit = i;
+                            numbers_mut = concat([numbers, [[crit, line]]]);
                             strings_mut = strings;
                             content_mut = content.slice(1, content.length);
                             continue getArrays;
@@ -304,28 +297,26 @@ export function Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
             let sortedNumbers;
             if (asc) {
                 let array_1;
-                const array = numbers_1;
-                array_1 = Array_sortBy((tupledArg) => {
+                array_1 = sortBy((tupledArg) => {
                     const crit_2 = tupledArg[0];
                     return crit_2;
-                }, array, {
-                    Compare: Util_comparePrimitives,
+                }, numbers_1, {
+                    Compare: comparePrimitives,
                 });
-                sortedNumbers = Array_map((tupledArg_1) => {
+                sortedNumbers = map_1((tupledArg_1) => {
                     const content_1 = tupledArg_1[1];
                     return content_1;
                 }, array_1);
             }
             else {
                 let array_3;
-                const array_2 = numbers_1;
-                array_3 = Array_sortByDescending((tupledArg_2) => {
+                array_3 = sortByDescending((tupledArg_2) => {
                     const crit_3 = tupledArg_2[0];
                     return crit_3;
-                }, array_2, {
-                    Compare: Util_comparePrimitives,
+                }, numbers_1, {
+                    Compare: comparePrimitives,
                 });
-                sortedNumbers = Array_map((tupledArg_3) => {
+                sortedNumbers = map_1((tupledArg_3) => {
                     const content_2 = tupledArg_3[1];
                     return content_2;
                 }, array_3);
@@ -333,33 +324,31 @@ export function Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
             let sortedStrings;
             if (asc) {
                 let array_5;
-                const array_4 = strings_1;
-                array_5 = Array_sortBy((tupledArg_4) => {
+                array_5 = sortBy((tupledArg_4) => {
                     const crit_4 = tupledArg_4[0];
                     return crit_4;
-                }, array_4, {
-                    Compare: Util_comparePrimitives,
+                }, strings_1, {
+                    Compare: comparePrimitives,
                 });
-                sortedStrings = Array_map((tupledArg_5) => {
+                sortedStrings = map_1((tupledArg_5) => {
                     const content_3 = tupledArg_5[1];
                     return content_3;
                 }, array_5);
             }
             else {
                 let array_7;
-                const array_6 = strings_1;
-                array_7 = Array_sortByDescending((tupledArg_6) => {
+                array_7 = sortByDescending((tupledArg_6) => {
                     const crit_5 = tupledArg_6[0];
                     return crit_5;
-                }, array_6, {
-                    Compare: Util_comparePrimitives,
+                }, strings_1, {
+                    Compare: comparePrimitives,
                 });
-                sortedStrings = Array_map((tupledArg_7) => {
+                sortedStrings = map_1((tupledArg_7) => {
                     const content_4 = tupledArg_7[1];
                     return content_4;
                 }, array_7);
             }
-            const newContent = Array_concat([sortedNumbers, sortedStrings]);
+            const newContent = concat([sortedNumbers, sortedStrings]);
             return new Tables_TableRecord(this$.Header, newContent);
         }
         else {
@@ -378,7 +367,7 @@ export function Tables_TableRecord__SortBy_Z7ACEBCCA(this$, col, asc) {
     }
 }
 
-export class Selection$1 extends Types_Record {
+export class Selection$1 extends Record {
     constructor(Value, Text$) {
         super();
         this.Value = Value;
@@ -387,6 +376,6 @@ export class Selection$1 extends Types_Record {
 }
 
 export function Selection$1$reflection(gen0) {
-    return Reflection_record_type("Chia.Shared.Selection`1", [gen0], Selection$1, () => [["Value", gen0], ["Text", Reflection_string_type]]);
+    return record_type("Chia.Shared.Selection`1", [gen0], Selection$1, () => [["Value", gen0], ["Text", string_type]]);
 }
 

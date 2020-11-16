@@ -331,9 +331,9 @@ function autoEncoder(extra, caseStrategy, skipNullField, t) {
                             const state = {};
                             const source_3 = value_12;
                             return Seq_fold((target, _arg1) => {
-                                const activePatternResult17043 = _arg1;
-                                const v_1 = activePatternResult17043[1];
-                                const k = activePatternResult17043[0];
+                                const activePatternResult14821 = _arg1;
+                                const v_1 = activePatternResult14821[1];
+                                const k = activePatternResult14821[0];
                                 target[k]=valueEncoder(v_1);
                                 return target;
                             }, state, source_3);
@@ -348,9 +348,9 @@ function autoEncoder(extra, caseStrategy, skipNullField, t) {
                             let values_4;
                             const source_4 = value_13;
                             values_4 = Seq_map((_arg2) => {
-                                const activePatternResult17047 = _arg2;
-                                const v_2 = activePatternResult17047[1];
-                                const k_1 = activePatternResult17047[0];
+                                const activePatternResult14825 = _arg2;
+                                const v_2 = activePatternResult14825[1];
+                                const k_1 = activePatternResult14825[0];
                                 const values_3 = [keyEncoder(k_1), valueEncoder(v_2)];
                                 return values_3;
                             }, source_4);

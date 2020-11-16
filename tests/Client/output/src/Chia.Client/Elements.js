@@ -1,34 +1,34 @@
-import { Option as Image_Option, image as Image_image } from "../../output/.fable/Fulma.2.10.0/Elements/Image.js";
-import { ofArray as List_ofArray, item as List_item, indexed as List_indexed, ofSeq as List_ofSeq, cons as List_cons, map as List_map, empty as List_empty, singleton as List_singleton } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
+import { Option, image } from "../../.fable/Fulma.2.10.0/Elements/Image.fs.js";
+import { ofArray, item, indexed, ofSeq, cons, map, empty, singleton } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/List.js";
 import * as react from "react";
-import { Record as Types_Record } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Types.js";
-import { tuple_type as Reflection_tuple_type, record_type as Reflection_record_type, string_type as Reflection_string_type } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
-import { Size_ISize as Common_Size_ISize, Color_IColor as Common_Color_IColor, Modifier_IModifier as Common_Modifier_IModifier, TextAlignment_Option$reflection as Common_TextAlignment_Option$reflection, Screen$reflection as Common_Screen$reflection } from "../../output/.fable/Fulma.2.10.0/Common.js";
-import { select as Select_select } from "../../output/.fable/Fulma.2.10.0/Elements/Form/Select.js";
-import { some as Option_some } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Option.js";
-import { singleton as Seq_singleton, collect as Seq_collect, delay as Seq_delay } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Seq.js";
-import { HTMLAttr as Fable$002EReact$002EProps_HTMLAttr } from "../../output/.fable/Fable.React.7.0.1/Fable.React.Props.js";
-import { int32ToString as Util_int32ToString } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Util.js";
-import { keyValueList as MapUtil_keyValueList } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/MapUtil.js";
-import { parse as Int32_parse } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Int32.js";
-import { Browser_Types_Event__Event_get_Value as Fable$002EReact$002EExtensions_Browser_Types_Event__Event_get_Value } from "../../output/.fable/Fable.React.7.0.1/Fable.React.Extensions.js";
-import { Option as Control_Option, div as Control_div } from "../../output/.fable/Fulma.2.10.0/Elements/Form/Control.js";
-import { Option as Label_Option, label as Label_label } from "../../output/.fable/Fulma.2.10.0/Elements/Form/Label.js";
-import { printf as String_printf, toText as String_toText } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/String.js";
-import { Option as Notification_Option, notification as Notification_notification } from "../../output/.fable/Fulma.2.10.0/Elements/Notification.js";
-import { Option as Button_Option, button as Button_button } from "../../output/.fable/Fulma.2.10.0/Elements/Button.js";
-import { Item_a as Menu_Item_a, Item_Option as Menu_Item_Option, Item_li as Menu_Item_li } from "../../output/.fable/Fulma.2.10.0/Components/Menu.js";
-import { Option as Icon_Option, icon as Icon_icon } from "../../output/.fable/Fulma.2.10.0/Elements/Icon.js";
-import { Fa_i as FontAwesome_Fa_i } from "../../output/.fable/Fable.FontAwesome.2.0.0/FontAwesome.js";
-import { IInputType as Input_IInputType, Option as Input_Option, input as Input_input } from "../../output/.fable/Fulma.2.10.0/Elements/Form/Input.js";
+import { Record } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Types.js";
+import { tuple_type, record_type, string_type } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Reflection.js";
+import { Size_ISize, Color_IColor, Modifier_IModifier, TextAlignment_Option$reflection, Screen$reflection } from "../../.fable/Fulma.2.10.0/Common.fs.js";
+import { select as select_1 } from "../../.fable/Fulma.2.10.0/Elements/Form/Select.fs.js";
+import { some } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Option.js";
+import { singleton as singleton_1, collect, delay } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Seq.js";
+import { HTMLAttr } from "../../.fable/Fable.React.7.0.1/Fable.React.Props.fs.js";
+import { int32ToString } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Util.js";
+import { keyValueList } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/MapUtil.js";
+import { parse } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Int32.js";
+import { Browser_Types_Event__Event_get_Value } from "../../.fable/Fable.React.7.0.1/Fable.React.Extensions.fs.js";
+import { Option as Option_5, div } from "../../.fable/Fulma.2.10.0/Elements/Form/Control.fs.js";
+import { Option as Option_1, label as label_1 } from "../../.fable/Fulma.2.10.0/Elements/Form/Label.fs.js";
+import { printf, toText } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/String.js";
+import { Option as Option_2, notification } from "../../.fable/Fulma.2.10.0/Elements/Notification.fs.js";
+import { Option as Option_3, button } from "../../.fable/Fulma.2.10.0/Elements/Button.fs.js";
+import { Item_a, Item_Option, Item_li } from "../../.fable/Fulma.2.10.0/Components/Menu.fs.js";
+import { Option as Option_4, icon as icon_1 } from "../../.fable/Fulma.2.10.0/Elements/Icon.fs.js";
+import { Fa_i } from "../../.fable/Fable.FontAwesome.2.0.0/FontAwesome.fs.js";
+import { IInputType, Option as Option_6, input } from "../../.fable/Fulma.2.10.0/Elements/Form/Input.fs.js";
 
 export function Elements_spinner(pathToPic) {
-    return Image_image(List_singleton(new Image_Option(6)), List_singleton(react.createElement("img", {
+    return image(singleton(new Option(6)), singleton(react.createElement("img", {
         src: pathToPic,
     })));
 }
 
-export class Types_Selection$1 extends Types_Record {
+export class Types_Selection$1 extends Record {
     constructor(Value, Text$) {
         super();
         this.Value = Value;
@@ -37,10 +37,10 @@ export class Types_Selection$1 extends Types_Record {
 }
 
 export function Types_Selection$1$reflection(gen0) {
-    return Reflection_record_type("Chia.Types.Selection`1", [gen0], Types_Selection$1, () => [["Value", gen0], ["Text", Reflection_string_type]]);
+    return record_type("Chia.Types.Selection`1", [gen0], Types_Selection$1, () => [["Value", gen0], ["Text", string_type]]);
 }
 
-export class Types_SelectionInformation extends Types_Record {
+export class Types_SelectionInformation extends Record {
     constructor(Label, DefaultDataLabel, NoDataLabel, Alignment) {
         super();
         this.Label = Label;
@@ -51,7 +51,7 @@ export class Types_SelectionInformation extends Types_Record {
 }
 
 export function Types_SelectionInformation$reflection() {
-    return Reflection_record_type("Chia.Types.SelectionInformation", [], Types_SelectionInformation, () => [["Label", Reflection_string_type], ["DefaultDataLabel", Reflection_string_type], ["NoDataLabel", Reflection_string_type], ["Alignment", Reflection_tuple_type(Common_Screen$reflection(), Common_TextAlignment_Option$reflection())]]);
+    return record_type("Chia.Types.SelectionInformation", [], Types_SelectionInformation, () => [["Label", string_type], ["DefaultDataLabel", string_type], ["NoDataLabel", string_type], ["Alignment", tuple_type(Screen$reflection(), TextAlignment_Option$reflection())]]);
 }
 
 export function Selections_basicSelect(data, placeholder, noDataMsg, msg, dispatch) {
@@ -70,7 +70,7 @@ export function Selections_basicSelect(data, placeholder, noDataMsg, msg, dispat
     }
     switch (pattern_matching_result) {
         case 0: {
-            return Select_select(List_empty(), List_singleton((children_2 = [react.createElement("option", {
+            return select_1(empty(), singleton((children_2 = [react.createElement("option", {
                 value: "",
             }, noDataMsg)], react.createElement("select", {}, ...children_2))));
         }
@@ -79,22 +79,21 @@ export function Selections_basicSelect(data, placeholder, noDataMsg, msg, dispat
                 const data_3 = data;
                 let data_4;
                 let x_1;
-                const list = data_3;
-                x_1 = List_map((x) => [Option_some(x.Value), x.Text], list);
-                data_4 = List_cons([void 0, placeholder], x_1);
-                return Select_select(List_empty(), List_singleton((children_10 = List_ofSeq(Seq_delay(() => Seq_collect((matchValue) => {
+                x_1 = map((x) => [some(x.Value), x.Text], data_3);
+                data_4 = cons([void 0, placeholder], x_1);
+                return select_1(empty(), singleton((children_10 = ofSeq(delay(() => collect((matchValue) => {
                     let props_8;
                     const text = matchValue[1][1];
                     const i = matchValue[0] | 0;
-                    return Seq_singleton((props_8 = [new Fable$002EReact$002EProps_HTMLAttr(161, Util_int32ToString(i))], react.createElement("option", MapUtil_keyValueList(props_8, 1, true), text)));
-                }, List_indexed(data_4)))), react.createElement("select", {
+                    return singleton_1((props_8 = [new HTMLAttr(161, int32ToString(i))], react.createElement("option", keyValueList(props_8, 1), text)));
+                }, indexed(data_4)))), react.createElement("select", {
                     onChange: (ev) => {
-                        dispatch(msg(List_item(Int32_parse(Fable$002EReact$002EExtensions_Browser_Types_Event__Event_get_Value(ev), 511, false, 32), data_4)[0]));
+                        dispatch(msg(item(parse(Browser_Types_Event__Event_get_Value(ev), 511, false, 32), data_4)[0]));
                     },
                 }, ...children_10))));
             }
             else {
-                return Select_select(List_empty(), List_singleton((children_6 = [react.createElement("option", {
+                return select_1(empty(), singleton((children_6 = [react.createElement("option", {
                     value: "lade Daten",
                 }, "lade Daten")], react.createElement("select", {
                     defaultValue: "lade Daten",
@@ -107,15 +106,13 @@ export function Selections_basicSelect(data, placeholder, noDataMsg, msg, dispat
 export function Selections_selectWithLabel(selectionInformation, data, msg, dispatch) {
     let tupledArg;
     const select = Selections_basicSelect(data, selectionInformation.DefaultDataLabel, selectionInformation.NoDataLabel, msg, dispatch);
-    return Control_div(List_empty(), List_ofArray([Label_label(List_singleton(new Label_Option(4, List_singleton((tupledArg = selectionInformation.Alignment, (new Common_Modifier_IModifier(5, tupledArg[0], tupledArg[1])))))), List_singleton(selectionInformation.Label)), select]));
+    return div(empty(), ofArray([label_1(singleton(new Option_1(4, singleton((tupledArg = selectionInformation.Alignment, (new Modifier_IModifier(5, tupledArg[0], tupledArg[1])))))), singleton(selectionInformation.Label)), select]));
 }
 
 export function Export_getExcelLinkByGuid(api, guid) {
-    const arg10 = api;
-    const arg20 = guid;
-    const clo1 = String_toText(String_printf("%s/%s"));
-    const clo2 = clo1(arg10);
-    return clo2(arg20);
+    const clo1 = toText(printf("%s/%s"));
+    const clo2 = clo1(api);
+    return clo2(guid);
 }
 
 export function Export_showExportClass(api, guid, setMsg, dispatch) {
@@ -127,9 +124,9 @@ export function Export_showExportClass(api, guid, setMsg, dispatch) {
         const guid_1 = guid;
         if (guid_1 !== "failure") {
             const link = Export_getExcelLinkByGuid(guid_1, api);
-            return Notification_notification(List_ofArray([new Notification_Option(0, new Common_Color_IColor(6)), new Notification_Option(3, List_singleton(["style", {
+            return notification(ofArray([new Option_2(0, new Color_IColor(6)), new Option_2(3, singleton(["style", {
                 marginTop: "20px",
-            }]))]), List_singleton((children_6 = [(children_2 = [react.createElement("i", {
+            }]))]), singleton((children_6 = [(children_2 = [react.createElement("i", {
                 className: "fa fa-table",
             })], react.createElement("span", {
                 className: "sidebar-icon",
@@ -143,17 +140,17 @@ export function Export_showExportClass(api, guid, setMsg, dispatch) {
             }, ...children_6))));
         }
         else {
-            return Notification_notification(List_ofArray([new Notification_Option(0, new Common_Color_IColor(8)), new Notification_Option(3, List_singleton(["style", {
+            return notification(ofArray([new Option_2(0, new Color_IColor(8)), new Option_2(3, singleton(["style", {
                 marginTop: "20px",
-            }]))]), List_singleton("Erstellung des Berichts gescheitert"));
+            }]))]), singleton("Erstellung des Berichts gescheitert"));
         }
     }
 }
 
 export function Export_exportButton(reqMsg, dispatch) {
-    return Button_button(List_singleton(new Button_Option(17, (ev) => {
+    return button(singleton(new Option_3(17, (ev) => {
         dispatch(reqMsg);
-    })), List_singleton("Exportieren"));
+    })), singleton("Exportieren"));
 }
 
 export function Error_showErrorClass(err) {
@@ -162,27 +159,27 @@ export function Error_showErrorClass(err) {
     }
     else {
         const err_1 = err;
-        return Notification_notification(List_ofArray([new Notification_Option(0, new Common_Color_IColor(8)), new Notification_Option(3, List_singleton(["style", {
+        return notification(ofArray([new Option_2(0, new Color_IColor(8)), new Option_2(3, singleton(["style", {
             marginTop: "20px",
-        }]))]), List_singleton(err_1.message));
+        }]))]), singleton(err_1.message));
     }
 }
 
 export function Menu_menuItem(label, icon, isActive, msg, dispatch) {
-    return Menu_Item_li(List_ofArray([new Menu_Item_Option(0, isActive), new Menu_Item_Option(3, (ev) => {
+    return Item_li(ofArray([new Item_Option(0, isActive), new Item_Option(3, (ev) => {
         dispatch(msg(label));
-    })]), List_ofArray([Icon_icon(List_singleton(new Icon_Option(0, new Common_Size_ISize(0))), List_singleton(FontAwesome_Fa_i(List_singleton(icon), []))), label]));
+    })]), ofArray([icon_1(singleton(new Option_4(0, new Size_ISize(0))), singleton(Fa_i(singleton(icon), []))), label]));
 }
 
 export function Menu_subMenu(label, isActive, children) {
-    const children_3 = [Menu_Item_a(List_singleton(new Menu_Item_Option(0, isActive)), List_singleton(label)), react.createElement("ul", {}, ...children)];
+    const children_3 = [Item_a(singleton(new Item_Option(0, isActive)), singleton(label)), react.createElement("ul", {}, ...children)];
     return react.createElement("li", {}, ...children_3);
 }
 
 export function Search_searchBar(placeholder, msg, dispatch) {
-    return Control_div(List_singleton(new Control_Option(1)), List_ofArray([Input_input(List_ofArray([new Input_Option(1, new Input_IInputType(0)), new Input_Option(12, placeholder), new Input_Option(13, (t) => {
-        dispatch(msg(Fable$002EReact$002EExtensions_Browser_Types_Event__Event_get_Value(t)));
-    })])), Icon_icon(List_singleton(new Icon_Option(1)), List_singleton(react.createElement("i", {
+    return div(singleton(new Option_5(1)), ofArray([input(ofArray([new Option_6(1, new IInputType(0)), new Option_6(12, placeholder), new Option_6(13, (t) => {
+        dispatch(msg(Browser_Types_Event__Event_get_Value(t)));
+    })])), icon_1(singleton(new Option_4(1)), singleton(react.createElement("i", {
         className: "fa fa-search",
     })))]));
 }

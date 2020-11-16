@@ -1,9 +1,9 @@
-import { Union as Types_Union } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Types.js";
-import { union_type as Reflection_union_type } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/Reflection.js";
-import { RouterModule_encodeParts as Router_RouterModule_encodeParts } from "../../output/.fable/Feliz.Router.3.2.0/Router.js";
-import { singleton as List_singleton } from "../../.fable/fable-library.3.0.0-nagareyama-beta-003/List.js";
+import { Union } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Types.js";
+import { union_type } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/Reflection.js";
+import { RouterModule_encodeParts } from "../../.fable/Feliz.Router.3.2.0/Router.fs.js";
+import { singleton } from "../../.fable/fable-library.3.0.0-nagareyama-rc-007/List.js";
 
-export class Page extends Types_Union {
+export class Page extends Union {
     constructor(tag, ...fields) {
         super();
         this.tag = (tag | 0);
@@ -15,7 +15,7 @@ export class Page extends Types_Union {
 }
 
 export function Page$reflection() {
-    return Reflection_union_type("Router.Page", [], Page, () => [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]);
+    return union_type("Router.Page", [], Page, () => [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]);
 }
 
 export const defaultPage = new Page(0);
@@ -238,58 +238,58 @@ export function parseUrl(_arg1) {
 export function getHref(_arg1) {
     switch (_arg1.tag) {
         case 1: {
-            return Router_RouterModule_encodeParts(List_singleton("installation"), 1);
+            return RouterModule_encodeParts(singleton("installation"), 1);
         }
         case 2: {
-            return Router_RouterModule_encodeParts(List_singleton("initbuilder"), 1);
+            return RouterModule_encodeParts(singleton("initbuilder"), 1);
         }
         case 3: {
-            return Router_RouterModule_encodeParts(List_singleton("aiutils"), 1);
+            return RouterModule_encodeParts(singleton("aiutils"), 1);
         }
         case 4: {
-            return Router_RouterModule_encodeParts(List_singleton("rediscache"), 1);
+            return RouterModule_encodeParts(singleton("rediscache"), 1);
         }
         case 5: {
-            return Router_RouterModule_encodeParts(List_singleton("eventhub"), 1);
+            return RouterModule_encodeParts(singleton("eventhub"), 1);
         }
         case 6: {
-            return Router_RouterModule_encodeParts(List_singleton("createxml"), 1);
+            return RouterModule_encodeParts(singleton("createxml"), 1);
         }
         case 7: {
-            return Router_RouterModule_encodeParts(List_singleton("createtable"), 1);
+            return RouterModule_encodeParts(singleton("createtable"), 1);
         }
         case 8: {
-            return Router_RouterModule_encodeParts(List_singleton("createblob"), 1);
+            return RouterModule_encodeParts(singleton("createblob"), 1);
         }
         case 9: {
-            return Router_RouterModule_encodeParts(List_singleton("posttoqueue"), 1);
+            return RouterModule_encodeParts(singleton("posttoqueue"), 1);
         }
         case 12: {
-            return Router_RouterModule_encodeParts(List_singleton("gettableentry"), 1);
+            return RouterModule_encodeParts(singleton("gettableentry"), 1);
         }
         case 10: {
-            return Router_RouterModule_encodeParts(List_singleton("logger"), 1);
+            return RouterModule_encodeParts(singleton("logger"), 1);
         }
         case 11: {
-            return Router_RouterModule_encodeParts(List_singleton("infrastructure"), 1);
+            return RouterModule_encodeParts(singleton("infrastructure"), 1);
         }
         case 13: {
-            return Router_RouterModule_encodeParts(List_singleton("excelutils"), 1);
+            return RouterModule_encodeParts(singleton("excelutils"), 1);
         }
         case 14: {
-            return Router_RouterModule_encodeParts(List_singleton("tablestorage"), 1);
+            return RouterModule_encodeParts(singleton("tablestorage"), 1);
         }
         case 15: {
-            return Router_RouterModule_encodeParts(List_singleton("client"), 1);
+            return RouterModule_encodeParts(singleton("client"), 1);
         }
         case 16: {
-            return Router_RouterModule_encodeParts(List_singleton("clientinstallation"), 1);
+            return RouterModule_encodeParts(singleton("clientinstallation"), 1);
         }
         case 17: {
-            return Router_RouterModule_encodeParts(List_singleton("clientpageflexer"), 1);
+            return RouterModule_encodeParts(singleton("clientpageflexer"), 1);
         }
         default: {
-            return Router_RouterModule_encodeParts(List_singleton(""), 1);
+            return RouterModule_encodeParts(singleton(""), 1);
         }
     }
 }

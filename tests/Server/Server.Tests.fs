@@ -16,6 +16,8 @@ open Shared.Logging
 open Shared.Ids
 open Microsoft.WindowsAzure.Storage.Table
 open System
+open Chia.Shared.Config.EnviromentHelper
+
 
 let fileWriterConfig =
     initWriter {
@@ -42,8 +44,23 @@ type TestData =
 let simpleTest =
     testList
         "Chia"
-        [ testCase "FileWriterConfig"
+        [ testCase "Enviroment should be Devlopment"
+          <| fun () ->
+            let actual = getDevStatusFromEnv
+            let expected = Development
+            Expect.equal actual expected "Enviroment is Development"
+          testCase "FileWriterConfig"
           <| fun () -> Expect.isNotEmpty fileWriterConfig.ProjectName.Value "FileWriter"
+          testCase "FileWriterConfigLocal"
+          <| fun () ->
+            let fileWriterConfigLocal =
+                initWriter {
+                    devStatus getDevStatusFromEnv
+                    companyInitials "dp"
+                    projectName "TestChia"
+                    devOption Local
+                }
+            Expect.isNotEmpty fileWriterConfigLocal.ProjectName.Value "FileWriter"
           testCase "Create Table"
           <| fun () ->
               let testTable = getTable TestTable azAccount
