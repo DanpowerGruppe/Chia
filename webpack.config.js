@@ -5,10 +5,10 @@
 // See below if you need better fine-tuning of Webpack options
 
 var CONFIG = {
-    indexHtmlTemplate: './src/docs/index.html',
-    fsharpEntry: './src/docs/output/App.js',
-    cssEntry: './src/docs/style.scss',
-    outputDir: './output',
+    indexHtmlTemplate: './src/Chia.Docs/index.html',
+    fsharpEntry: './src/Chia.Docs/output/App.js',
+    cssEntry: './src/Chia.Docs/style.scss',
+    outputDir: './docs',
     assetsDir: './public',
     devServerPort: 4040,
     // When using webpack-dev-server, you may need to redirect some calls
