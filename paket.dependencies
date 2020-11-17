@@ -6,7 +6,6 @@ group ChiaStack
     nuget FSharp.Data
     nuget Expecto.BenchmarkDotNet
     nuget Expecto.FsCheck
-    nuget Expecto.TestResults
     nuget Taskbuilder.fs
     nuget Microsoft.ApplicationInsights.DependencyCollector
     nuget Microsoft.ApplicationInsights.PerfCounterCollector
@@ -15,7 +14,6 @@ group ChiaStack
     nuget Microsoft.Azure.Devices
     nuget Microsoft.Azure.Devices.Client
     nuget Farmer
-    nuget Dapper
     nuget Microsoft.Data.SqlClient
     nuget Fulma
     nuget Elmish.Toastr
@@ -47,6 +45,5 @@ group Tests
     nuget Fable.Mocha
     nuget Expecto.BenchmarkDotNet
     nuget Expecto.FsCheck
-    nuget Expecto.TestResults
     nuget Taskbuilder.fs
     nuget EPPlus
