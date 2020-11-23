@@ -1,3 +1,5 @@
+### 1.0.2 - 23.11.2020
+Add oneValueByRowKey helper
 ### 1.0.1 - 13.11.2020
 test EnviromentHelper
 ### 1.0.0 - 13.11.2020
