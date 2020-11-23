@@ -14,14 +14,14 @@ module GetTableEntry =
             else return Some(mapper result)
         }
 
-    let oneValueByRowKey (rowKey : Ids.SortableRowKey) mapper (table : CloudTable) =
+    let oneValueByRowKey (rowKey:string) mapper (table : CloudTable) =
         task {
             let rec getResults token =
                 task {
                     let! result = table.ExecuteQuerySegmentedAsync
                                       (TableQuery()
                                            .Where(TableQuery.GenerateFilterCondition
-                                                      ("RowKey", QueryComparisons.Equal, rowKey.GetValue)), token)
+                                                      ("RowKey", QueryComparisons.Equal, rowKey)), token)
                     let token = result.ContinuationToken
                     let result = result |> Seq.toList
                     if isNull token then return result

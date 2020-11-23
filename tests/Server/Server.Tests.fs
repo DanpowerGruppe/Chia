@@ -153,8 +153,8 @@ let simpleTest =
                     RowKey = SortableRowKey entity.RowKey
                     Text = getStringProperty "Text" entity
                     Value = getDoubleProperty "Value" entity }
-
-              let! values = oneValueByRowKey (DateTime.UtcNow |> SortableRowKey.toRowKey) mapTestData testTable
+              let rowKey = DateTime.UtcNow |> SortableRowKey.toRowKey
+              let! values = oneValueByRowKey rowKey.GetValue mapTestData testTable
 
               Expect.equal values (testData |> Array.tryHead) "Insert test data is the same the readed testdata"
           }
