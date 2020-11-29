@@ -7,7 +7,7 @@ steps:
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core sdk 5.0.100'
   inputs:
-    version: 5.0.100-rc.1.20452.10
+    version: 5.0.100
     includePreviewVersions: true
 - checkout: self
   persistCredentials: true
@@ -16,5 +16,5 @@ steps:
     git config user.name "tforkmann"
 - script: dotnet tool restore
   displayName: Tool restore
-- script: dotnet fake build -t Build
-  displayName: Run Build
+- script: dotnet fake build -t RunTests
+  displayName: Run RunTests
