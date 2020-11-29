@@ -16,5 +16,5 @@ steps:
     git config user.name "tforkmann"
 - script: dotnet tool restore
   displayName: Tool restore
-- script: dotnet fake build -t Build
-  displayName: Run Build
+- script: dotnet fake build -t RunTests
+  displayName: Run RunTests
