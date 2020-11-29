@@ -1,7 +1,7 @@
 group ChiaStack
     storage: none
     source https://api.nuget.org/v3/index.json
-    framework: net5.0
+    frameworks: net5.0, netstandard2.0
     nuget EPPlus
     nuget FSharp.Data
     nuget Expecto.BenchmarkDotNet
