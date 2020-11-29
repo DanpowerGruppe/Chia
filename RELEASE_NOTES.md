@@ -1,3 +1,5 @@
+### 1.0.4 - 29.11.2020
+add netstandard2.0
 ### 1.0.3 - 23.11.2020
 Make oneValueByRowKey flexible
 ### 1.0.2 - 23.11.2020
