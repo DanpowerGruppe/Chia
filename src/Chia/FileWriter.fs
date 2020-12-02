@@ -33,8 +33,8 @@ module FileWriter =
                 Path.Combine
                     (getLogPath fileWriterConfig,
                      fileWriterConfig.CompanyInitials.Value,
-                     fileWriterConfig.DevStatus.GetValue,
-                     fileWriterConfig.ProjectName.Value + @"\")
+                     fileWriterConfig.ProjectName.Value,
+                     fileWriterConfig.DevStatus.GetValue + @"\")
 
             if not (Directory.Exists(path))
             then Directory.CreateDirectory(path) |> ignore
