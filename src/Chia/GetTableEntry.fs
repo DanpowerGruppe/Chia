@@ -2,19 +2,19 @@ namespace Chia
 
 open Microsoft.WindowsAzure.Storage.Table
 open FSharp.Control.Tasks.ContextInsensitive
-
+open TableReflection
 module GetTableEntry =
 
-    let oneValue (partKey,rowKey) mapper (table : CloudTable) =
+    let oneValue<'a> (partKey,rowKey) (table : CloudTable) =
         task {
             let query = TableOperation.Retrieve(partKey, rowKey)
             let! r = table.ExecuteAsync(query)
             let result = r.Result :?> DynamicTableEntity
             if isNull result then return None
-            else return Some(mapper result)
+            else return Some(result |> buildRecordFromEntityNoCache<'a>)
         }
 
-    let oneValueByRowKey (rowKey:string) mapper (table : CloudTable) =
+    let oneValueByRowKey<'a> (rowKey:string) (table : CloudTable) =
         task {
             let rec getResults token =
                 task {
@@ -30,10 +30,10 @@ module GetTableEntry =
                         return result @ others
                 }
             let! results = getResults null
-            return  results |> List.tryHead |> Option.map mapper
+            return  results |> List.tryHead |> Option.map buildRecordFromEntityNoCache<'a>
         }
 
-    let getValues mapper (table : CloudTable) =
+    let getValues<'a> (table : CloudTable) =
         task {
             let rec getResults token =
                 task {
@@ -46,10 +46,10 @@ module GetTableEntry =
                         return result @ others
                 }
             let! results = getResults null
-            return [| for result in results -> mapper result |]
+            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
         }
 
-    let getValuesByRowKey (rowKey : Ids.SortableRowKey) mapper (table : CloudTable) =
+    let getValuesByRowKey<'a> (rowKey : Ids.SortableRowKey) (table : CloudTable) =
         task {
             let rec getResults token =
                 task {
@@ -65,10 +65,10 @@ module GetTableEntry =
                         return result @ others
                 }
             let! results = getResults null
-            return [| for result in results -> mapper result |]
+            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
         }
 
-    let getValuesWithFilter filter mapper (table : CloudTable) =
+    let getValuesWithFilter<'a> filter (table : CloudTable) =
         task {
             let rec getResults token =
                 task {
@@ -81,5 +81,5 @@ module GetTableEntry =
                         return result @ others
                 }
             let! results = getResults null
-            return [| for result in results -> mapper result |]
+            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
         }

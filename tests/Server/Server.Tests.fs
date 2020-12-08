@@ -87,14 +87,7 @@ let simpleTest =
 
               let! _ = saveData tableMapper testTable fileWriterConfig testData
 
-              let mapTestData entity: TestData =
-                  { Date = getDateTimeOffsetProperty "Date" entity
-                    PartKey = entity.PartitionKey
-                    RowKey = SortableRowKey entity.RowKey
-                    Text = getStringProperty "Text" entity
-                    Value = getDoubleProperty "Value" entity }
-
-              let! values = getValues mapTestData testTable
+              let! values = getValues<TestData> testTable
 
               let data = values |> Array.head
               Expect.equal data testData "Insert test data is the same the readed testdata"
@@ -124,7 +117,7 @@ let simpleTest =
                     Text = getStringProperty "Text" entity
                     Value = getDoubleProperty "Value" entity }
 
-              let! values = getValues mapTestData testTable
+              let! values = getValues<TestData> testTable
 
               let data = values |> Array.head
               Expect.equal data testData.[0] "Insert test data is the same the readed testdata"
@@ -147,14 +140,8 @@ let simpleTest =
 
               let! _ = saveDataArrayBatch tableMapper testTable fileWriterConfig testData
 
-              let mapTestData entity: TestData =
-                  { Date = getDateTimeOffsetProperty "Date" entity
-                    PartKey = entity.PartitionKey
-                    RowKey = SortableRowKey entity.RowKey
-                    Text = getStringProperty "Text" entity
-                    Value = getDoubleProperty "Value" entity }
               let rowKey = DateTime.UtcNow |> SortableRowKey.toRowKey
-              let! values = oneValueByRowKey rowKey.GetValue mapTestData testTable
+              let! values = oneValueByRowKey<TestData> rowKey.GetValue testTable
 
               Expect.equal values (testData |> Array.tryHead) "Insert test data is the same the readed testdata"
           }
