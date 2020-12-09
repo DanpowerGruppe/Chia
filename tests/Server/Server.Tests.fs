@@ -110,13 +110,6 @@ let simpleTest =
 
               let! _ = saveDataArrayBatch tableMapper testTable fileWriterConfig testData
 
-              let mapTestData entity: TestData =
-                  { Date = getDateTimeOffsetProperty "Date" entity
-                    PartKey = entity.PartitionKey
-                    RowKey = SortableRowKey entity.RowKey
-                    Text = getStringProperty "Text" entity
-                    Value = getDoubleProperty "Value" entity }
-
               let! values = getValues<TestData> testTable
 
               let data = values |> Array.head

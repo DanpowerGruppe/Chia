@@ -1,3 +1,5 @@
+### 1.0.7 - 09.12.2020
+add getValuesByPartitionKey
 ### 1.0.6 - 08.12.2020
 add reflection
 ### 1.0.5 - 02.12.2020

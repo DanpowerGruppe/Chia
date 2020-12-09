@@ -67,6 +67,24 @@ module GetTableEntry =
             let! results = getResults null
             return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
         }
+    let getValuesByPartitionKey<'a> (partKey : string) (table : CloudTable) =
+        task {
+            let rec getResults token =
+                task {
+                    let! result = table.ExecuteQuerySegmentedAsync
+                                      (TableQuery()
+                                           .Where(TableQuery.GenerateFilterCondition
+                                                      ("PartitionKey", QueryComparisons.Equal, partKey)), token)
+                    let token = result.ContinuationToken
+                    let result = result |> Seq.toList
+                    if isNull token then return result
+                    else
+                        let! others = getResults token
+                        return result @ others
+                }
+            let! results = getResults null
+            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
+        }
 
     let getValuesWithFilter<'a> filter (table : CloudTable) =
         task {
