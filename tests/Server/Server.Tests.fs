@@ -18,7 +18,6 @@ open Microsoft.WindowsAzure.Storage.Table
 open System
 open Chia.Shared.Config.EnviromentHelper
 
-
 let fileWriterConfig =
     initWriter {
         devStatus Development
@@ -39,6 +38,13 @@ type TestData =
       Date: DateTimeOffset
       Value: float
       Text: string }
+
+let mapTestData entity: TestData =
+  { Date = getDateTimeOffsetProperty "Date" entity
+    PartKey = entity.PartitionKey
+    RowKey = SortableRowKey entity.RowKey
+    Text = getStringProperty "Text" entity
+    Value = getDoubleProperty "Value" entity }
 
 [<Tests>]
 let simpleTest =
@@ -87,8 +93,8 @@ let simpleTest =
 
               let! _ = saveData tableMapper testTable fileWriterConfig testData
 
-              let! values = getValues<TestData> testTable
 
+              let! values = getValues mapTestData testTable
               let data = values |> Array.head
               Expect.equal data testData "Insert test data is the same the readed testdata"
           }
@@ -110,7 +116,7 @@ let simpleTest =
 
               let! _ = saveDataArrayBatch tableMapper testTable fileWriterConfig testData
 
-              let! values = getValues<TestData> testTable
+              let! values = getValues mapTestData testTable
 
               let data = values |> Array.head
               Expect.equal data testData.[0] "Insert test data is the same the readed testdata"
@@ -134,7 +140,7 @@ let simpleTest =
               let! _ = saveDataArrayBatch tableMapper testTable fileWriterConfig testData
 
               let rowKey = DateTime.UtcNow |> SortableRowKey.toRowKey
-              let! values = oneValueByRowKey<TestData> rowKey.GetValue testTable
+              let! values = oneValueByRowKey rowKey.GetValue mapTestData testTable
 
               Expect.equal values (testData |> Array.tryHead) "Insert test data is the same the readed testdata"
           }

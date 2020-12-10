@@ -1,3 +1,5 @@
+### 1.0.8 - 10.12.2020
+add System.Obsolete take for GetTableEntry helpers
 ### 1.0.7 - 09.12.2020
 add getValuesByPartitionKey
 ### 1.0.6 - 08.12.2020

@@ -21,7 +21,6 @@
     <Compile Include="CreateBlob.fs" />
     <Compile Include="CreateJsonBlob.fs" />
     <Compile Include="RedisCache.fs" />
-    <Compile Include="TableReflection.fs" />
     <Compile Include="GetTableEntry.fs" />
     <Compile Include="PostToQueue.fs" />
     <Compile Include="Utils.fs" />

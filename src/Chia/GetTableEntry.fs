@@ -2,102 +2,88 @@ namespace Chia
 
 open Microsoft.WindowsAzure.Storage.Table
 open FSharp.Control.Tasks.ContextInsensitive
-open TableReflection
-module GetTableEntry =
 
-    let oneValue<'a> (partKey,rowKey) (table : CloudTable) =
+module GetTableEntry =
+    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    let oneValue (partKey, rowKey) mapper (table: CloudTable) =
         task {
             let query = TableOperation.Retrieve(partKey, rowKey)
             let! r = table.ExecuteAsync(query)
             let result = r.Result :?> DynamicTableEntity
-            if isNull result then return None
-            else return Some(result |> buildRecordFromEntityNoCache<'a>)
+
+            if isNull result
+            then return None
+            else return Some(result |> mapper)
         }
 
-    let oneValueByRowKey<'a> (rowKey:string) (table : CloudTable) =
+    let getResultsRecursivly (filter: string option) (table: CloudTable) =
         task {
             let rec getResults token =
                 task {
-                    let! result = table.ExecuteQuerySegmentedAsync
-                                      (TableQuery()
-                                           .Where(TableQuery.GenerateFilterCondition
-                                                      ("RowKey", QueryComparisons.Equal, rowKey)), token)
+                    let query =
+                        match filter with
+                        | Some f -> TableQuery().Where(f)
+                        | None -> TableQuery()
+
+                    let! result = table.ExecuteQuerySegmentedAsync(query, token)
                     let token = result.ContinuationToken
                     let result = result |> Seq.toList
-                    if isNull token then return result
+
+                    if isNull token then
+                        return result
                     else
                         let! others = getResults token
                         return result @ others
                 }
-            let! results = getResults null
-            return  results |> List.tryHead |> Option.map buildRecordFromEntityNoCache<'a>
+
+            return! getResults null
         }
 
-    let getValues<'a> (table : CloudTable) =
+    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    let oneValueByRowKey (rowKey: string) mapper (table: CloudTable) =
         task {
-            let rec getResults token =
-                task {
-                    let! result = table.ExecuteQuerySegmentedAsync(TableQuery(), token)
-                    let token = result.ContinuationToken
-                    let result = result |> Seq.toList
-                    if isNull token then return result
-                    else
-                        let! others = getResults token
-                        return result @ others
-                }
-            let! results = getResults null
-            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
+            let filter =
+                Some(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, rowKey))
+
+            let! results = getResultsRecursivly filter table
+
+            return results
+                   |> List.tryHead
+                   |> Option.map mapper
         }
 
-    let getValuesByRowKey<'a> (rowKey : Ids.SortableRowKey) (table : CloudTable) =
+    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    let getValues mapper (table: CloudTable) =
         task {
-            let rec getResults token =
-                task {
-                    let! result = table.ExecuteQuerySegmentedAsync
-                                      (TableQuery()
-                                           .Where(TableQuery.GenerateFilterCondition
-                                                      ("RowKey", QueryComparisons.Equal, rowKey.GetValue)), token)
-                    let token = result.ContinuationToken
-                    let result = result |> Seq.toList
-                    if isNull token then return result
-                    else
-                        let! others = getResults token
-                        return result @ others
-                }
-            let! results = getResults null
-            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
-        }
-    let getValuesByPartitionKey<'a> (partKey : string) (table : CloudTable) =
-        task {
-            let rec getResults token =
-                task {
-                    let! result = table.ExecuteQuerySegmentedAsync
-                                      (TableQuery()
-                                           .Where(TableQuery.GenerateFilterCondition
-                                                      ("PartitionKey", QueryComparisons.Equal, partKey)), token)
-                    let token = result.ContinuationToken
-                    let result = result |> Seq.toList
-                    if isNull token then return result
-                    else
-                        let! others = getResults token
-                        return result @ others
-                }
-            let! results = getResults null
-            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
+            let! results = getResultsRecursivly None table
+            return [| for result in results -> result |> mapper |]
         }
 
-    let getValuesWithFilter<'a> filter (table : CloudTable) =
+    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    let getValuesByRowKey (rowKey: Ids.SortableRowKey) mapper (table: CloudTable) =
         task {
-            let rec getResults token =
-                task {
-                    let! result = table.ExecuteQuerySegmentedAsync(TableQuery().Where(filter), token)
-                    let token = result.ContinuationToken
-                    let result = result |> Seq.toList
-                    if isNull token then return result
-                    else
-                        let! others = getResults token
-                        return result @ others
-                }
-            let! results = getResults null
-            return [| for result in results -> result |> buildRecordFromEntityNoCache<'a> |]
+            let filter =
+                Some(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, rowKey.GetValue))
+
+            let! results = getResultsRecursivly filter table
+            return [| for result in results -> result |> mapper |]
+        }
+
+    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    let getValuesByPartitionKey (partKey: string) mapper (table: CloudTable) =
+        task {
+            let filter =
+                Some(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partKey))
+
+            let! results = getResultsRecursivly filter table
+            return [| for result in results -> result |> mapper|]
+        }
+
+    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    let getValuesWithFilter filter mapper (table: CloudTable) =
+        task {
+            try
+                let! results = getResultsRecursivly filter table
+                return Ok [| for result in results -> result |> mapper |]
+            with exn -> return Error exn
         }
