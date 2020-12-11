@@ -1,4 +1,4 @@
-### 1.0.8 - 11.12.2020
+### 1.0.9 - 11.12.2020
 fix typo
 ### 1.0.8 - 10.12.2020
 add System.Obsolete take for GetTableEntry helpers
