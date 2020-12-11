@@ -4,7 +4,7 @@ open Microsoft.WindowsAzure.Storage.Table
 open FSharp.Control.Tasks.ContextInsensitive
 
 module GetTableEntry =
-    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    [<System.Obsolete("This API is obsolete. Please use AzureTackle instead: https://github.com/tforkmann/AzureTackle")>]
     let oneValue (partKey, rowKey) mapper (table: CloudTable) =
         task {
             let query = TableOperation.Retrieve(partKey, rowKey)
@@ -39,7 +39,7 @@ module GetTableEntry =
             return! getResults null
         }
 
-    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    [<System.Obsolete("This API is obsolete. Please use AzureTackle instead: https://github.com/tforkmann/AzureTackle")>]
     let oneValueByRowKey (rowKey: string) mapper (table: CloudTable) =
         task {
             let filter =
@@ -52,14 +52,14 @@ module GetTableEntry =
                    |> Option.map mapper
         }
 
-    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    [<System.Obsolete("This API is obsolete. Please use AzureTackle instead: https://github.com/tforkmann/AzureTackle")>]
     let getValues mapper (table: CloudTable) =
         task {
             let! results = getResultsRecursivly None table
             return [| for result in results -> result |> mapper |]
         }
 
-    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    [<System.Obsolete("This API is obsolete. Please use AzureTackle instead: https://github.com/tforkmann/AzureTackle")>]
     let getValuesByRowKey (rowKey: Ids.SortableRowKey) mapper (table: CloudTable) =
         task {
             let filter =
@@ -69,7 +69,7 @@ module GetTableEntry =
             return [| for result in results -> result |> mapper |]
         }
 
-    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    [<System.Obsolete("This API is obsolete. Please use AzureTackle instead: https://github.com/tforkmann/AzureTackle")>]
     let getValuesByPartitionKey (partKey: string) mapper (table: CloudTable) =
         task {
             let filter =
@@ -79,7 +79,7 @@ module GetTableEntry =
             return [| for result in results -> result |> mapper|]
         }
 
-    [<System.Obsolete("This API is obsolete. Please use AzureTakle instead: https://github.com/tforkmann/AzureTackle")>]
+    [<System.Obsolete("This API is obsolete. Please use AzureTackle instead: https://github.com/tforkmann/AzureTackle")>]
     let getValuesWithFilter filter mapper (table: CloudTable) =
         task {
             try
