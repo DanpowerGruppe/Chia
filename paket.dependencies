@@ -1,7 +1,7 @@
 group ChiaStack
     storage: none
     source https://api.nuget.org/v3/index.json
-    frameworks: net5.0, netstandard2.0
+    frameworks: net5.0, net6.0, netstandard2.0
     nuget EPPlus
     nuget FSharp.Data
     nuget Expecto.BenchmarkDotNet
@@ -18,7 +18,7 @@ group ChiaStack
     nuget Fulma
     nuget Elmish.Toastr
     nuget Fable.FontAwesome
-    nuget FSharp.Core 5.0.0
+    nuget FSharp.Core
 
 group Chia.Docs
     storage: none
@@ -37,7 +37,7 @@ group Chia.Docs
 
 group Tests
     source https://api.nuget.org/v3/index.json
-    framework: net5.0
+    frameworks: net5.0, net6.0
     storage:none
     nuget Canopy
     nuget phantomjs

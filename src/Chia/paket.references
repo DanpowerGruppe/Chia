@@ -10,4 +10,3 @@ Microsoft.Azure.EventHubs
 Microsoft.Azure.Devices
 Microsoft.Azure.Devices.Client
 Farmer
-Azure.Data.Tables

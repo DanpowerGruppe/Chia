@@ -4,7 +4,7 @@ module Infrastructure =
 
     open Farmer
     open Farmer.Builders
-    open Farmer.CoreTypes
+    open Farmer.Arm
     open InitBuilder
     open Microsoft.WindowsAzure.Storage
 
@@ -16,20 +16,20 @@ module Infrastructure =
 
         let storageAccount = storageAccount { name storageName }
 
-        let deployment =
+        let resourceGroupConfig =
             arm {
                 location area
                 add_resource storageAccount
                 output "storage_key" storageAccount.Key
             }
 
-        deployment, storageName
+        resourceGroupConfig, storageName
 
     let createNewOrTakeExistingInfrastruture info area =
-        let deployment, resourceGroupName: Deployment * string = buildEnvironment info area
+        let resourceGroupConfig, resourceGroupName: ResourceGroupConfig * string = buildEnvironment info area
 
         let outputs =
-            deployment
+            resourceGroupConfig
             |> Deploy.tryExecute resourceGroupName []
 
         match outputs with
@@ -69,4 +69,5 @@ module Infrastructure =
 
             { StorageAccount = connected
               FileWriterConfig = info }
-        with exn -> failwithf "Can not connect to azure storage account: %s" exn.Message
+        with
+        | exn -> failwithf "Can not connect to azure storage account: %s" exn.Message
